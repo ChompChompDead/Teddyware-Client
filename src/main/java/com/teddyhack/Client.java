@@ -1,6 +1,7 @@
 // imports and package name
 package com.teddyhack;
 
+import com.teddyhack.events.Event;
 import com.teddyhack.module.Module;
 import com.teddyhack.module.ModuleManager;
 import com.teddyhack.ui.UIRenderer;
@@ -17,6 +18,8 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
+import java.util.ArrayList;
+
 // set mod variables and client class
 @Mod(modid = Client.MODID, name = Client.NAME, version = Client.VERSION)
 public class Client
@@ -29,20 +32,24 @@ public class Client
     public static ModuleManager moduleManager;
     private static Logger logger;
 
+    public static ArrayList<Module> modules;
+
     @Instance
-    public Client instance;
+    public static Client instance;
 
     @EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
+    public void PreInit(FMLPreInitializationEvent event) {
         logger = event.getModLog();
     }
 
     @EventHandler
-    public void init(FMLInitializationEvent event) {
+    public void Init(FMLInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(instance);
+        MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new UIRenderer());
+        MinecraftForge.EVENT_BUS.register(new ModuleManager());
 
-        System.out.println(NAME + " is ready!");
+        logger.info(NAME + " is ready!");
         Display.setTitle(NAME + " | v" + VERSION);
 
         // register modules
@@ -50,10 +57,18 @@ public class Client
         moduleManager = new ModuleManager();
     }
 
-    @EventHandler
-    public void PostInit(FMLPreInitializationEvent event) {
+    public static void onEvent(Event e) {
+        for (Module m : modules) {
+            if(!m.toggled)
+                continue;
 
+            m.onEvent(e);
+        }
     }
+
+    @EventHandler
+    public void PostInit(FMLPreInitializationEvent event) { }
+
 
     @SubscribeEvent
     public void key(KeyInputEvent e) {
