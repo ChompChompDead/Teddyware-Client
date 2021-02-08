@@ -16,11 +16,20 @@ public class Fly extends Module {
 
     @Override
     public void onEnable() {
-        super.onEnable();
-
-        mc.player.jump();
-        mc.player.capabilities.isFlying = true;
-        mc.player.capabilities.allowFlying = true;
+        if (this.isToggled()) {
+            super.onEnable();
+            System.out.println(this.isToggled());
+            mc.player.jump();
+            if (mc.gameSettings.keyBindJump.isPressed()) {
+                mc.player.motionY += 0.2;
+            }
+            if (mc.gameSettings.keyBindSneak.isPressed()) {
+                mc.player.motionY -= 0.2;
+            }
+            if (mc.gameSettings.keyBindForward.isPressed()) {
+                mc.player.capabilities.setFlySpeed((float) 1.5);
+            }
+        }
     }
 
     @Override
@@ -28,6 +37,5 @@ public class Fly extends Module {
         super.onDisable();
 
         mc.player.capabilities.isFlying = false;
-        mc.player.capabilities.allowFlying = false;
     }
 }
