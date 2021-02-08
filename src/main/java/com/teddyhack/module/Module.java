@@ -1,5 +1,7 @@
 package com.teddyhack.module;
 
+import com.teddyhack.Client;
+import com.teddyhack.events.Event;
 import net.minecraftforge.common.MinecraftForge;
 
 public class Module {
@@ -18,22 +20,23 @@ public class Module {
         this.toggled =false;
     }
 
+    //protected void onUpdate() { }
+    protected void enable() { }
+    protected void disable() { }
+    public void onEvent(Event e) { }
+
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
-
     public int getKey() {
         return key;
     }
-
     public void setKey(int key) {
         this.key = key;
     }
-
     public boolean isToggled() {
         return toggled;
     }
@@ -60,10 +63,12 @@ public class Module {
 
     public void onEnable() {
         MinecraftForge.EVENT_BUS.register(this);
+        enable();
     }
 
     public void onDisable() {
         MinecraftForge.EVENT_BUS.unregister(this);
+        disable();
     }
 
     public String getName() {
