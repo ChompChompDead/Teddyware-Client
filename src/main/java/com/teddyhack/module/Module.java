@@ -1,7 +1,5 @@
 package com.teddyhack.module;
 
-import com.teddyhack.Client;
-import com.teddyhack.events.Event;
 import net.minecraftforge.common.MinecraftForge;
 
 public class Module {
@@ -20,7 +18,7 @@ public class Module {
         this.toggled =false;
     }
 
-    //protected void onUpdate() { }
+    protected void onUpdate() { }
     protected void enable() { }
     protected void disable() { }
     public void onEvent(Event e) { }
