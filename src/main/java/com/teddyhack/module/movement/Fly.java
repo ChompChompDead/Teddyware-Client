@@ -16,20 +16,9 @@ public class Fly extends Module {
 
     @Override
     public void onEnable() {
-        if (this.isToggled()) {
-            super.onEnable();
-            System.out.println(this.isToggled());
-            mc.player.jump();
-            if (mc.gameSettings.keyBindJump.isPressed()) {
-                mc.player.motionY += 0.2;
-            }
-            if (mc.gameSettings.keyBindSneak.isPressed()) {
-                mc.player.motionY -= 0.2;
-            }
-            if (mc.gameSettings.keyBindForward.isPressed()) {
-                mc.player.capabilities.setFlySpeed((float) 1.5);
-            }
-        }
+        super.onEnable();
+        
+        mc.player.capabilities.isFlying = true;
     }
 
     @Override
