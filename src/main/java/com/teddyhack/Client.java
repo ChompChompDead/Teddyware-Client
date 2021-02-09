@@ -1,7 +1,6 @@
 // imports and package name
 package com.teddyhack;
 
-import com.teddyhack.events.Event;
 import com.teddyhack.module.Module;
 import com.teddyhack.module.ModuleManager;
 import com.teddyhack.ui.UIRenderer;
@@ -55,15 +54,6 @@ public class Client
         // register modules
         uirenderer = new UIRenderer();
         moduleManager = new ModuleManager();
-    }
-
-    public static void onEvent(Event e) {
-        for (Module m : modules) {
-            if(!m.toggled)
-                continue;
-
-            m.onEvent(e);
-        }
     }
 
     @EventHandler
