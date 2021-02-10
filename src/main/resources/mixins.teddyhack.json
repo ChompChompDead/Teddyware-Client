@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "compatibilityLevel": "JAVA_8",
+  "package": "com.teddyhack.mixin.mixins",
+  "refmap": "mixins.teddyhack.refmap.json",
+  "mixins": [
+      "MixinGuiMainMenu"
+  ]
+}
