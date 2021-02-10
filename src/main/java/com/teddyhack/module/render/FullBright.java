@@ -2,16 +2,12 @@ package com.teddyhack.module.render;
 
 import com.teddyhack.module.Category;
 import com.teddyhack.module.Module;
-import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 
 public class FullBright extends Module {
 
-    private Minecraft mc = Minecraft.getMinecraft();
-
     public FullBright() {
-        super("FullBright", "epic brightness", Category.RENDER);
-        this.setKey(Keyboard.KEY_G);
+        super("FullBright", "epic brightness", Keyboard.KEY_G, Category.RENDER);
     }
 
     @Override
