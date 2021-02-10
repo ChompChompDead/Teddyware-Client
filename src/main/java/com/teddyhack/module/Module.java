@@ -21,8 +21,7 @@ public class Module {
     protected void onUpdate() { }
     protected void enable() { }
     protected void disable() { }
-    public void onEvent(Event e) { }
-
+    
     public String getDescription() {
         return description;
     }
