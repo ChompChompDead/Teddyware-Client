@@ -1,6 +1,7 @@
 // imports and package name
 package com.teddyhack;
 
+import com.teddyhack.event.Event;
 import com.teddyhack.module.Module;
 import com.teddyhack.module.ModuleManager;
 import com.teddyhack.ui.UIRenderer;
@@ -10,6 +11,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
@@ -57,26 +59,34 @@ public class Client
     }
 
     @EventHandler
-    public void PostInit(FMLPreInitializationEvent event) { }
+    public void PostInit(FMLPostInitializationEvent event) { }
 
+    public static void onEvent(Event e) {
+        for (Module m : ModuleManager.modules) {
+            if(!m.toggled)
+                continue;
+
+            m.onEvent(e);
+        }
+    }
 
     @SubscribeEvent
     public void key(KeyInputEvent e) {
         if(Minecraft.getMinecraft().world == null || Minecraft.getMinecraft().player == null)
             return;
-    try {
-        if (Keyboard.isCreated()) {
-            if (Keyboard.getEventKeyState()) {
-                int keyCode = Keyboard.getEventKey();
-                if (keyCode <= 0)
-                    return;
-                for (Module m : moduleManager.modules) {
-                    if (m.getKey() == keyCode && keyCode > 0) {
-                        m.toggle();
+        try {
+            if (Keyboard.isCreated()) {
+                if (Keyboard.getEventKeyState()) {
+                    int keyCode = Keyboard.getEventKey();
+                    if (keyCode <= 0)
+                        return;
+                    for (Module m : moduleManager.modules) {
+                        if (m.getKey() == keyCode && keyCode > 0) {
+                            m.toggle();
+                        }
                     }
                 }
             }
-        }
         } catch (Exception q) {
             q.printStackTrace();
         }
