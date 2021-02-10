@@ -1,5 +1,7 @@
 package com.teddyhack.module;
 
+import com.teddyhack.event.Event;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 
 public class Module {
@@ -9,19 +11,21 @@ public class Module {
     private Category category;
     public boolean toggled;
 
-    public Module(String name, String description, Category category) {
+    public Minecraft mc = Minecraft.getMinecraft();
+
+    public Module(String name, String description, int key, Category category) {
         super();
-        this.name =name;
-        this.description =description;
+        this.name = name;
+        this.description = description;
         this.key = 0;
         this.category =category;
-        this.toggled =false;
+        this.toggled = false;
     }
 
-    protected void onUpdate() { }
+    public void onEvent(Event e) {}
     protected void enable() { }
     protected void disable() { }
-    
+
     public String getDescription() {
         return description;
     }
@@ -31,9 +35,7 @@ public class Module {
     public int getKey() {
         return key;
     }
-    public void setKey(int key) {
-        this.key = key;
-    }
+    public void setKey(int key) { this.key = key; }
     public boolean isToggled() {
         return toggled;
     }
