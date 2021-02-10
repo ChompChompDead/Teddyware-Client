@@ -1,10 +1,10 @@
 package com.teddyhack.module;
 
-import com.teddyhack.Client;
 import com.teddyhack.module.client.ChatSuffix;
 import com.teddyhack.module.client.FancyChatMessages;
 import com.teddyhack.module.movement.Fly;
 import com.teddyhack.module.movement.Sprint;
+import com.teddyhack.module.player.NoFall;
 import com.teddyhack.module.render.FullBright;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class ModuleManager {
     public static ArrayList<Module> modules;
 
     public ModuleManager() {
-        (modules = new ArrayList<Module>()).clear();
+        modules = new ArrayList<Module>();
 
         // player
         modules.add(new Sprint());
@@ -27,10 +27,13 @@ public class ModuleManager {
         // Client
         modules.add(new ChatSuffix());
         modules.add(new FancyChatMessages());
+
+        // Player
+        modules.add(new NoFall());
     }
 
     public Module getModule(String name) {
-        for (Module m : this.modules) {
+        for (Module m : modules) {
             if (m.getName().equalsIgnoreCase(name)) {
                 return m;
             }
@@ -38,18 +41,14 @@ public class ModuleManager {
         return null;
     }
 
-    public static void onUpdate() {
-        modules.stream().filter(Module::isToggled).forEach(Module::onUpdate);
-    }
-
     public ArrayList<Module> getModuleList() {
-        return this.modules;
+        return modules;
     }
 
     public static List<Module> getModulesByCategory(Category c) {
         List<Module> modules = new ArrayList<Module>();
 
-        for (Module m : Client.moduleManager.modules) {
+        for (Module m : ModuleManager.modules) {
             if (m.getCategory() == c)
                 modules.add(m);
         }
