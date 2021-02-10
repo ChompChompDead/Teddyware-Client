@@ -4,7 +4,6 @@ import com.teddyhack.event.Event;
 import com.teddyhack.event.listeners.EventUpdate;
 import com.teddyhack.module.Category;
 import com.teddyhack.module.Module;
-import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 
 public class Fly extends Module {
