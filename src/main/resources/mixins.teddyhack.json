@@ -4,6 +4,7 @@
   "package": "com.teddyhack.mixin.mixins",
   "refmap": "mixins.teddyhack.refmap.json",
   "mixins": [
-      "MixinGuiMainMenu"
+      "MixinGuiMainMenu",
+      "MixinEntityPlayerSP"
   ]
 }
