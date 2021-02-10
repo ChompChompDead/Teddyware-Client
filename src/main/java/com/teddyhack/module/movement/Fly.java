@@ -18,6 +18,7 @@ public class Fly extends Module {
     public void onEnable() {
         super.onEnable();
         
+        mc.player.jump();
         mc.player.capabilities.isFlying = true;
     }
 
