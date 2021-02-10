@@ -1,6 +1,8 @@
 package com.teddyhack.module;
 
 import com.teddyhack.Client;
+import com.teddyhack.module.client.ChatSuffix;
+import com.teddyhack.module.client.FancyChatMessages;
 import com.teddyhack.module.movement.Fly;
 import com.teddyhack.module.movement.Sprint;
 import com.teddyhack.module.render.FullBright;
@@ -10,14 +12,21 @@ import java.util.List;
 
 public class ModuleManager {
 
-    public ArrayList<Module> modules;
+    public static ArrayList<Module> modules;
 
     public ModuleManager() {
         (modules = new ArrayList<Module>()).clear();
+
         // player
-        this.modules.add(new Sprint());
-        this.modules.add(new Fly());
-        this.modules.add(new FullBright());
+        modules.add(new Sprint());
+        modules.add(new Fly());
+
+        // Render
+        modules.add(new FullBright());
+
+        // Client
+        modules.add(new ChatSuffix());
+        modules.add(new FancyChatMessages());
     }
 
     public Module getModule(String name) {
@@ -27,6 +36,10 @@ public class ModuleManager {
             }
         }
         return null;
+    }
+
+    public static void onUpdate() {
+        modules.stream().filter(Module::isToggled).forEach(Module::onUpdate);
     }
 
     public ArrayList<Module> getModuleList() {
