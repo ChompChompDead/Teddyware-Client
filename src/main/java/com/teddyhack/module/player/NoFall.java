@@ -11,7 +11,6 @@ public class NoFall extends Module {
 
     public NoFall() {
         super("NoFall", "take no fall damage ez.", (Keyboard.KEY_V), Category.PLAYER);
-        this.setKey(Keyboard.KEY_V);
     }
 
     public void onEvent(Event e) {
