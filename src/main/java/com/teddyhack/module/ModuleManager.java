@@ -1,11 +1,16 @@
 package com.teddyhack.module;
 
+import com.teddyhack.Client;
 import com.teddyhack.module.client.ChatSuffix;
 import com.teddyhack.module.client.FancyChatMessages;
 import com.teddyhack.module.movement.Fly;
 import com.teddyhack.module.movement.Sprint;
 import com.teddyhack.module.player.NoFall;
 import com.teddyhack.module.render.FullBright;
+import net.minecraft.client.Minecraft;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent;
+import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +20,7 @@ public class ModuleManager {
     public static ArrayList<Module> modules;
 
     public ModuleManager() {
-        modules = new ArrayList<Module>();
+        modules = new ArrayList<>();
 
         // player
         modules.add(new Sprint());
@@ -53,6 +58,26 @@ public class ModuleManager {
                 modules.add(m);
         }
         return modules;
+    }
+
+    @SubscribeEvent
+    public void key(InputEvent.KeyInputEvent e) {
+        if(Minecraft.getMinecraft().world == null || Minecraft.getMinecraft().player == null)
+            return;
+        try {
+            if(Keyboard.isCreated()) {
+                if(Keyboard.getEventKeyState()) {
+                    int keyCode = Keyboard.getEventKey();
+                    if(keyCode <= 0)
+                        return;
+                    for(Module m : ModuleManager.modules) {
+                        if(m.getKey() == keyCode && keyCode > 0) {
+                            m.toggle();
+                        }
+                    }
+                }
+            }
+        } catch (Exception q) { q.printStackTrace(); }
     }
 
 }
