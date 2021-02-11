@@ -55,6 +55,7 @@ dependencies {
     }
     compile('com.lukflug:panelstudio:0.1.7')
     compile('com.lukflug:panelstudio-mc12:0.1.7')
+    compile 'club.minnced:java-discord-rpc:2.0.0'
 }
 
 mixin {
