@@ -17,8 +17,8 @@ public class Module {
         super();
         this.name = name;
         this.description = description;
-        this.key = 0;
-        this.category =category;
+        this.key = key;
+        this.category = category;
         this.toggled = false;
     }
 
