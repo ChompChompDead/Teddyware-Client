@@ -13,7 +13,6 @@ buildscript {
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
         classpath 'org.spongepowered:mixingradle:0.4-SNAPSHOT'
-        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
     }
 }
 
@@ -21,7 +20,6 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
-apply plugin: 'com.github.johnrengelman.shadow'
 
 version = '1.0'
 group = 'com.teddyhack' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -41,6 +39,10 @@ repositories {
         name = 'spongepowered-repo'
         url = 'https://repo.spongepowered.org/repository/maven-public/'
     }
+    maven {
+        name = 'lukflug'
+        url = 'https://lukflug.github.io/maven'
+    }
     mavenCentral()
 }
 
@@ -51,6 +53,8 @@ dependencies {
         exclude module: 'gson'
         exclude module: 'commons-io'
     }
+    compile('com.lukflug:panelstudio:0.1.7')
+    compile('com.lukflug:panelstudio-mc12:0.1.7')
 }
 
 mixin {
