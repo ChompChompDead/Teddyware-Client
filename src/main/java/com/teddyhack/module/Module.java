@@ -1,8 +1,15 @@
 package com.teddyhack.module;
 
 import com.teddyhack.event.Event;
+import com.teddyhack.setting.Setting;
+import com.teddyhack.setting.settings.KeybindSetting;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 public class Module {
 
@@ -11,6 +18,9 @@ public class Module {
     private Category category;
     public boolean toggled;
 
+    public KeybindSetting keyCode = new KeybindSetting(0);
+    public List<Setting> settings = new ArrayList<Setting>();
+
     public Minecraft mc = Minecraft.getMinecraft();
 
     public Module(String name, String description, int key, Category category) {
@@ -18,14 +28,12 @@ public class Module {
         this.name = name;
         this.description = description;
         this.key = key;
+        this.addSetting(keyCode);
         this.category = category;
         this.toggled = false;
     }
 
     public void onEvent(Event e) {}
-    protected void enable() { }
-    protected void disable() { }
-
     public String getDescription() {
         return description;
     }
@@ -38,6 +46,11 @@ public class Module {
     public void setKey(int key) { this.key = key; }
     public boolean isToggled() {
         return toggled;
+    }
+
+    public void addSetting(Setting... settings) {
+        this.settings.addAll(Arrays.asList(settings));
+        this.settings.sort(Comparator.comparingInt(s->s==keyCode?1:0));
     }
 
     public void setToggled(boolean toggled) {
@@ -62,12 +75,10 @@ public class Module {
 
     public void onEnable() {
         MinecraftForge.EVENT_BUS.register(this);
-        enable();
     }
 
     public void onDisable() {
         MinecraftForge.EVENT_BUS.unregister(this);
-        disable();
     }
 
     public String getName() {
