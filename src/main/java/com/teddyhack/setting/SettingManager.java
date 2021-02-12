@@ -44,7 +44,7 @@ public class SettingManager {
                 }
             }
         }
-        System.err.println("[Moo Base] Error Setting NOT found: '" + name +"'!");
+        System.err.println("Teddyhack, Error Setting NOT found: '" + name +"'!");
         return null;
     }
 }
