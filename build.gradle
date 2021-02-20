@@ -53,8 +53,8 @@ dependencies {
         exclude module: 'gson'
         exclude module: 'commons-io'
     }
-    compile('com.lukflug:panelstudio:0.1.7')
-    compile('com.lukflug:panelstudio-mc12:0.1.7')
+    compile('com.lukflug:panelstudio:0.1.8')
+    compile('com.lukflug:panelstudio-mc12:0.1.8')
     compile 'club.minnced:java-discord-rpc:2.0.0'
 }
 
@@ -65,8 +65,8 @@ mixin {
 jar {
     manifest {
         attributes([
-                "MixinConfigs": 'mixins.teddyhack.json',
                 "TweakClass": 'org.spongepowered.asm.launch.MixinTweaker',
+                "MixinConfigs": 'mixins.teddyhack.json',
                 "Specification-Title": "examplemod",
                 "Specification-Vendor": "examplemodsareus",
                 "Specification-Version": "1", // We are version 1 of ourselves
