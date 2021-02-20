@@ -1,12 +1,15 @@
 package com.teddyhack.module;
 
 import com.teddyhack.Client;
+import com.teddyhack.event.listeners.EventKey;
 import com.teddyhack.module.client.ChatSuffix;
 import com.teddyhack.module.client.FancyChatMessages;
 import com.teddyhack.module.movement.Fly;
 import com.teddyhack.module.movement.Sprint;
+import com.teddyhack.module.movement.Step;
 import com.teddyhack.module.player.NoFall;
 import com.teddyhack.module.render.FullBright;
+import com.teddyhack.module.render.TabGUI;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
@@ -25,9 +28,11 @@ public class ModuleManager {
         // player
         modules.add(new Sprint());
         modules.add(new Fly());
+        modules.add(new Step());
 
         // Render
         modules.add(new FullBright());
+        modules.add(new TabGUI());
 
         // Client
         modules.add(new ChatSuffix());
@@ -37,7 +42,7 @@ public class ModuleManager {
         modules.add(new NoFall());
     }
 
-    public Module getModule(String name) {
+    public static Module getModule(String name) {
         for (Module m : modules) {
             if (m.getName().equalsIgnoreCase(name)) {
                 return m;
@@ -61,7 +66,7 @@ public class ModuleManager {
     }
 
     @SubscribeEvent
-    public void key(InputEvent.KeyInputEvent e) {
+    public void key(InputEvent.KeyInputEvent key) {
         if(Minecraft.getMinecraft().world == null || Minecraft.getMinecraft().player == null)
             return;
         try {
@@ -70,6 +75,7 @@ public class ModuleManager {
                     int keyCode = Keyboard.getEventKey();
                     if(keyCode <= 0)
                         return;
+                    Client.onEvent(new EventKey(keyCode));
                     for(Module m : ModuleManager.modules) {
                         if(m.getKey() == keyCode && keyCode > 0) {
                             m.toggle();
@@ -79,5 +85,4 @@ public class ModuleManager {
             }
         } catch (Exception q) { q.printStackTrace(); }
     }
-
 }
