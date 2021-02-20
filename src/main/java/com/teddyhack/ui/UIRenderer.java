@@ -2,6 +2,8 @@ package com.teddyhack.ui;
 
 import java.awt.Color;
 import com.teddyhack.Client;
+import com.teddyhack.event.listeners.EventRenderGUI;
+import com.teddyhack.module.Category;
 import com.teddyhack.module.Module;
 import com.teddyhack.module.ModuleManager;
 import net.minecraft.client.Minecraft;
@@ -31,38 +33,37 @@ public class UIRenderer extends Gui {
             return 0;
         }
     }
-
     @SubscribeEvent
-    public void renderOverlay(RenderGameOverlayEvent event) {
-        Collections.sort(Client.moduleManager.modules, new ModuleComparator());
+    public void renderOverlay(RenderGameOverlayEvent.Post event) {
+        Collections.sort(ModuleManager.modules, new ModuleComparator());
         ScaledResolution sr = new ScaledResolution(mc);
         FontRenderer fr = mc.fontRenderer;
 
         if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
             fr.drawStringWithShadow(Client.NAME + " v" + Client.VERSION, 4, 4, 0x783F04);
-            fr.drawStringWithShadow("Press R, G, and C for current modules.", 4, 15, 0x783F04);
+            fr.drawStringWithShadow("click gui soon", 4, 15, 0x783F04);
         }
 
         if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
             int y = 4;
             final int[] counter = {1};
             for (Module mod : Client.moduleManager.getModuleList()) {
-                if (!mod.getName().equalsIgnoreCase("") && mod.isToggled()) {
+                if (!mod.getName().equalsIgnoreCase("TabGUI") && mod.isToggled()) {
                     fr.drawStringWithShadow(mod.getName(), sr.getScaledWidth() - fr.getStringWidth(mod.getName()) - 2, y, rainbow(counter[0] * 300));
                     y += fr.FONT_HEIGHT;
                     counter[0]++;
                 }
             }
         }
+        if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
+            Client.onEvent(new EventRenderGUI());
+        }
     }
-        public static int rainbow(int delay) {
-            double rainbowState = Math.ceil((System.currentTimeMillis() + delay) / 20.0);
-            rainbowState %= 360;
-            return Color.getHSBColor((float) (rainbowState / 360.0f), 0.5f, 1f).getRGB();
 
+    public static int rainbow(int delay) {
+        double rainbowState = Math.ceil((System.currentTimeMillis() + delay) / 20.0);
+        rainbowState %= 360;
+        return Color.getHSBColor((float) (rainbowState / 360.0f), 0.5f, 1f).getRGB();
     }
 
 }
-
-
-
