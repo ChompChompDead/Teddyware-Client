@@ -1,0 +1,16 @@
+[
+    {
+      "modid": "teddyhack",
+      "name": "Teddyhack",
+      "description": "A 1.12.2 hack client used for anarchy.",
+      "version": "0.1",
+      "mcversion": "1.12.2",
+      "url": "",
+      "updateUrl": "",
+      "authorList": ["ChompChompDead"],
+      "credits": "Credits to ChompChompDead for making this",
+      "logoFile": "Icon.jpg",
+      "screenshots": [],
+      "dependencies": []
+    }
+]
