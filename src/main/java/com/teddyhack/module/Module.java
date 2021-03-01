@@ -96,7 +96,7 @@ public class Module {
         if (toggle) {
             return ChatFormatting.GREEN + "toggled";
         } else {
-            return ChatFormatting.RED + "not toggled";
+            return ChatFormatting.DARK_RED + "not toggled";
         }
     }
 
