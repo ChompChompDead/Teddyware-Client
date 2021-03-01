@@ -9,7 +9,7 @@ public class ChatUtil implements Util {
     public static void type(final String text) {
         mc.ingameGUI.getChatGUI().printChatMessage(new TextComponentString(String.format(
                 ChatFormatting.WHITE + "["
-                + ChatFormatting.AQUA + "%s"
+                + ChatFormatting.GRAY + "%s"
                 + ChatFormatting.WHITE + "]:"
                 + ChatFormatting.WHITE + " %s",
                 Client.instance.getName(), text
