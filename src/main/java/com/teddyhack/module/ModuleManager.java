@@ -3,6 +3,8 @@ package com.teddyhack.module;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import com.teddyhack.Client;
 import com.teddyhack.event.listeners.EventKey;
+import com.teddyhack.event.listeners.EventNotifier;
+import com.teddyhack.module.client.ChatNotifier;
 import com.teddyhack.module.client.ChatSuffix;
 import com.teddyhack.module.client.DiscordRichPresence;
 import com.teddyhack.module.client.FancyChatMessages;
@@ -42,6 +44,7 @@ public class ModuleManager {
         modules.add(new ChatSuffix());
         modules.add(new FancyChatMessages());
         modules.add(new DiscordRichPresence());
+        modules.add(new ChatNotifier());
 
         // Player
         modules.add(new NoFall());
@@ -87,7 +90,8 @@ public class ModuleManager {
                     for(Module m : ModuleManager.modules) {
                         if(m.getKey() == keyCode && keyCode > 0) {
                             m.toggle();
-                            ChatUtil.type(m.name + " is " + Module.getToggledStatus(m.toggled));
+                            Client.onEvent(new EventNotifier(m.name, m.toggled));
+                            //ChatUtil.type(m.name + " is " + Module.getToggledStatus(m.toggled));
                         }
                     }
                 }
