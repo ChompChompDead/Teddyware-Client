@@ -6,6 +6,7 @@ import com.teddyhack.event.listeners.EventRenderGUI;
 import com.teddyhack.module.Category;
 import com.teddyhack.module.Module;
 import com.teddyhack.module.ModuleManager;
+import com.teddyhack.util.ChatUtil;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import org.lwjgl.input.Keyboard;
@@ -49,7 +50,7 @@ public class TabGUI extends Module {
                 //background
                 Gui.drawRect(75, (int) 30.5, 75 + 68, 30 + modules.size() * 16 + (int) 1.5, 0x90000000);
                 //outline
-                Gui.drawRect(75, 33 + category.moduleIndex * 16, 10 + 61 + 68, 33 + category.moduleIndex * 16 + 12, 0xff783F04);
+                Gui.drawRect(75, 33 + category.moduleIndex * 16, 10 + 60 + 68, 33 + category.moduleIndex * 16 + 12, 0xff783F04);
 
                 count = 0;
                 for (Module m : modules) {
@@ -98,12 +99,15 @@ public class TabGUI extends Module {
                 }
             }
             if (code == Keyboard.KEY_RIGHT) {
-                if (expanded && modules.size() != 0) {
+                if (expanded && modules.size() > 0) {
                     Module module = modules.get(category.moduleIndex);
                     if (!module.name.equals("TabGUI")) {
                         module.toggle();
+                        ChatUtil.type(module.name + " is now " + Module.getToggledStatus(module.toggled));
                     }
-                } else {
+                } else if (modules.size() == 0) {
+                    expanded = false;
+                } else if (!expanded) {
                     expanded = true;
                 }
             }
