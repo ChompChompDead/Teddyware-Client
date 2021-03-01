@@ -3,6 +3,7 @@ package com.teddyhack.module;
 import com.teddyhack.Client;
 import com.teddyhack.event.listeners.EventKey;
 import com.teddyhack.module.client.ChatSuffix;
+import com.teddyhack.module.client.DiscordRichPresence;
 import com.teddyhack.module.client.FancyChatMessages;
 import com.teddyhack.module.exploits.ServerBackdoor;
 import com.teddyhack.module.movement.Fly;
@@ -38,6 +39,7 @@ public class ModuleManager {
         // Client
         modules.add(new ChatSuffix());
         modules.add(new FancyChatMessages());
+        modules.add(new DiscordRichPresence());
 
         // Player
         modules.add(new NoFall());
