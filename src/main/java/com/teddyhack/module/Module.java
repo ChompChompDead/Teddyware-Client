@@ -1,5 +1,6 @@
 package com.teddyhack.module;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import com.teddyhack.event.Event;
 import com.teddyhack.setting.Setting;
 import com.teddyhack.setting.settings.KeybindSetting;
@@ -11,10 +12,12 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+// i am cool
+
 public class Module {
 
     public String name, description;
-    private int key;
+    public int key;
     private Category category;
     public boolean toggled;
 
@@ -87,6 +90,14 @@ public class Module {
 
     public Category getCategory() {
         return this.category;
+    }
+
+    public static String getToggledStatus(boolean toggle) {
+        if (toggle) {
+            return ChatFormatting.GREEN + "toggled";
+        } else {
+            return ChatFormatting.RED + "not toggled";
+        }
     }
 
 }
