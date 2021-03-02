@@ -3,7 +3,7 @@
 Teddyhack is an anarchy client for minecraft anarchy servers for 1.12.2. <br>
 Some of the code is skidded because im new to java lol <br>
 **PLEASE NOTE THAT THIS CLIENT HAS ABSOLUTELY NO ANTICHEAT BUILT IN, IT IS ONLY FOR ANARCHY** <br>
-<br>
+
 ### How to use for development environments
 
 I really only know how to set this up for intellij, soooo yeah <br>
