@@ -23,9 +23,9 @@ The main class should already be GradleStart, but if it isn't just type gradlest
 Now in VM options, you want to put this in: `-Dforge.logging.console.level=debug -Dforge.logging.markers=SCAN,REGISTRIES,REGISTRYDUMP -Dfml.coreMods.load=com.teddyhack.mixin.MixinLoader` <br>
 You are done with everything, now just press run (MAKE SURE YOU ARE RUNNING MINECRAFT CLIENT, NOT MINECRAFT SERVER) <br>
 <br>
-### External Libraries
+### External Libraries & Resources
 For the mixins (thanks spongeforge): https://www.spongepowered.org/downloads/spongeforge/stable/1.12.2 <br>
-ClickGUI (might be changed in the future idk): https://github.com/lukflug/PanelStudio <br> <br>
-You can now compile <br>
+ClickGUI (might be changed in the future idk): https://github.com/lukflug/PanelStudio <br> 
+IntelliJ IDEA (community edition): https://www.jetbrains.com/idea/download/#section=windows <br>
 <br>
 ![alt text](https://cdn.discordapp.com/attachments/678127344774545409/808351881272229918/maybe.jpg)
