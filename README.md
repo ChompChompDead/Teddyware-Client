@@ -13,7 +13,7 @@ I really only know how to set this up for intellij, soooo yeah <br>
 - You are almost done! <br>
 - If you are on eclipse, do `gradlew eclipse` after that. <br>
 - Refresh the project by closing and opening it. <br>
-<br>
+
 ### Run configurations
 
 So after refreshing you will see a "minecraft client" and a "minecraft server". <br>
