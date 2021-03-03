@@ -65,9 +65,9 @@ dependencies {
 shadowJar {
     dependencies {
         include(dependency('org.spongepowered:mixin'))
-        include(dependency('club.minnced:java-discord-rpc:2.0.0'))
         include(dependency('com.lukflug:panelstudio'))
         include(dependency('com.lukflug:panelstudio-mc12'))
+        include(dependency('club.minnced:java-discord-rpc:2.0.0'))
     }
     exclude 'dummyThing'
     exclude 'LICENSE.txt'
