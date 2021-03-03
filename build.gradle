@@ -13,6 +13,7 @@ buildscript {
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
         classpath 'org.spongepowered:mixingradle:0.4-SNAPSHOT'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
     }
 }
 
@@ -20,12 +21,15 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'com.github.johnrengelman.shadow'
 
-version = '1.0'
+version = '0.1'
 group = 'com.teddyhack' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'modid'
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+compileJava {
+    sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+}
 
 minecraft {
     version = "1.12.2-14.23.5.2768"
@@ -55,7 +59,19 @@ dependencies {
     }
     compile('com.lukflug:panelstudio:0.1.8')
     compile('com.lukflug:panelstudio-mc12:0.1.8')
-    compile 'club.minnced:java-discord-rpc:2.0.0'
+    compile('club.minnced:java-discord-rpc:2.0.0')
+}
+
+shadowJar {
+    dependencies {
+        include(dependency('org.spongepowered:mixin'))
+        include(dependency('club.minnced:java-discord-rpc:2.0.1'))
+        include(dependency('com.lukflug:panelstudio'))
+        include(dependency('com.lukflug:panelstudio-mc12'))
+    }
+    exclude 'dummyThing'
+    exclude 'LICENSE.txt'
+    classifier = 'release'
 }
 
 mixin {
@@ -66,7 +82,7 @@ jar {
     manifest {
         attributes([
                 "MixinConfigs": 'mixins.teddyhack.json',
-                "TweakClass": 'org.spongepowered.asm.launch.MixinTweaker',
+                "tweakClass": 'org.spongepowered.asm.launch.MixinTweaker',
                 "TweakOrder": 0,
                 "FMLCorePluginContainsFMLMod": true,
                 "FMLCorePlugin": "com.teddyhack.mixin.MixinLoader",
@@ -74,7 +90,7 @@ jar {
         ])
     }
 }
-
+/*
 jar.finalizedBy('reobfJar')
 
 publishing {
@@ -89,3 +105,5 @@ publishing {
         }
     }
 }
+*/
+build.dependsOn(shadowJar)
