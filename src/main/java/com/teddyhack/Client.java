@@ -35,7 +35,6 @@ public class Client
     public static UIRenderer uirenderer;
     public static ModuleManager moduleManager;
     public static SettingManager settingManager;
-    public ClickGUI clickGUI;
 
     @Instance
     public static Client instance = new Client();
