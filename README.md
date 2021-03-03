@@ -23,6 +23,8 @@ I really only know how to set this up for intellij, soooo yeah <br>
  - Now in VM options, you want to put this in: `-Dforge.logging.console.level=debug -Dforge.logging.markers=SCAN,REGISTRIES,REGISTRYDUMP -Dfml.coreMods.load=com.teddyhack.mixin.MixinLoader` <br>
  - You are done with everything, now just press run (MAKE SURE YOU ARE RUNNING MINECRAFT CLIENT, NOT MINECRAFT SERVER) <br>
  - also i do not know how to change anything in eclipse so diy ez <br>
+ 
+ If it says module not specified, then put the java run version as java 8 and the box next to it as Teddyhack.main. 
 
 ## External Libraries & Resources
 For the mixins (thanks spongeforge): https://www.spongepowered.org/downloads/spongeforge/stable/1.12.2 <br>
