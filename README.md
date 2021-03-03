@@ -16,8 +16,8 @@ I really only know how to set this up for intellij, soooo yeah <br>
 
 ## Run configurations
 
- - So after refreshing you will see a "minecraft client" and a "minecraft server". <br> 
- - Go to Run > Edit Configurations, then click on Minecraft Client. <br>
+ - Go to Run > Edit Configurations, then click on templates then click on application. <br>
+ - Put the name to whatever you want, doesn't matter (i usually put it as runClient) <br>
  - First go to modify options, then select add VM options (VM arguements for eclipse). <br>
  - The main class should already be GradleStart, but if it isn't just type gradlestart in the box and it will show it. <br>
  - Now in VM options, you want to put this in: `-Dforge.logging.console.level=debug -Dforge.logging.markers=SCAN,REGISTRIES,REGISTRYDUMP -Dfml.coreMods.load=com.teddyhack.mixin.MixinLoader` <br>
