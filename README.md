@@ -16,7 +16,7 @@ I really only know how to set this up for intellij, soooo yeah <br>
 
 ## Run configurations
 
- - Go to Run > Edit Configurations, then click on templates then click on application. <br>
+ - Go to Run > Edit Configurations, then click on the plus sign and click application. <br>
  - Put the name to whatever you want, doesn't matter (i usually put it as runClient) <br>
  - First go to modify options, then select add VM options (VM arguements for eclipse). <br>
  - The main class should already be GradleStart, but if it isn't just type gradlestart in the box and it will show it. <br>
