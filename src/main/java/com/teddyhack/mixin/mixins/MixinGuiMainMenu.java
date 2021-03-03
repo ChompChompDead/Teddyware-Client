@@ -16,7 +16,7 @@ public class MixinGuiMainMenu extends GuiScreen {
     final Minecraft mc = Minecraft.getMinecraft();
 
     @Inject(method = ("drawScreen"), at = {@At("TAIL")}, cancellable = true)
-    public void drawText(CallbackInfo ci) {
+    public void drawScreen(CallbackInfo ci) {
         mc.fontRenderer.drawStringWithShadow(TextFormatting.GRAY + "Teddyhack " + TextFormatting.LIGHT_PURPLE + "v" + Client.VERSION, 1, 1, 0xffffff);
     }
 
