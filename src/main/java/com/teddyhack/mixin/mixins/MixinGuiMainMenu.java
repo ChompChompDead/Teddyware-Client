@@ -10,13 +10,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin({GuiMainMenu.class})
+@Mixin(GuiMainMenu.class)
 public class MixinGuiMainMenu extends GuiScreen {
 
     final Minecraft mc = Minecraft.getMinecraft();
 
-    @Inject(method = ("drawScreen"), at = {@At("TAIL")}, cancellable = true)
-    public void drawScreen(CallbackInfo ci) {
+    @Inject(method = {"drawScreen"}, at = {@At("TAIL")}, cancellable = true)
+    public void drawText(CallbackInfo ci) {
         mc.fontRenderer.drawStringWithShadow(TextFormatting.GRAY + "Teddyhack " + TextFormatting.LIGHT_PURPLE + "v" + Client.VERSION, 1, 1, 0xffffff);
     }
 
