@@ -1,7 +1,9 @@
 package com.teddyhack.module.render;
 
+import com.teddyhack.Client;
 import com.teddyhack.event.Event;
 import com.teddyhack.event.listeners.EventKey;
+import com.teddyhack.event.listeners.EventNotifier;
 import com.teddyhack.event.listeners.EventRenderGUI;
 import com.teddyhack.module.Category;
 import com.teddyhack.module.Module;
@@ -103,7 +105,8 @@ public class TabGUI extends Module {
                     Module module = modules.get(category.moduleIndex);
                     if (!module.name.equals("TabGUI")) {
                         module.toggle();
-                        ChatUtil.type(module.name + " is now " + Module.getToggledStatus(module.toggled));
+                        Client.onEvent(new EventNotifier(module.name, module.toggled));
+                        //ChatUtil.type(module.name + " is now " + Module.getToggledStatus(module.toggled));
                     }
                 } else if (modules.size() == 0) {
                     expanded = false;
