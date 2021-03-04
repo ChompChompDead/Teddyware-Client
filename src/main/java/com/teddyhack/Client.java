@@ -65,7 +65,6 @@ public class Client
 
         log.info(NAME + " is ready!");
         Display.setTitle(NAME + " | v" + VERSION);
-        Discord.startRPC();
     }
 
     @EventHandler
