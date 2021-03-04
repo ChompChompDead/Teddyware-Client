@@ -14,17 +14,18 @@ public class Step extends Module {
     }
 
     @Override
+    public void onDisable() { mc.player.stepHeight = 0.5F; }
+
+    @Override
     public void onEvent(Event e) {
         if (e instanceof EventUpdate) {
             if (e.isPre()) {
                 if (toggled) {
-                    if((mc.player.collidedHorizontally) && (mc.player.onGround)) {
+                    if ((mc.player.collidedHorizontally) && (!mc.player.isSneaking()) && (mc.player.onGround)) {
                         mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY + 0.42, mc.player.posZ, mc.player.onGround));
                         mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY + 0.75, mc.player.posZ, mc.player.onGround));
                         mc.player.stepHeight = 1.0f;
                     }
-                } else {
-                    mc.player.stepHeight = 0.5f;
                 }
             }
         }
