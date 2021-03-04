@@ -5,9 +5,9 @@ import com.teddyhack.event.Event;
 import com.teddyhack.module.Module;
 import com.teddyhack.module.ModuleManager;
 import com.teddyhack.proxy.CommonProxy;
-import com.teddyhack.rpc.Discord;
 import com.teddyhack.setting.SettingManager;
 import com.teddyhack.ui.UIRenderer;
+import com.teddyhack.ui.clickgui.ClickGUI;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -64,6 +64,7 @@ public class Client
         log.info("settings are ready");
 
         log.info(NAME + " is ready!");
+        Discord.startRPC();
         Display.setTitle(NAME + " | v" + VERSION);
     }
 
