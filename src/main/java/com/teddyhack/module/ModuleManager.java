@@ -1,11 +1,11 @@
 package com.teddyhack.module;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
 import com.teddyhack.Client;
 import com.teddyhack.event.listeners.EventKey;
 import com.teddyhack.event.listeners.EventNotifier;
 import com.teddyhack.module.client.ChatNotifier;
 import com.teddyhack.module.client.ChatSuffix;
+import com.teddyhack.module.client.DiscordRichPresence;
 import com.teddyhack.module.client.FancyChatMessages;
 import com.teddyhack.module.exploits.ServerBackdoor;
 import com.teddyhack.module.movement.Fly;
@@ -14,7 +14,6 @@ import com.teddyhack.module.movement.Step;
 import com.teddyhack.module.player.NoFall;
 import com.teddyhack.module.render.FullBright;
 import com.teddyhack.module.render.TabGUI;
-import com.teddyhack.util.ChatUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
@@ -43,6 +42,7 @@ public class ModuleManager {
         modules.add(new ChatSuffix());
         modules.add(new FancyChatMessages());
         modules.add(new ChatNotifier());
+        modules.add(new DiscordRichPresence());
 
         // Player
         modules.add(new NoFall());
