@@ -22,7 +22,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'com.github.johnrengelman.shadow'
 
-version = 'v0.15'
+version = '0.15'
 group = 'com.teddyhack' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'Teddyhack'
 
@@ -58,7 +58,7 @@ dependencies {
     }
     compile('com.lukflug:panelstudio:0.1.8')
     compile('com.lukflug:panelstudio-mc12:0.1.8')
-    compile('club.minnced:java-discord-rpc:2.0.0')
+    //compile('club.minnced:java-discord-rpc:2.0.1')
 }
 
 shadowJar {
@@ -66,7 +66,7 @@ shadowJar {
         include(dependency('org.spongepowered:mixin'))
         include(dependency('com.lukflug:panelstudio'))
         include(dependency('com.lukflug:panelstudio-mc12'))
-        include(dependency('club.minnced:java-discord-rpc:2.0.0'))
+        //include(dependency('club.minnced:java-discord-rpc:2.0.1'))
     }
     exclude 'dummyThing'
     exclude 'LICENSE.txt'

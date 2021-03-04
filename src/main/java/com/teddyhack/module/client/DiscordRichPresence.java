@@ -12,6 +12,7 @@ public class DiscordRichPresence extends Module {
         this.toggled = true;
     }
 
+    /*
     @Override
     public void onEnable() {
         Discord.startRPC();
@@ -21,4 +22,5 @@ public class DiscordRichPresence extends Module {
     public void onDisable() {
         Discord.stopRPC();
     }
+     */
 }

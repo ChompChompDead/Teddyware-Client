@@ -1,10 +1,12 @@
 package com.teddyhack;
-
+/*
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRichPresence;
 import club.minnced.discord.rpc.DiscordRPC;
+*/
 
 public class Discord {
+    /*
     private static String discordID = "809223921575395370";
     private static DiscordRichPresence discordRichPresence = new DiscordRichPresence();
     private static DiscordRPC discordRPC = DiscordRPC.INSTANCE;
@@ -27,4 +29,5 @@ public class Discord {
         discordRPC.Discord_Shutdown();
         discordRPC.Discord_ClearPresence();
     }
+    */
 }
