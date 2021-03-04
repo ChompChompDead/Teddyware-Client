@@ -1,12 +1,10 @@
-package com.teddyhack.rpc;
+package com.teddyhack;
 
 import club.minnced.discord.rpc.DiscordEventHandlers;
-import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
-import com.teddyhack.Client;
+import club.minnced.discord.rpc.DiscordRPC;
 
 public class Discord {
-
     private static String discordID = "809223921575395370";
     private static DiscordRichPresence discordRichPresence = new DiscordRichPresence();
     private static DiscordRPC discordRPC = DiscordRPC.INSTANCE;
@@ -20,7 +18,7 @@ public class Discord {
         discordRichPresence.startTimestamp = System.currentTimeMillis() / 1000L;
         discordRichPresence.details = "Version " + Client.VERSION;
         discordRichPresence.largeImageKey = "teddyhacklogo";
-        discordRichPresence.largeImageText = "timo is very gay and still gay";
+        discordRichPresence.largeImageText = ":)";
         discordRichPresence.state = null;
         discordRPC.Discord_UpdatePresence(discordRichPresence);
     }
@@ -29,5 +27,4 @@ public class Discord {
         discordRPC.Discord_Shutdown();
         discordRPC.Discord_ClearPresence();
     }
-
 }
