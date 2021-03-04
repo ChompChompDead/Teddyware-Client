@@ -58,6 +58,7 @@ dependencies {
     }
     compile('com.lukflug:panelstudio:0.1.8')
     compile('com.lukflug:panelstudio-mc12:0.1.8')
+    compile('club.minnced:java-discord-rpc:2.0.0')
 }
 
 shadowJar {
@@ -65,6 +66,7 @@ shadowJar {
         include(dependency('org.spongepowered:mixin'))
         include(dependency('com.lukflug:panelstudio'))
         include(dependency('com.lukflug:panelstudio-mc12'))
+        include(dependency('club.minnced:java-discord-rpc:2.0.0'))
     }
     exclude 'dummyThing'
     exclude 'LICENSE.txt'
