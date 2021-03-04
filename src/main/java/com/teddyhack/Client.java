@@ -26,7 +26,7 @@ public class Client
 {
     public static final String MODID = "teddyhack";
     public static final String NAME = "Teddyhack";
-    public static final String VERSION = "0.1";
+    public static final String VERSION = "0.15";
     public static final String CLIENT_PROXY_CLASS = "com.teddyhack.proxy.ClientProxy";
     public static final String COMMON_PROXY_CLASS = "com.teddyhack.proxy.CommonProxy";
     public static final Logger log = LogManager.getLogger(NAME + " v" + VERSION);
