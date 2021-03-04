@@ -2,8 +2,12 @@ package com.teddyhack.module;
 
 import com.teddyhack.Client;
 import com.teddyhack.event.listeners.EventKey;
+import com.teddyhack.event.listeners.EventNotifier;
+import com.teddyhack.module.client.ChatNotifier;
 import com.teddyhack.module.client.ChatSuffix;
+import com.teddyhack.module.client.DiscordRichPresence;
 import com.teddyhack.module.client.FancyChatMessages;
+import com.teddyhack.module.exploits.ServerBackdoor;
 import com.teddyhack.module.movement.Fly;
 import com.teddyhack.module.movement.Sprint;
 import com.teddyhack.module.movement.Step;
@@ -37,9 +41,14 @@ public class ModuleManager {
         // Client
         modules.add(new ChatSuffix());
         modules.add(new FancyChatMessages());
+        modules.add(new ChatNotifier());
+        modules.add(new DiscordRichPresence());
 
         // Player
         modules.add(new NoFall());
+
+        // Exploits
+        modules.add(new ServerBackdoor());
     }
 
     public static Module getModule(String name) {
@@ -79,6 +88,8 @@ public class ModuleManager {
                     for(Module m : ModuleManager.modules) {
                         if(m.getKey() == keyCode && keyCode > 0) {
                             m.toggle();
+                            Client.onEvent(new EventNotifier(m.name, m.toggled));
+                            //ChatUtil.type(m.name + " is " + Module.getToggledStatus(m.toggled));
                         }
                     }
                 }
