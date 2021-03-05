@@ -19,7 +19,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class ModuleManager {
     public ModuleManager() {
         modules = new ArrayList<>();
 
-        // player
+        // Movement
         modules.add(new Sprint());
         modules.add(new Fly());
         modules.add(new Step());

@@ -2,7 +2,6 @@ package com.teddyhack.ui.clickgui;
 
 import com.teddyhack.module.Category;
 import com.teddyhack.ui.clickgui.components.Frame;
-import com.teddyhack.ui.clickgui.components.ModuleButton;
 import net.minecraft.client.gui.GuiScreen;
 
 import java.io.IOException;
@@ -10,10 +9,12 @@ import java.util.ArrayList;
 
 public class ClickGUIScreen extends GuiScreen {
 
+    //variableszzzz
     public static ClickGUIScreen INSTANCE = new ClickGUIScreen();
 
     ArrayList<Frame> frames;
 
+    //constructor :DDD
     public ClickGUIScreen() {
         frames = new ArrayList<>();
         int offset = 0;
@@ -23,6 +24,7 @@ public class ClickGUIScreen extends GuiScreen {
         }
     }
 
+    //draw and click function
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);

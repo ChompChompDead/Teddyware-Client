@@ -1,6 +1,5 @@
 package com.teddyhack.ui.clickgui.components;
 
-import com.teddyhack.Client;
 import com.teddyhack.module.Category;
 import com.teddyhack.module.Module;
 import com.teddyhack.module.ModuleManager;
@@ -13,6 +12,7 @@ import java.util.List;
 
 public class Frame {
 
+    //variables moment 😞😞😞😞😞😞😞😞😞😞😞😎😎😛💬💬✅✅✅
     int x, y, width, height;
 
     Category category;
@@ -20,6 +20,7 @@ public class Frame {
     ArrayList<ModuleButton> moduleButtons;
     List<Module> modules;
 
+    // CONSTRUCTOR 💪💪💪💪
     public Frame(Category category, int x, int y) {
         this.x = x;
         this.y = y;
@@ -36,6 +37,7 @@ public class Frame {
         }
     }
 
+    //function of render gui and clik
     public void render(int MouseX, int MouseY) {
         Gui.drawRect(x, y, x + width, y + 13, new Color(120,63,4).getRGB());
         Gui.drawRect(x, y + 13, x + width, y + modules.size() * 14 + 12, new Color(0,0,0,100).getRGB());

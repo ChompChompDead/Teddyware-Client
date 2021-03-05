@@ -24,7 +24,7 @@ public class KillAura extends Module {
         super("KillAura", "kill thing :)", Keyboard.KEY_NONE, Category.Combat);
     }
 
-    public NumberSetting rangeA = new NumberSetting("range", this, 4, 1, 6, 0.5);
+    public NumberSetting rangeA = new NumberSetting("range", this, 6, 1, 6, 0.5);
     public BooleanSetting passiveMobsA = new BooleanSetting("passives", this, true);
     public BooleanSetting hostileMobsA = new BooleanSetting("hostiles", this, true);
     public BooleanSetting playersA = new BooleanSetting("players", this, true);

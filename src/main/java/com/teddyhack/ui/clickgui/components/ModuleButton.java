@@ -9,12 +9,14 @@ import java.awt.*;
 
 public class ModuleButton {
 
+    // WTF ANOTHER VARIABLE???
     int x, y, width, height;
 
     Module module;
     Frame parent;
     Minecraft mc = Minecraft.getMinecraft();
 
+    // (contrsuctor)
     public ModuleButton(Module module, int x, int y, Frame parent) {
         this.module = module;
         this.x = x;
@@ -24,6 +26,7 @@ public class ModuleButton {
         this.height = 14;
     }
 
+    //draw and click im cool your not stupid thot
     public void draw(int MouseX, int MouseY) {
         if (module.toggled) {
             mc.fontRenderer.drawString(module.getName(), x + 2, y + 2, new Color(120,63,4).getRGB());
