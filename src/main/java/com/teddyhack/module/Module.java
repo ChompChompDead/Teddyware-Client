@@ -43,9 +43,7 @@ public class Module {
     public void setDescription(String description) {
         this.description = description;
     }
-    public int getKey() {
-        return key;
-    }
+    public int getKey() { return key; }
     public void setKey(int key) { this.key = key; }
     public boolean isToggled() {
         return toggled;

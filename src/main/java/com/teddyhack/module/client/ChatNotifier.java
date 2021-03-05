@@ -10,7 +10,7 @@ import org.lwjgl.input.Keyboard;
 public class ChatNotifier extends Module {
 
     public ChatNotifier() {
-        super("ChatNotifier", "notifies you when a module is toggled or other stuff.", Keyboard.KEY_NONE, Category.CLIENT);
+        super("ChatNotifier", "notifies you when a module is toggled or other stuff.", Keyboard.KEY_NONE, Category.Client);
     }
 
     @Override

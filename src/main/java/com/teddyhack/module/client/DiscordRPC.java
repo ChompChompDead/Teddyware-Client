@@ -5,10 +5,10 @@ import com.teddyhack.module.Module;
 import com.teddyhack.Discord;
 import org.lwjgl.input.Keyboard;
 
-public class DiscordRichPresence extends Module {
+public class DiscordRPC extends Module {
 
-    public DiscordRichPresence() {
-        super("DiscordRichPresence", "dee cord rich presence :)", Keyboard.KEY_NONE, Category.CLIENT);
+    public DiscordRPC() {
+        super("DiscordRPC", "dee cord rich presence :)", Keyboard.KEY_NONE, Category.Client);
         this.toggled = true;
     }
 

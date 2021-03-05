@@ -8,10 +8,10 @@ import org.lwjgl.input.Keyboard;
 
 import java.util.Arrays;
 
-public class FancyChatMessages extends Module {
+public class ChatFont extends Module {
 
-    public FancyChatMessages() {
-        super("FancyChatFont", "makes your chat have font", Keyboard.KEY_Z, Category.Client);
+    public ChatFont() {
+        super("ChatFont", "makes your chat have font", Keyboard.KEY_Z, Category.Client);
     }
 
     @SubscribeEvent

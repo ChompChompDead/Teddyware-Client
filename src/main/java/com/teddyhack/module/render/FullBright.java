@@ -9,7 +9,7 @@ public class FullBright extends Module {
     private float oldgamma;
 
     public FullBright() {
-        super("FullBright", "epic brightness", Keyboard.KEY_G, Category.RENDER);
+        super("FullBright", "epic brightness", Keyboard.KEY_NONE, Category.Render);
     }
 
     @Override

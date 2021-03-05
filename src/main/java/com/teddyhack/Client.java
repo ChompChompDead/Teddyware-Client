@@ -6,7 +6,7 @@ import com.teddyhack.module.Module;
 import com.teddyhack.module.ModuleManager;
 import com.teddyhack.proxy.CommonProxy;
 import com.teddyhack.setting.SettingManager;
-import com.teddyhack.ui.UIRenderer;
+import com.teddyhack.ui.MainHud;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -25,12 +25,12 @@ public class Client
 {
     public static final String MODID = "teddyhack";
     public static final String NAME = "Teddyhack";
-    public static final String VERSION = "0.15";
+    public static final String VERSION = "0.25";
     public static final String CLIENT_PROXY_CLASS = "com.teddyhack.proxy.ClientProxy";
     public static final String COMMON_PROXY_CLASS = "com.teddyhack.proxy.CommonProxy";
     public static final Logger log = LogManager.getLogger(NAME + " v" + VERSION);
 
-    public static UIRenderer uirenderer;
+    public static MainHud uirenderer;
     public static ModuleManager moduleManager;
     public static SettingManager settingManager;
 
@@ -50,12 +50,12 @@ public class Client
     @EventHandler
     public void Init(FMLInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(instance);
-        MinecraftForge.EVENT_BUS.register(new UIRenderer());
+        MinecraftForge.EVENT_BUS.register(new MainHud());
         MinecraftForge.EVENT_BUS.register(new ModuleManager());
         MinecraftForge.EVENT_BUS.register(new SettingManager());
 
         // register stuff
-        uirenderer = new UIRenderer();
+        uirenderer = new MainHud();
         log.info("ui is ready");
         moduleManager = new ModuleManager();
         log.info("module manager is ready");

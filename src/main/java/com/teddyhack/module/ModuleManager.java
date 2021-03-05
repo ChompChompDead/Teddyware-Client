@@ -3,16 +3,17 @@ package com.teddyhack.module;
 import com.teddyhack.Client;
 import com.teddyhack.event.listeners.EventKey;
 import com.teddyhack.event.listeners.EventNotifier;
-import com.teddyhack.module.client.ChatNotifier;
-import com.teddyhack.module.client.ChatSuffix;
-import com.teddyhack.module.client.DiscordRichPresence;
-import com.teddyhack.module.client.FancyChatMessages;
+import com.teddyhack.module.client.*;
+import com.teddyhack.module.combat.AutoArmor;
+import com.teddyhack.module.combat.AutoTotem;
+import com.teddyhack.module.combat.KillAura;
 import com.teddyhack.module.exploits.ServerBackdoor;
 import com.teddyhack.module.movement.Fly;
 import com.teddyhack.module.movement.Sprint;
 import com.teddyhack.module.movement.Step;
 import com.teddyhack.module.player.NoFall;
 import com.teddyhack.module.render.FullBright;
+import com.teddyhack.module.render.Hud;
 import com.teddyhack.module.render.TabGUI;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -37,18 +38,24 @@ public class ModuleManager {
         // Render
         modules.add(new FullBright());
         modules.add(new TabGUI());
+        modules.add(new Hud());
 
         // Client
         modules.add(new ChatSuffix());
-        modules.add(new FancyChatMessages());
+        modules.add(new ChatFont());
         modules.add(new ChatNotifier());
-        modules.add(new DiscordRichPresence());
+        modules.add(new ClickGUI());
 
         // Player
         modules.add(new NoFall());
 
         // Exploits
         modules.add(new ServerBackdoor());
+
+        // Combat
+        modules.add(new AutoTotem());
+        modules.add(new AutoArmor());
+        modules.add(new KillAura());
     }
 
     public static Module getModule(String name) {

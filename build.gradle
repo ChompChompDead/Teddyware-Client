@@ -22,7 +22,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'com.github.johnrengelman.shadow'
 
-version = '0.15'
+version = '0.25'
 group = 'com.teddyhack' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'Teddyhack'
 
@@ -96,6 +96,5 @@ jar {
         ])
     }
 }
-
 
 build.dependsOn(shadowJar)

@@ -10,7 +10,7 @@ import org.lwjgl.input.Keyboard;
 public class NoFall extends Module {
 
     public NoFall() {
-        super("NoFall", "take no fall damage ez.", (Keyboard.KEY_V), Category.PLAYER);
+        super("NoFall", "take no fall damage ez.", Keyboard.KEY_NONE, Category.Player);
     }
 
     public void onEvent(Event e) {

@@ -21,7 +21,7 @@ public class TabGUI extends Module {
     public boolean expanded;
 
     public TabGUI() {
-        super("TabGUI", "clickgui but worse", Keyboard.KEY_NONE, Category.RENDER);
+        super("TabGUI", "clickgui but worse", Keyboard.KEY_NONE, Category.Render);
         this.toggled = true;
     }
 
@@ -48,12 +48,10 @@ public class TabGUI extends Module {
             }
 
             FontRenderer fr = mc.fontRenderer;
-            int longestCategory = fr.getStringWidth(getLongest(CategoryLS));
             int count = 0;
-            double mainTabRight = longestCategory * 1.93;
 
             // background
-            Gui.drawRect(5, 30, (int) mainTabRight/*75*/, 30 + Category.values().length * 16 + 2, 0x90000000);
+            Gui.drawRect(5, 30, 75, 30 + Category.values().length * 16 + 2, 0x90000000);
             // outline
             Gui.drawRect(7, 33 + currentTab * 16, 7 + 61, 33 + currentTab * 16 + 12, 0xff783F04);
 
@@ -65,10 +63,6 @@ public class TabGUI extends Module {
                 // Multiple tabs
                 Category category = Category.values()[currentTab];
                 List<Module> modules = ModuleManager.getModulesByCategory(category);
-
-                for (Module m : modules) {
-                    category.ModuleLS.add(m.name);
-                }
 
                 if (modules.size() == 0)
                     return;

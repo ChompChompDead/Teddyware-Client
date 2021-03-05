@@ -9,7 +9,7 @@ import org.lwjgl.input.Keyboard;
 public class Sprint extends Module {
 
     public Sprint() {
-        super("Sprint", "Automatically run without holding your run hotkey.", Keyboard.KEY_C, Category.MOVEMENT);
+        super("Sprint", "Automatically run without holding your run hotkey.", Keyboard.KEY_NONE, Category.Movement);
     }
 
     @Override

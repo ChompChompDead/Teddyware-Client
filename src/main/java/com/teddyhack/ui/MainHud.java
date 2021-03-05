@@ -15,7 +15,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class HUD extends Gui {
+public class MainHud extends Gui {
 
     private final Minecraft mc = Minecraft.getMinecraft();
 

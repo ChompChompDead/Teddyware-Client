@@ -8,7 +8,7 @@ import org.lwjgl.input.Keyboard;
 public class Fly extends Module {
 
     public Fly() {
-        super("Fly", "Fly lolololo", Keyboard.KEY_R, Category.MOVEMENT);
+        super("Fly", "Fly lolololo", Keyboard.KEY_NONE, Category.Movement);
     }
 
     @Override
