@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class FancyChatMessages extends Module {
 
     public FancyChatMessages() {
-        super("FancyChatMessages", "makes your chat have font", Keyboard.KEY_Z, Category.CLIENT);
+        super("FancyChatFont", "makes your chat have font", Keyboard.KEY_Z, Category.Client);
     }
 
     @SubscribeEvent

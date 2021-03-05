@@ -3,7 +3,6 @@ package com.teddyhack.ui;
 import java.awt.Color;
 import com.teddyhack.Client;
 import com.teddyhack.event.listeners.EventRenderGUI;
-import com.teddyhack.module.Category;
 import com.teddyhack.module.Module;
 import com.teddyhack.module.ModuleManager;
 import net.minecraft.client.Minecraft;
@@ -16,7 +15,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class UIRenderer extends Gui {
+public class HUD extends Gui {
 
     private final Minecraft mc = Minecraft.getMinecraft();
 
@@ -35,28 +34,33 @@ public class UIRenderer extends Gui {
     }
     @SubscribeEvent
     public void renderOverlay(RenderGameOverlayEvent.Post event) {
-        Collections.sort(ModuleManager.modules, new ModuleComparator());
-        ScaledResolution sr = new ScaledResolution(mc);
-        FontRenderer fr = mc.fontRenderer;
+        if (ModuleManager.getModule("Hud").toggled) {
+            Collections.sort(ModuleManager.modules, new ModuleComparator());
+            ScaledResolution sr = new ScaledResolution(mc);
+            FontRenderer fr = mc.fontRenderer;
 
-        if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
-            fr.drawStringWithShadow(Client.NAME + " v" + Client.VERSION, 4, 4, 0x783F04);
-            fr.drawStringWithShadow("click gui soon", 4, 15, 0x783F04);
-        }
+            if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
+                fr.drawStringWithShadow(Client.NAME + " v" + Client.VERSION, 4, 4, 0x783F04);
+                fr.drawStringWithShadow("click gui soon", 4, 15, 0x783F04);
+            }
 
-        if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
-            int y = 4;
-            final int[] counter = {1};
-            for (Module mod : Client.moduleManager.getModuleList()) {
-                if (!mod.getName().equalsIgnoreCase("TabGUI") && mod.isToggled()) {
-                    fr.drawStringWithShadow(mod.getName(), sr.getScaledWidth() - fr.getStringWidth(mod.getName()) - 2, y, rainbow(counter[0] * 300));
-                    y += fr.FONT_HEIGHT;
-                    counter[0]++;
+            if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
+                int y = 4;
+                final int[] counter = {1};
+                for (Module mod : Client.moduleManager.getModuleList()) {
+                    if (!mod.getName().equalsIgnoreCase("TabGUI") &&
+                            !mod.getName().equalsIgnoreCase("DiscordRPC") &&
+                            !mod.getName().equalsIgnoreCase("ClickGUI") &&
+                            mod.isToggled()) {
+                        fr.drawStringWithShadow(mod.getName(), sr.getScaledWidth() - fr.getStringWidth(mod.getName()) - 2, y, rainbow(counter[0] * 300));
+                        y += fr.FONT_HEIGHT;
+                        counter[0]++;
+                    }
                 }
             }
-        }
-        if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
-            Client.onEvent(new EventRenderGUI());
+            if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
+                Client.onEvent(new EventRenderGUI());
+            }
         }
     }
 
