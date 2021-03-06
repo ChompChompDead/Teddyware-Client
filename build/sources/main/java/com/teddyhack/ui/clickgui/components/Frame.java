@@ -60,8 +60,10 @@ public class Frame {
         if (onButton(MouseX, MouseY) && button == 1) {
             if (category.open) {
                 category.open = false;
+                Client.log.info("Closed");
             } else {
                 category.open = true;
+                Client.log.info("Open");
             }
         }
     }

@@ -11,6 +11,7 @@ import com.teddyhack.module.exploits.ServerBackdoor;
 import com.teddyhack.module.movement.Fly;
 import com.teddyhack.module.movement.Sprint;
 import com.teddyhack.module.movement.Step;
+import com.teddyhack.module.player.AutoSuicide;
 import com.teddyhack.module.player.NoFall;
 import com.teddyhack.module.render.FullBright;
 import com.teddyhack.module.client.Hud;
@@ -50,6 +51,7 @@ public class ModuleManager {
 
         // Player
         modules.add(new NoFall());
+        modules.add(new AutoSuicide());
 
         // Exploits
         modules.add(new ServerBackdoor());
