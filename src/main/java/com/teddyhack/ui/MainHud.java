@@ -1,6 +1,8 @@
 package com.teddyhack.ui;
 
 import java.awt.Color;
+
+import com.mojang.realmsclient.gui.ChatFormatting;
 import com.teddyhack.Client;
 import com.teddyhack.event.listeners.EventRenderGUI;
 import com.teddyhack.module.Module;
@@ -9,6 +11,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.network.NetworkPlayerInfo;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 
@@ -32,42 +36,58 @@ public class MainHud extends Gui {
             return 0;
         }
     }
+
     @SubscribeEvent
-    public void renderOverlay(RenderGameOverlayEvent.Post event) {
+    public void renderOverlay(RenderGameOverlayEvent event) {
         if (ModuleManager.getModule("Hud").toggled) {
             Collections.sort(ModuleManager.modules, new ModuleComparator());
             ScaledResolution sr = new ScaledResolution(mc);
             FontRenderer fr = mc.fontRenderer;
 
-            if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
-                fr.drawStringWithShadow(Client.NAME + " v" + Client.VERSION, 4, 4, 0x783F04);
-                fr.drawStringWithShadow("click gui soon", 4, 15, 0x783F04);
+            if (ModuleManager.getModule("Watermark").toggled) {
+                if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
+                    fr.drawStringWithShadow(Client.NAME + " v" + Client.VERSION, 4, 4, 0x783F04);
+                    fr.drawStringWithShadow("click gui soon", 4, 15, 0x783F04);
+                }
             }
 
-            if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
-                int y = 4;
-                final int[] counter = {1};
-                for (Module mod : Client.moduleManager.getModuleList()) {
-                    if (!mod.getName().equalsIgnoreCase("TabGUI") &&
-                            !mod.getName().equalsIgnoreCase("DiscordRPC") &&
-                            !mod.getName().equalsIgnoreCase("ClickGUI") &&
-                            mod.isToggled()) {
-                        fr.drawStringWithShadow(mod.getName(), sr.getScaledWidth() - fr.getStringWidth(mod.getName()) - 2, y, rainbow(counter[0] * 300));
-                        y += fr.FONT_HEIGHT;
-                        counter[0]++;
+            if (ModuleManager.getModule("Coords").toggled) {
+                if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
+                    fr.drawStringWithShadow(
+                            ChatFormatting.RESET + "[X] " + ChatFormatting.WHITE + mc.player.getPosition().getX() + " " +
+                                    ChatFormatting.RESET + "[Y] " + ChatFormatting.WHITE + mc.player.getPosition().getY() + " " +
+                                    ChatFormatting.RESET + "[Z] " + ChatFormatting.WHITE + mc.player.getPosition().getZ(),
+                            4, 26, 0x783F04
+                    );
+                }
+            }
+
+            if (ModuleManager.getModule("ArrayList").toggled) {
+                if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
+                    int y = 4;
+                    final int[] counter = {1};
+                    for (Module mod : Client.moduleManager.getModuleList()) {
+                        if (!mod.getName().equalsIgnoreCase("TabGUI") &&
+                                !mod.getName().equalsIgnoreCase("DiscordRPC") &&
+                                !mod.getName().equalsIgnoreCase("ClickGUI") &&
+                                mod.isToggled()) {
+                            fr.drawStringWithShadow(mod.getName(), sr.getScaledWidth() - fr.getStringWidth(mod.getName()) - 2, y, rainbow(counter[0] * 300));
+                            y += fr.FONT_HEIGHT;
+                            counter[0]++;
+                        }
                     }
                 }
             }
+
             if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
                 Client.onEvent(new EventRenderGUI());
             }
         }
     }
 
-    public static int rainbow(int delay) {
+    public static int rainbow(int delay){
         double rainbowState = Math.ceil((System.currentTimeMillis() + delay) / 20.0);
         rainbowState %= 360;
         return Color.getHSBColor((float) (rainbowState / 360.0f), 0.5f, 1f).getRGB();
     }
-
 }

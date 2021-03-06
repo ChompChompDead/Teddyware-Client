@@ -1,4 +1,4 @@
-package com.teddyhack.module.render;
+package com.teddyhack.module.client;
 
 import com.teddyhack.Client;
 import com.teddyhack.event.Event;
@@ -12,6 +12,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import org.lwjgl.input.Keyboard;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class TabGUI extends Module {
     public boolean expanded;
 
     public TabGUI() {
-        super("TabGUI", "clickgui but worse", Keyboard.KEY_NONE, Category.Render);
+        super("TabGUI", "clickgui but worse", Keyboard.KEY_NONE, Category.Client);
         this.toggled = true;
     }
 
@@ -43,20 +44,16 @@ public class TabGUI extends Module {
     public void onEvent(Event e) {
         if (e instanceof EventRenderGUI) {
             // Main tab
-            for (Category c: Category.values()) {
-                CategoryLS.add(c.name);
-            }
-
             FontRenderer fr = mc.fontRenderer;
             int count = 0;
 
             // background
-            Gui.drawRect(5, 30, 75, 30 + Category.values().length * 16 + 2, 0x90000000);
+            Gui.drawRect(5, 37, 75, 36 + Category.values().length * 16 + 2, new Color(0,0,0,100).getRGB());
             // outline
-            Gui.drawRect(7, 33 + currentTab * 16, 7 + 61, 33 + currentTab * 16 + 12, 0xff783F04);
+            Gui.drawRect(7, 40 + currentTab * 16, 7 + 61, 40 + currentTab * 16 + 12, 0xff783F04);
 
             for (Category c : Category.values()) {
-                fr.drawStringWithShadow(c.name, 11, 35 + count * 16, -1);
+                fr.drawStringWithShadow(c.name, 11, 42 + count * 16, -1);
                 count++;
             }
             if (expanded) {
@@ -67,14 +64,14 @@ public class TabGUI extends Module {
                 if (modules.size() == 0)
                     return;
                 //background
-                Gui.drawRect(75, (int) 30.5, 78 + 68, 30 + modules.size() * 16 + (int) 1.5, 0x90000000);
+                Gui.drawRect(75, (int) 37.5, 78 + 68, 36 + modules.size() * 16 + 2, new Color(0,0,0,100).getRGB());
                 //outline
-                Gui.drawRect(75, 33 + category.moduleIndex * 16, 10 + 60 + 68, 33 + category.moduleIndex * 16 + 12, 0xff783F04);
+                Gui.drawRect(75, 40 + category.moduleIndex * 16, 10 + 60 + 68, 40 + category.moduleIndex * 16 + 12, 0xff783F04);
 
                 count = 0;
                 for (Module m : modules) {
                     // names
-                    fr.drawStringWithShadow(m.name, 79, 35 + count * 16, -1);
+                    fr.drawStringWithShadow(m.name, 79, 42 + count * 16, -1);
                     count++;
                 }
             }

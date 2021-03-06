@@ -13,8 +13,8 @@ import com.teddyhack.module.movement.Sprint;
 import com.teddyhack.module.movement.Step;
 import com.teddyhack.module.player.NoFall;
 import com.teddyhack.module.render.FullBright;
-import com.teddyhack.module.render.Hud;
-import com.teddyhack.module.render.TabGUI;
+import com.teddyhack.module.client.Hud;
+import com.teddyhack.module.client.TabGUI;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
@@ -36,7 +36,6 @@ public class ModuleManager {
 
         // Render
         modules.add(new FullBright());
-        modules.add(new TabGUI());
         modules.add(new Hud());
 
         // Client
@@ -44,6 +43,10 @@ public class ModuleManager {
         modules.add(new ChatFont());
         modules.add(new ChatNotifier());
         modules.add(new ClickGUI());
+        modules.add(new Coords());
+        modules.add(new Watermark());
+        modules.add(new com.teddyhack.module.client.ArrayList());
+        modules.add(new TabGUI());
 
         // Player
         modules.add(new NoFall());

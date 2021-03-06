@@ -10,6 +10,7 @@ public enum Category {
 
     public String name;
     public int moduleIndex;
+    public boolean open = true;
 
     Category(String name) {
         this.name = name;

@@ -12,6 +12,7 @@ public class ClickGUIScreen extends GuiScreen {
     //variableszzzz
     public static ClickGUIScreen INSTANCE = new ClickGUIScreen();
 
+    boolean isDragging;
     ArrayList<Frame> frames;
 
     //constructor :DDD
@@ -39,4 +40,5 @@ public class ClickGUIScreen extends GuiScreen {
             frame.onClick(mouseX, mouseY, mouseButton);
         }
     }
+
 }
