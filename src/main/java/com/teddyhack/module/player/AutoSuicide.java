@@ -17,6 +17,7 @@ public class AutoSuicide extends Module {
         if (mc.player != null) {
             if (ModuleManager.getModule("ChatSuffix").toggled) {
                 ChatUtil.type("You need to disable chatsuffix for AutoSuicide to work!");
+                toggle();
             } else {
                 mc.player.sendChatMessage("/kill");
                 toggle();

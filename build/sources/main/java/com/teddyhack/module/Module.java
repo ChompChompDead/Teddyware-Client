@@ -82,6 +82,16 @@ public class Module {
         MinecraftForge.EVENT_BUS.unregister(this);
     }
 
+    public void enable() {
+        this.toggled = true;
+        onEnable();
+    }
+
+    public void disable() {
+        this.toggled = false;
+        onDisable();
+    }
+
     public String getName() {
         return this.name;
     }
