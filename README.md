@@ -24,7 +24,6 @@ I really only know how to set this up for intellij, soooo yeah <br>
 
 ## External Libraries & Resources
 For the mixins (thanks spongeforge): https://www.spongepowered.org/downloads/spongeforge/stable/1.12.2 <br>
-ClickGUI (might be changed in the future idk): https://github.com/lukflug/PanelStudio <br> 
 IntelliJ IDEA (community edition): https://www.jetbrains.com/idea/download/#section=windows <br>
 <br>
 ![alt text](https://cdn.discordapp.com/attachments/678127344774545409/808351881272229918/maybe.jpg)
