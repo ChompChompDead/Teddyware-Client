@@ -1,0 +1,28 @@
+{
+  "mappings": {
+    "com/teddyhack/mixin/mixins/MixinGuiMainMenu": {
+      "drawScreen": "Lnet/minecraft/client/gui/GuiMainMenu;func_73863_a(IIF)V"
+    },
+    "com/teddyhack/mixin/mixins/MixinEntityPlayerSP": {
+      "onUpdateWalkingPlayer": "Lnet/minecraft/client/entity/EntityPlayerSP;func_175161_p()V"
+    }
+  },
+  "data": {
+    "notch": {
+      "com/teddyhack/mixin/mixins/MixinGuiMainMenu": {
+        "drawScreen": "Lblr;a(IIF)V"
+      },
+      "com/teddyhack/mixin/mixins/MixinEntityPlayerSP": {
+        "onUpdateWalkingPlayer": "Lbud;N()V"
+      }
+    },
+    "searge": {
+      "com/teddyhack/mixin/mixins/MixinGuiMainMenu": {
+        "drawScreen": "Lnet/minecraft/client/gui/GuiMainMenu;func_73863_a(IIF)V"
+      },
+      "com/teddyhack/mixin/mixins/MixinEntityPlayerSP": {
+        "onUpdateWalkingPlayer": "Lnet/minecraft/client/entity/EntityPlayerSP;func_175161_p()V"
+      }
+    }
+  }
+}
