@@ -91,7 +91,7 @@ jar {
                 "tweakClass": 'org.spongepowered.asm.launch.MixinTweaker',
                 "TweakOrder": 0,
                 "FMLCorePluginContainsFMLMod": true,
-                "FMLCorePlugin": "com.teddyhack.mixin.MixinLoader",
+                "FMLCorePlugin": "com.teddyhack.api.mixin.MixinLoader",
                 "ForceLoadAsMod": true,
         ])
     }

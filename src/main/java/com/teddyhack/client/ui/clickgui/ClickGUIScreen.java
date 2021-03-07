@@ -1,7 +1,7 @@
-package com.teddyhack.ui.clickgui;
+package com.teddyhack.client.ui.clickgui;
 
-import com.teddyhack.module.Category;
-import com.teddyhack.ui.clickgui.component.Frame;
+import com.teddyhack.client.module.Category;
+import com.teddyhack.client.ui.clickgui.component.Frame;
 import net.minecraft.client.gui.GuiScreen;
 
 import java.io.IOException;

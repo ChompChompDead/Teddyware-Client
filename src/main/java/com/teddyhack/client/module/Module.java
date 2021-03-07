@@ -1,9 +1,9 @@
-package com.teddyhack.module;
+package com.teddyhack.client.module;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
-import com.teddyhack.event.Event;
-import com.teddyhack.setting.Setting;
-import com.teddyhack.setting.settings.KeybindSetting;
+import com.teddyhack.api.event.Event;
+import com.teddyhack.client.setting.Setting;
+import com.teddyhack.client.setting.settings.KeybindSetting;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 
