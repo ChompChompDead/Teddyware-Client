@@ -10,7 +10,7 @@ public class KeybindSetting extends Setting {
         this.code = code;
     }
 
-    public int getkeyCode() {
+    public int getKeyCode() {
         return this.code;
     }
 

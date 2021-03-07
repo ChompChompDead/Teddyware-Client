@@ -1,6 +1,7 @@
 // imports and package name
 package com.teddyhack.client;
 
+import com.teddyhack.api.config.Config;
 import com.teddyhack.api.event.Event;
 import com.teddyhack.client.module.Module;
 import com.teddyhack.client.module.ModuleManager;
@@ -15,6 +16,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.Display;
@@ -25,7 +27,7 @@ public class Client
 {
     public static final String MODID = "teddyhack";
     public static final String NAME = "Teddyhack";
-    public static final String VERSION = "0.26";
+    public static final String VERSION = "0.27";
     public static final String CLIENT_PROXY_CLASS = "com.teddyhack.api.proxy.ClientProxy";
     public static final String COMMON_PROXY_CLASS = "com.teddyhack.api.proxy.CommonProxy";
     public static final Logger log = LogManager.getLogger(NAME + " v" + VERSION);
@@ -33,13 +35,10 @@ public class Client
     public static MainHud uirenderer;
     public static ModuleManager moduleManager;
     public static SettingManager settingManager;
+    public static Config config;
 
     @Instance
     public static Client instance = new Client();
-
-    public static Client getInstance() {
-        return instance;
-    }
 
     @SidedProxy(clientSide = Client.CLIENT_PROXY_CLASS, serverSide = COMMON_PROXY_CLASS)
     public static CommonProxy proxy;
@@ -53,6 +52,7 @@ public class Client
         MinecraftForge.EVENT_BUS.register(new MainHud());
         MinecraftForge.EVENT_BUS.register(new ModuleManager());
         MinecraftForge.EVENT_BUS.register(new SettingManager());
+        MinecraftForge.EVENT_BUS.register(new Config());
 
         // register stuff
         uirenderer = new MainHud();
@@ -61,6 +61,8 @@ public class Client
         log.info("module manager is ready");
         settingManager = new SettingManager();
         log.info("settings are ready");
+        config = new Config();
+        log.info("configs are ready");
 
         log.info(NAME + " is ready!");
         //Discord.startRPC();
@@ -68,7 +70,9 @@ public class Client
     }
 
     @EventHandler
-    public void PostInit(FMLPostInitializationEvent event) { }
+    public void PostInit(FMLPostInitializationEvent event) {
+
+    }
 
     public static void onEvent(Event e) {
         for (Module m : ModuleManager.modules) {

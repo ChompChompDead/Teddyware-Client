@@ -4,5 +4,5 @@ MixinConfigs: mixins.teddyhack.json
 FMLCorePluginContainsFMLMod: true
 tweakClass: org.spongepowered.asm.launch.MixinTweaker
 ForceLoadAsMod: true
-FMLCorePlugin: com.teddyhack.mixin.MixinLoader
+FMLCorePlugin: com.teddyhack.api.mixin.MixinLoader
 

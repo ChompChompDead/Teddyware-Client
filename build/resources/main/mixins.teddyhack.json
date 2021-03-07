@@ -1,7 +1,7 @@
 {
   "required": true,
   "compatibilityLevel": "JAVA_8",
-  "package": "com.teddyhack.mixin.mixins",
+  "package": "com.teddyhack.api.mixin.mixins",
   "refmap": "mixins.teddyhack.refmap.json",
   "mixins": [
       "MixinEntityPlayerSP",

@@ -6,6 +6,7 @@ import com.teddyhack.api.event.listeners.EventNotifier;
 import com.teddyhack.client.module.client.*;
 import com.teddyhack.client.module.combat.AutoArmor;
 import com.teddyhack.client.module.combat.AutoTotem;
+import com.teddyhack.client.module.combat.BowSpam;
 import com.teddyhack.client.module.combat.KillAura;
 import com.teddyhack.client.module.exploits.ServerBackdoor;
 import com.teddyhack.client.module.movement.Fly;
@@ -60,6 +61,7 @@ public class ModuleManager {
         modules.add(new AutoTotem());
         modules.add(new AutoArmor());
         modules.add(new KillAura());
+        modules.add(new BowSpam());
     }
 
     public static Module getModule(String name) {

@@ -1,5 +1,6 @@
 package com.teddyhack.client.setting.settings;
 
+import com.teddyhack.client.Client;
 import com.teddyhack.client.module.Module;
 import com.teddyhack.client.setting.Setting;
 import scala.actors.threadpool.Arrays;
@@ -24,6 +25,9 @@ public class ModeSetting extends Setting {
 
     public void setMode(String mode) {
         this.index = this.modes.indexOf(mode);
+        if (Client.config != null) {
+            Client.config.save();
+        }
     }
 
     public boolean is(String mode) {
