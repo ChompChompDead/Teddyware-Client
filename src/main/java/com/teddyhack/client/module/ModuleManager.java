@@ -10,7 +10,6 @@ import com.teddyhack.client.module.combat.BowSpam;
 import com.teddyhack.client.module.combat.KillAura;
 import com.teddyhack.client.module.exploits.ServerBackdoor;
 import com.teddyhack.client.module.movement.Fly;
-import com.teddyhack.client.module.movement.NoSlow;
 import com.teddyhack.client.module.movement.Sprint;
 import com.teddyhack.client.module.movement.Step;
 import com.teddyhack.client.module.player.AutoSuicide;
@@ -36,7 +35,6 @@ public class ModuleManager {
         modules.add(new Sprint());
         modules.add(new Fly());
         modules.add(new Step());
-        modules.add(new NoSlow());
 
         // Render
         modules.add(new FullBright());
