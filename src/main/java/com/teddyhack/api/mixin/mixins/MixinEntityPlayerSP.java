@@ -1,6 +1,6 @@
 package com.teddyhack.api.mixin.mixins;
 
-import com.teddyhack.client.Client;
+import com.teddyhack.client.Teddyhack;
 import com.teddyhack.api.event.EventType;
 import com.teddyhack.api.event.listeners.EventUpdate;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -15,6 +15,6 @@ public class MixinEntityPlayerSP {
     public void onUpdateWalkingPlayer(CallbackInfo info) {
         EventUpdate e = new EventUpdate();
         e.setType(EventType.PRE);
-        Client.onEvent(e);
+        Teddyhack.onEvent(e);
     }
 }

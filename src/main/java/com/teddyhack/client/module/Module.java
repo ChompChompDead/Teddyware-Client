@@ -2,7 +2,7 @@ package com.teddyhack.client.module;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import com.teddyhack.api.event.Event;
-import com.teddyhack.client.Client;
+import com.teddyhack.client.Teddyhack;
 import com.teddyhack.client.setting.Setting;
 import com.teddyhack.client.setting.settings.KeybindSetting;
 import net.minecraft.client.Minecraft;
@@ -39,8 +39,8 @@ public class Module {
         this.toggled = false;
     }
 
+    public void onRender() {}
     public void onEvent(Event e) {}
-
     public String getDescription() {
         return description;
     }
@@ -54,8 +54,8 @@ public class Module {
 
     public void setKey(int key) {
         this.key = key;
-        if (Client.config != null) {
-            Client.config.save();
+        if (Teddyhack.config != null) {
+            Teddyhack.config.save();
         }
     }
 
@@ -76,8 +76,8 @@ public class Module {
         } else {
             this.onDisable();
         }
-        if (Client.config != null) {
-            Client.config.save();
+        if (Teddyhack.config != null) {
+            Teddyhack.config.save();
         }
     }
 
@@ -89,8 +89,8 @@ public class Module {
         } else {
             this.onDisable();
         }
-        if (Client.config != null) {
-            Client.config.save();
+        if (Teddyhack.config != null) {
+            Teddyhack.config.save();
         }
     }
 
@@ -130,9 +130,9 @@ public class Module {
 
     public static String getToggledStatus(boolean toggle) {
         if (toggle) {
-            return ChatFormatting.GREEN + "toggled";
+            return ChatFormatting.GREEN + "enabled";
         } else {
-            return ChatFormatting.DARK_RED + "untoggled";
+            return ChatFormatting.DARK_RED + "disabled";
         }
     }
 

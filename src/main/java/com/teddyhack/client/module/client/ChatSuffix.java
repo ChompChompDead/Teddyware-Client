@@ -18,7 +18,7 @@ public class ChatSuffix extends Module {
 
     @SubscribeEvent
     public void chat(final ClientChatEvent event) {
-        if(toggled) {
+        if(isToggled()) {
             for (final String s : Arrays.asList("/", ".", "-", ",", ":", ";", "'", "\"", "+", "\\", "@"))
             {
                 if (event.getMessage().startsWith(s)) return;
@@ -57,12 +57,7 @@ public class ChatSuffix extends Module {
                 .replace("z", "\u1d22");
     }
 
-    public void onEnable() {
-        super.onEnable();
-    }
-
-    public void onDisable() {
-        super.onDisable();
-    }
+    public void onEnable() { super.onEnable(); }
+    public void onDisable() { super.onDisable(); }
 
 }

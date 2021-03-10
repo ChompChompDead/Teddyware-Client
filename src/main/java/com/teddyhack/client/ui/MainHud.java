@@ -3,7 +3,7 @@ package com.teddyhack.client.ui;
 import java.awt.Color;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
-import com.teddyhack.client.Client;
+import com.teddyhack.client.Teddyhack;
 import com.teddyhack.api.event.listeners.EventRenderGUI;
 import com.teddyhack.client.module.Module;
 import com.teddyhack.client.module.ModuleManager;
@@ -44,7 +44,7 @@ public class MainHud extends Gui {
 
             if (ModuleManager.getModule("Watermark").toggled) {
                 if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
-                    fr.drawStringWithShadow(Client.NAME + " v" + Client.VERSION, 4, 4, 0x783F04);
+                    fr.drawStringWithShadow(Teddyhack.NAME + " v" + Teddyhack.VERSION, 4, 4, 0x783F04);
                     fr.drawStringWithShadow("click gui soon", 4, 15, 0x783F04);
                 }
             }
@@ -64,7 +64,7 @@ public class MainHud extends Gui {
                 if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
                     int y = 4;
                     final int[] counter = {1};
-                    for (Module mod : Client.moduleManager.getModuleList()) {
+                    for (Module mod : Teddyhack.moduleManager.getModuleList()) {
                         if (!mod.getName().equalsIgnoreCase("TabGUI") &&
                                 !mod.getName().equalsIgnoreCase("DiscordRPC") &&
                                 !mod.getName().equalsIgnoreCase("ClickGUI") &&
@@ -78,7 +78,7 @@ public class MainHud extends Gui {
             }
 
             if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
-                Client.onEvent(new EventRenderGUI());
+                Teddyhack.onEvent(new EventRenderGUI());
             }
         }
     }

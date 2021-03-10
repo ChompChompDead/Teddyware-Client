@@ -1,6 +1,6 @@
 package com.teddyhack.client.module;
 
-import com.teddyhack.client.Client;
+import com.teddyhack.client.Teddyhack;
 import com.teddyhack.api.event.listeners.EventKey;
 import com.teddyhack.api.event.listeners.EventNotifier;
 import com.teddyhack.client.module.client.*;
@@ -10,6 +10,7 @@ import com.teddyhack.client.module.combat.BowSpam;
 import com.teddyhack.client.module.combat.KillAura;
 import com.teddyhack.client.module.exploits.ServerBackdoor;
 import com.teddyhack.client.module.movement.Fly;
+import com.teddyhack.client.module.movement.NoSlow;
 import com.teddyhack.client.module.movement.Sprint;
 import com.teddyhack.client.module.movement.Step;
 import com.teddyhack.client.module.player.AutoSuicide;
@@ -35,6 +36,7 @@ public class ModuleManager {
         modules.add(new Sprint());
         modules.add(new Fly());
         modules.add(new Step());
+        modules.add(new NoSlow());
 
         // Render
         modules.add(new FullBright());
@@ -73,7 +75,7 @@ public class ModuleManager {
         return null;
     }
 
-    public ArrayList<Module> getModuleList() {
+    public static ArrayList<Module> getModuleList() {
         return modules;
     }
 
@@ -97,11 +99,11 @@ public class ModuleManager {
                     int keyCode = Keyboard.getEventKey();
                     if(keyCode <= 0)
                         return;
-                    Client.onEvent(new EventKey(keyCode));
+                    Teddyhack.onEvent(new EventKey(keyCode));
                     for(Module m : ModuleManager.modules) {
                         if(m.getKey() == keyCode && keyCode > 0) {
                             m.toggle();
-                            Client.onEvent(new EventNotifier(m.name, m.toggled));
+                            Teddyhack.onEvent(new EventNotifier(m.name, m.toggled));
                             //ChatUtil.type(m.name + " is " + Module.getToggledStatus(m.toggled));
                         }
                     }

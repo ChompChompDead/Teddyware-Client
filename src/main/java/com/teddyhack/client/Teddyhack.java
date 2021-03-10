@@ -16,14 +16,13 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.Display;
 
 // set mod variables and client class
-@Mod(modid = Client.MODID, name = Client.NAME, version = Client.VERSION)
-public class Client
+@Mod(modid = Teddyhack.MODID, name = Teddyhack.NAME, version = Teddyhack.VERSION)
+public class Teddyhack
 {
     public static final String MODID = "teddyhack";
     public static final String NAME = "Teddyhack";
@@ -38,9 +37,9 @@ public class Client
     public static Config config;
 
     @Instance
-    public static Client instance = new Client();
+    public static Teddyhack instance = new Teddyhack();
 
-    @SidedProxy(clientSide = Client.CLIENT_PROXY_CLASS, serverSide = COMMON_PROXY_CLASS)
+    @SidedProxy(clientSide = Teddyhack.CLIENT_PROXY_CLASS, serverSide = COMMON_PROXY_CLASS)
     public static CommonProxy proxy;
 
     @EventHandler
@@ -78,8 +77,15 @@ public class Client
         for (Module m : ModuleManager.modules) {
             if(!m.toggled)
                 continue;
-
             m.onEvent(e);
+        }
+    }
+
+    public static void onRender() {
+        for (Module m : moduleManager.getModuleList()) {
+            if (!m.toggled)
+                continue;
+            m.onRender();
         }
     }
 

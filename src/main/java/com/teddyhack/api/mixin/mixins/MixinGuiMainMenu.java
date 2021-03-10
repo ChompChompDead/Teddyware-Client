@@ -1,6 +1,6 @@
 package com.teddyhack.api.mixin.mixins;
 
-import com.teddyhack.client.Client;
+import com.teddyhack.client.Teddyhack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
@@ -17,7 +17,7 @@ public class MixinGuiMainMenu extends GuiScreen {
 
     @Inject(method = {"drawScreen"}, at = {@At("TAIL")}, cancellable = true)
     public void drawText(CallbackInfo ci) {
-        mc.fontRenderer.drawStringWithShadow(TextFormatting.GRAY + "Teddyhack " + TextFormatting.LIGHT_PURPLE + "v" + Client.VERSION, 1, 1, 0xffffff);
+        mc.fontRenderer.drawStringWithShadow(TextFormatting.GRAY + "Teddyhack " + TextFormatting.LIGHT_PURPLE + "v" + Teddyhack.VERSION, 1, 1, 0xffffff);
     }
 
 }

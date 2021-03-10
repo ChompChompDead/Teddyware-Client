@@ -33,7 +33,6 @@ public class AutoTotem extends Module {
                     if (mc.player.getHeldItemOffhand().getItem() == Items.AIR) {
                         swap_items(get_item_slot(), 0);
                     }
-                    System.out.println("Working");
                 }
             }
         }

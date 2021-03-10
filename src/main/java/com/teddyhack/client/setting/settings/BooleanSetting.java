@@ -1,6 +1,6 @@
 package com.teddyhack.client.setting.settings;
 
-import com.teddyhack.client.Client;
+import com.teddyhack.client.Teddyhack;
 import com.teddyhack.client.module.Module;
 import com.teddyhack.client.setting.Setting;
 
@@ -19,15 +19,15 @@ public class BooleanSetting extends Setting {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-        if (Client.config != null) {
-            Client.config.save();
+        if (Teddyhack.config != null) {
+            Teddyhack.config.save();
         }
     }
 
     public void toggled() {
         this.enabled = !this.enabled;
-        if (Client.config != null) {
-            Client.config.save();
+        if (Teddyhack.config != null) {
+            Teddyhack.config.save();
         }
     }
 }

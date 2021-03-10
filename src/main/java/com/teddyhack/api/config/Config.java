@@ -1,6 +1,6 @@
 package com.teddyhack.api.config;
 
-import com.teddyhack.client.Client;
+import com.teddyhack.client.Teddyhack;
 import com.teddyhack.client.module.Module;
 import com.teddyhack.client.module.ModuleManager;
 import com.teddyhack.client.setting.Setting;
@@ -18,7 +18,7 @@ public class Config {
     private final File dataFile;
 
     public Config() {
-        dir = new File(Minecraft.getMinecraft().mcDataDir, Client.NAME.toLowerCase());
+        dir = new File(Minecraft.getMinecraft().mcDataDir, Teddyhack.NAME.toLowerCase());
         if (!dir.exists()) {
             dir.mkdir();
         }
@@ -36,7 +36,7 @@ public class Config {
     public void save() {
         ArrayList<String> toSave = new ArrayList<String>();
 
-        for (Module mod : Client.instance.moduleManager.modules) {
+        for (Module mod : Teddyhack.instance.moduleManager.modules) {
             toSave.add("MOD:" + mod.getName() + ":" + mod.isToggled() + ":" + mod.getKey());
         }
 
@@ -89,7 +89,7 @@ public class Config {
         for (String s : lines) {
             String[] args = s.split(":");
             if (s.toLowerCase().startsWith("mod:")) {
-                Module m = Client.instance.moduleManager.getModule(args[1]);
+                Module m = Teddyhack.instance.moduleManager.getModule(args[1]);
                 if(m != null) {
                     if(Boolean.parseBoolean(args[2])) {
                         m.setToggled(true);
@@ -98,10 +98,10 @@ public class Config {
                     m.setKey(Integer.parseInt(args[3]));
                 }
             } else if (s.toLowerCase().startsWith("set:")) {
-                Module m = Client.instance.moduleManager.getModule(args[1]);
+                Module m = Teddyhack.instance.moduleManager.getModule(args[1]);
 
                 if (m != null) {
-                    Setting setting = Client.instance.settingManager.getSettingByName(m,args[2]);
+                    Setting setting = Teddyhack.instance.settingManager.getSettingByName(m,args[2]);
                     if(setting != null) {
                         if(setting instanceof BooleanSetting) {
                             ((BooleanSetting)setting).setEnabled(Boolean.parseBoolean(args[3]));

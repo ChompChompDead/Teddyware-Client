@@ -1,6 +1,6 @@
 package com.teddyhack.api.mixin;
 
-import com.teddyhack.client.Client;
+import com.teddyhack.client.Teddyhack;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import org.spongepowered.asm.launch.MixinBootstrap;
 import org.spongepowered.asm.mixin.Mixins;
@@ -13,7 +13,7 @@ public class MixinLoader implements IFMLLoadingPlugin {
     public MixinLoader() {
         MixinBootstrap.init();
         Mixins.addConfiguration("mixins.teddyhack.json");
-        Client.log.info("mixins are ready");
+        Teddyhack.log.info("mixins are ready");
     }
 
     @Override
