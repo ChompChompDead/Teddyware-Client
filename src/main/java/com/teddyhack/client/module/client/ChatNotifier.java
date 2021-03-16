@@ -1,7 +1,7 @@
 package com.teddyhack.client.module.client;
 
 import com.teddyhack.api.event.Event;
-import com.teddyhack.api.event.listeners.EventNotifier;
+import com.teddyhack.api.event.events.EventNotifier;
 import com.teddyhack.client.module.Category;
 import com.teddyhack.client.module.Module;
 import com.teddyhack.api.util.ChatUtil;

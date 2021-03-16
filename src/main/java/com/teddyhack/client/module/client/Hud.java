@@ -8,6 +8,7 @@ public class Hud extends Module {
 
     public Hud() {
         super("Hud", "da gui", Keyboard.KEY_NONE, Category.Client);
+        this.toggled = true;
     }
 
     @Override

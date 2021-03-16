@@ -1,14 +1,18 @@
 package com.teddyhack.api.config;
 
 import com.teddyhack.client.Teddyhack;
+import com.teddyhack.client.command.CommandManager;
 import com.teddyhack.client.module.Module;
 import com.teddyhack.client.module.ModuleManager;
 import com.teddyhack.client.setting.Setting;
 import com.teddyhack.client.setting.settings.BooleanSetting;
+import com.teddyhack.client.setting.settings.ColorSetting;
 import com.teddyhack.client.setting.settings.ModeSetting;
 import com.teddyhack.client.setting.settings.NumberSetting;
 import net.minecraft.client.Minecraft;
+import org.lwjgl.input.Keyboard;
 
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -56,8 +60,15 @@ public class Config {
                     ModeSetting mode = (ModeSetting) setting;
                     toSave.add("SET:" + mod.getName() + ":" + setting.name + ":" + mode.getMode());
                 }
+
+                if (setting instanceof ColorSetting) {
+                    ColorSetting color = (ColorSetting) setting;
+                    toSave.add("SET:" + mod.getName() + ":" + setting.name + ":" + color.toInteger());
+                }
             }
         }
+
+        toSave.add("PREFIX:" + CommandManager.prefix);
 
         try {
             PrintWriter pw = new PrintWriter(this.dataFile);
@@ -91,11 +102,12 @@ public class Config {
             if (s.toLowerCase().startsWith("mod:")) {
                 Module m = Teddyhack.instance.moduleManager.getModule(args[1]);
                 if(m != null) {
-                    if(Boolean.parseBoolean(args[2])) {
+                    if(Boolean.parseBoolean(args[2]) && !m.name.equals("ClickGUI")) {
                         m.setToggled(true);
                     }
-
-                    m.setKey(Integer.parseInt(args[3]));
+                    if(Integer.parseInt(args[3]) > 0) {
+                        m.setKey(Integer.parseInt(args[3]));
+                    }
                 }
             } else if (s.toLowerCase().startsWith("set:")) {
                 Module m = Teddyhack.instance.moduleManager.getModule(args[1]);
@@ -112,8 +124,13 @@ public class Config {
                         if(setting instanceof ModeSetting) {
                             ((ModeSetting)setting).setMode(args[3]);
                         }
+                        if (setting instanceof ColorSetting) {
+                            ((ColorSetting)setting).fromInteger(Integer.parseInt(args[3]));
+                        }
                     }
                 }
+            } else if (s.toLowerCase().startsWith("prefix:")) {
+                CommandManager.setPrefix(args[1]);
             }
         }
     }

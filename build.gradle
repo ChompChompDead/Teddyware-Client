@@ -46,6 +46,14 @@ repositories {
         name = 'lukflug'
         url = 'https://lukflug.github.io/maven'
     }
+    maven {
+        name = 'swt-repo'
+        url = "http://maven-eclipse.github.io/maven"
+    }
+    maven {
+        name = "jitpack.io"
+        url = "https://jitpack.io"
+    }
     mavenCentral()
 }
 
@@ -58,6 +66,7 @@ dependencies {
     }
     compile('com.lukflug:panelstudio:0.1.8')
     compile('com.lukflug:panelstudio-mc12:0.1.8')
+    compile('com.github.ZeroMemes:Alpine:1.5')
     //compile('club.minnced:java-discord-rpc:2.0.1')
 }
 
@@ -66,6 +75,7 @@ shadowJar {
         include(dependency('org.spongepowered:mixin'))
         include(dependency('com.lukflug:panelstudio'))
         include(dependency('com.lukflug:panelstudio-mc12'))
+        include(dependency('com.github.ZeroMemes:Alpine'))
         //include(dependency('club.minnced:java-discord-rpc:2.0.1'))
     }
     exclude 'dummyThing'

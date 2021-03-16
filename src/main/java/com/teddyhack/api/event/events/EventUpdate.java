@@ -1,4 +1,4 @@
-package com.teddyhack.api.event.listeners;
+package com.teddyhack.api.event.events;
 
 import com.teddyhack.api.event.Event;
 

@@ -1,5 +1,6 @@
 package com.teddyhack.client.setting.settings;
 
+import com.lukflug.panelstudio.settings.EnumSetting;
 import com.teddyhack.client.Teddyhack;
 import com.teddyhack.client.module.Module;
 import com.teddyhack.client.setting.Setting;
@@ -7,7 +8,7 @@ import scala.actors.threadpool.Arrays;
 
 import java.util.List;
 
-public class ModeSetting extends Setting {
+public class ModeSetting extends Setting implements EnumSetting {
     public int index;
 
     public List<String> modes;
@@ -40,5 +41,10 @@ public class ModeSetting extends Setting {
         } else {
             this.index = 0;
         }
+    }
+
+    @Override
+    public String getValueName() {
+        return this.modes.get(this.index);
     }
 }

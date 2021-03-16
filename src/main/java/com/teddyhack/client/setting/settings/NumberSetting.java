@@ -4,7 +4,7 @@ import com.teddyhack.client.Teddyhack;
 import com.teddyhack.client.module.Module;
 import com.teddyhack.client.setting.Setting;
 
-public class NumberSetting extends Setting {
+public class NumberSetting extends Setting implements com.lukflug.panelstudio.settings.NumberSetting {
     public double value;
     public double minimum;
     public double maximum;
@@ -57,5 +57,31 @@ public class NumberSetting extends Setting {
 
     public void setIncrement(double increment) {
         this.increment = increment;
+    }
+
+    @Override
+    public double getNumber() {
+        return this.value;
+    }
+
+    @Override
+    public void setNumber(double value) {
+        double precision = 1.0D / this.increment;
+        this.value = Math.round(Math.max(this.minimum, Math.min(this.maximum, value)) * precision) / precision;
+    }
+
+    @Override
+    public double getMaximumValue() {
+        return this.maximum;
+    }
+
+    @Override
+    public double getMinimumValue() {
+        return this.minimum;
+    }
+
+    @Override
+    public int getPrecision() {
+        return 1;
     }
 }

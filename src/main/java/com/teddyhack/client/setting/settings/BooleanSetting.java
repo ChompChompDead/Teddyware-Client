@@ -1,10 +1,11 @@
 package com.teddyhack.client.setting.settings;
 
+import com.lukflug.panelstudio.settings.Toggleable;
 import com.teddyhack.client.Teddyhack;
 import com.teddyhack.client.module.Module;
 import com.teddyhack.client.setting.Setting;
 
-public class BooleanSetting extends Setting {
+public class BooleanSetting extends Setting implements Toggleable {
     public boolean enabled;
 
     public BooleanSetting(String name, Module parent, boolean enabled) {
@@ -24,10 +25,15 @@ public class BooleanSetting extends Setting {
         }
     }
 
-    public void toggled() {
+    public void toggle() {
         this.enabled = !this.enabled;
         if (Teddyhack.config != null) {
             Teddyhack.config.save();
         }
+    }
+
+    @Override
+    public boolean isOn() {
+        return this.isEnabled();
     }
 }

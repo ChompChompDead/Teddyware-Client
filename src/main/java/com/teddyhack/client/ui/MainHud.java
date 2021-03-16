@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import com.teddyhack.client.Teddyhack;
-import com.teddyhack.api.event.listeners.EventRenderGUI;
+import com.teddyhack.api.event.events.EventRenderGUI;
 import com.teddyhack.client.module.Module;
 import com.teddyhack.client.module.ModuleManager;
 import net.minecraft.client.Minecraft;
@@ -69,7 +69,7 @@ public class MainHud extends Gui {
                                 !mod.getName().equalsIgnoreCase("DiscordRPC") &&
                                 !mod.getName().equalsIgnoreCase("ClickGUI") &&
                                 mod.isToggled()) {
-                            fr.drawStringWithShadow(mod.getName(), sr.getScaledWidth() - fr.getStringWidth(mod.getName()) - 2, y, rainbow(counter[0] * 300));
+                            fr.drawStringWithShadow(mod.getName(), sr.getScaledWidth() - fr.getStringWidth(mod.getName()) - 2, y, rainbow(counter[0] * 500));
                             y += fr.FONT_HEIGHT;
                             counter[0]++;
                         }
@@ -83,7 +83,7 @@ public class MainHud extends Gui {
         }
     }
 
-    public static int rainbow(int delay){
+    public static int rainbow(int delay) {
         double rainbowState = Math.ceil((System.currentTimeMillis() + delay) / 20.0);
         rainbowState %= 360;
         return Color.getHSBColor((float) (rainbowState / 360.0f), 0.5f, 1f).getRGB();

@@ -1,18 +1,17 @@
 package com.teddyhack.client.module;
 
 import com.teddyhack.client.Teddyhack;
-import com.teddyhack.api.event.listeners.EventKey;
-import com.teddyhack.api.event.listeners.EventNotifier;
+import com.teddyhack.api.event.events.EventKey;
+import com.teddyhack.api.event.events.EventNotifier;
 import com.teddyhack.client.module.client.*;
 import com.teddyhack.client.module.combat.AutoArmor;
 import com.teddyhack.client.module.combat.AutoTotem;
 import com.teddyhack.client.module.combat.BowSpam;
 import com.teddyhack.client.module.combat.KillAura;
 import com.teddyhack.client.module.exploits.ServerBackdoor;
-import com.teddyhack.client.module.movement.Fly;
-import com.teddyhack.client.module.movement.Sprint;
-import com.teddyhack.client.module.movement.Step;
+import com.teddyhack.client.module.movement.*;
 import com.teddyhack.client.module.player.AutoSuicide;
+import com.teddyhack.client.module.player.FakePlayer;
 import com.teddyhack.client.module.player.NoFall;
 import com.teddyhack.client.module.render.FullBright;
 import com.teddyhack.client.module.client.Hud;
@@ -35,6 +34,8 @@ public class ModuleManager {
         modules.add(new Sprint());
         modules.add(new Fly());
         modules.add(new Step());
+        modules.add(new Strafe());
+        modules.add(new Jesus());
 
         // Render
         modules.add(new FullBright());
@@ -44,15 +45,17 @@ public class ModuleManager {
         modules.add(new ChatSuffix());
         modules.add(new ChatFont());
         modules.add(new ChatNotifier());
-        modules.add(new ClickGUI());
+        modules.add(new ClickGUIModule());
         modules.add(new Coords());
         modules.add(new Watermark());
         modules.add(new com.teddyhack.client.module.client.ArrayList());
         modules.add(new TabGUI());
+        modules.add(new CustomFont());
 
         // Player
         modules.add(new NoFall());
         modules.add(new AutoSuicide());
+        modules.add(new FakePlayer());
 
         // Exploits
         modules.add(new ServerBackdoor());
@@ -102,7 +105,6 @@ public class ModuleManager {
                         if(m.getKey() == keyCode && keyCode > 0) {
                             m.toggle();
                             Teddyhack.onEvent(new EventNotifier(m.name, m.toggled));
-                            //ChatUtil.type(m.name + " is " + Module.getToggledStatus(m.toggled));
                         }
                     }
                 }

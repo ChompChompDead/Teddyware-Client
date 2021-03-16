@@ -1,7 +1,13 @@
-# Teddyhack Anarchy Client
-Teddyhack is an anarchy client for minecraft anarchy servers for 1.12.2. <br>
+# Teddyhack Utility Mod
+[![GitHub all releases](https://img.shields.io/github/downloads/ChompChompDead/Teddyhack/total?color=32CD32&style=flat-square)](https://github.com/ChompChompDead/Teddyhack/releases)
+[![Lines of code](https://img.shields.io/tokei/lines/github/ChompChompDead/Teddyhack?color=32CD32&style=flat-square)](https://github.com/ChompChompDead/Teddyhack/tree/master/src/main/java/com/teddyhack)
+
+Teddyhack is a utility mod for minecraft anarchy servers for 1.12.2. <br>
+It is like **optifine**, and should only be used on servers that allow it. <br>
 Some of the code is skidded because im new to java lol <br>
-**PLEASE NOTE THAT THIS CLIENT HAS ABSOLUTELY NO ANTICHEAT BUILT IN, IT IS ONLY FOR ANARCHY** <br>
+**PLEASE NOTE THAT THIS CLIENT HAS NO ANTICHEAT BUILT IN** <br>
+Also huge thanks to srgantmoomoo for making moo base :) some of the base is made by it (because im trash skid) <br>
+Once the whole client is actually out of pre release I will work on unskidding. <br>
 
 ## How to use for development environments
 I really only know how to set this up for intellij, soooo yeah <br>
@@ -27,5 +33,6 @@ I really only know how to set this up for intellij, soooo yeah <br>
 Official Discord: https://discord.gg/X2BmAqW8ry <br>
 SpongeForge Mixins: https://www.spongepowered.org/downloads/spongeforge/stable/1.12.2 <br>
 IntelliJ IDEA (community edition): https://www.jetbrains.com/idea/download/#section=windows <br>
+PanelStudio ClickGUI: https://github.com/lukflug/PanelStudio <br>
 <br>
 ![alt text for photo](https://cdn.discordapp.com/attachments/678127344774545409/808351881272229918/maybe.jpg)

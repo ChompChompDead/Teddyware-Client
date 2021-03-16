@@ -1,5 +1,6 @@
 package com.teddyhack.client.module;
 
+import com.lukflug.panelstudio.settings.Toggleable;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import com.teddyhack.api.event.Event;
 import com.teddyhack.client.Teddyhack;
@@ -15,13 +16,15 @@ import java.util.List;
 
 // i am cool
 
-public class Module {
+public class Module implements Toggleable {
 
     public String name, description;
     public int key;
     private Category category;
     public boolean toggled;
-    public boolean openSetting;
+    public boolean moduleOpen;
+    public int settingIndex;
+    public boolean settingExpanded;
 
     public KeybindSetting keyCode = new KeybindSetting(0);
     public List<Setting> settings = new ArrayList<Setting>();
@@ -54,6 +57,7 @@ public class Module {
 
     public void setKey(int key) {
         this.key = key;
+        keyCode.setKeyCode(key);
         if (Teddyhack.config != null) {
             Teddyhack.config.save();
         }
@@ -113,11 +117,11 @@ public class Module {
     }
 
     public boolean isOpen() {
-        return openSetting;
+        return moduleOpen;
     }
 
-    public void setOpen(boolean openSetting) {
-        this.openSetting = openSetting;
+    public void setOpen(boolean moduleOpen) {
+        this.moduleOpen = moduleOpen;
     }
 
     public String getName() {
@@ -134,6 +138,10 @@ public class Module {
         } else {
             return ChatFormatting.DARK_RED + "disabled";
         }
+    }
+
+    public final boolean isOn() {
+        return toggled;
     }
 
 }

@@ -2,7 +2,7 @@ package com.teddyhack.api.mixin.mixins;
 
 import com.teddyhack.client.Teddyhack;
 import com.teddyhack.api.event.EventType;
-import com.teddyhack.api.event.listeners.EventUpdate;
+import com.teddyhack.api.event.events.EventUpdate;
 import net.minecraft.client.entity.EntityPlayerSP;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

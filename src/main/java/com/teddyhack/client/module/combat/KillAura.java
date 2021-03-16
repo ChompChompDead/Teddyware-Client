@@ -1,9 +1,11 @@
 package com.teddyhack.client.module.combat;
 
 import com.teddyhack.api.event.Event;
-import com.teddyhack.api.event.listeners.EventUpdate;
+import com.teddyhack.api.event.events.EventUpdate;
+import com.teddyhack.client.Teddyhack;
 import com.teddyhack.client.module.Category;
 import com.teddyhack.client.module.Module;
+import com.teddyhack.client.setting.Setting;
 import com.teddyhack.client.setting.settings.BooleanSetting;
 import com.teddyhack.client.setting.settings.NumberSetting;
 import net.minecraft.entity.Entity;
@@ -22,6 +24,7 @@ public class KillAura extends Module {
 
     public KillAura() {
         super("KillAura", "kill thing :)", Keyboard.KEY_NONE, Category.Combat);
+        this.addSetting(rangeA, passiveMobsA, hostileMobsA, playersA);
     }
 
     public NumberSetting rangeA = new NumberSetting("Range", this, 6, 1, 6, 0.5);
@@ -42,9 +45,7 @@ public class KillAura extends Module {
                         .sorted(Comparator.comparing(s -> mc.player.getDistance(s)))
                         .collect(Collectors.toList());
 
-                targets.forEach(target -> {
-                    attack(target);
-                });
+                targets.forEach(this::attack);
             }
         }
     }

@@ -1,7 +1,7 @@
 package com.teddyhack.client.module.combat;
 
 import com.teddyhack.api.event.Event;
-import com.teddyhack.api.event.listeners.EventUpdate;
+import com.teddyhack.api.event.events.EventUpdate;
 import com.teddyhack.client.module.Category;
 import com.teddyhack.client.module.Module;
 import net.minecraft.network.play.client.CPacketPlayerDigging;
