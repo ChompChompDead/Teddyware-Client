@@ -19,7 +19,7 @@ public class ClickGUISave {
         }
     }
 
-    public static final String fileName = "teddyhack/";
+    public static final String fileName = "teddyware/";
     String mainName = "ClickGUI/";
 
     public void clickGUISave() throws IOException {

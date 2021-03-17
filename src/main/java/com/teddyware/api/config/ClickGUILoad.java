@@ -15,7 +15,7 @@ public class ClickGUILoad {
         }
     }
 
-    String fileName = "teddyhack/";
+    String fileName = "teddyware/";
     String location = "ClickGUI/";
 
     public void clickGUILoad() throws IOException {
