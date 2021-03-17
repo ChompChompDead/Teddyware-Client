@@ -36,8 +36,8 @@ public class Teddyware
     public static final String MODID = "teddyware";
     public static final String NAME = "Teddyware";
     public static final String VERSION = "0.28";
-    public static final String CLIENT_PROXY_CLASS = "com.teddyhack.api.proxy.ClientProxy";
-    public static final String COMMON_PROXY_CLASS = "com.teddyhack.api.proxy.CommonProxy";
+    public static final String CLIENT_PROXY_CLASS = "com.teddyware.api.proxy.ClientProxy";
+    public static final String COMMON_PROXY_CLASS = "com.teddyware.api.proxy.CommonProxy";
     public static final Logger log = LogManager.getLogger(NAME + " v" + VERSION);
 
     public static MainHud mainHud;
