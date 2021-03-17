@@ -12,7 +12,7 @@ public class MixinLoader implements IFMLLoadingPlugin {
 
     public MixinLoader() {
         MixinBootstrap.init();
-        Mixins.addConfiguration("mixins.teddyhack.json");
+        Mixins.addConfiguration("mixins.teddyware.json");
         Teddyware.log.info("mixins are ready");
     }
 
