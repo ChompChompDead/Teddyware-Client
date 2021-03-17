@@ -17,7 +17,7 @@ public class MixinGuiMainMenu extends GuiScreen {
 
     @Inject(method = {"drawScreen"}, at = {@At("TAIL")}, cancellable = true)
     public void drawText(CallbackInfo ci) {
-        mc.fontRenderer.drawStringWithShadow(TextFormatting.GRAY + "Teddyhack " + TextFormatting.LIGHT_PURPLE + "v" + Teddyware.VERSION, 1, 1, 0xffffff);
+        mc.fontRenderer.drawStringWithShadow(TextFormatting.GRAY + Teddyware.NAME + " " + TextFormatting.LIGHT_PURPLE + "v" + Teddyware.VERSION, 1, 1, 0xffffff);
     }
 
 }

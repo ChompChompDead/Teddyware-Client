@@ -42,7 +42,6 @@ public class Module implements Toggleable {
         this.toggled = false;
     }
 
-    public void onRender() {}
     public void onEvent(Event e) {}
     public String getDescription() {
         return description;

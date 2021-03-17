@@ -1,10 +1,5 @@
 package com.teddyware.api.event;
 
-import com.teddyware.client.module.Module;
-import com.teddyware.client.module.ModuleManager;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
 public class Event<T> {
 
     public boolean cancelled;
@@ -61,14 +56,6 @@ public class Event<T> {
             return false;
 
         return direction == EventDirection.OUTGOING;
-    }
-
-    @SubscribeEvent
-    public void onRender(RenderWorldLastEvent event) {
-        if (event.isCanceled()) {
-            return;
-        }
-        ModuleManager.getModuleList().stream().filter(Module::isToggled).forEach(Module::onRender);
     }
 
 }

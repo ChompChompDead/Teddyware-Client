@@ -84,7 +84,7 @@ shadowJar {
 }
 
 mixin {
-    add sourceSets.main, 'mixins.teddyhack.refmap.json'
+    add sourceSets.main, 'mixins.teddyware.refmap.json'
 }
 
 reobf {
