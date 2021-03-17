@@ -22,9 +22,9 @@ apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'com.github.johnrengelman.shadow'
 
-version = '0.27'
-group = 'com.teddyhack' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'Teddyhack'
+version = '0.28'
+group = 'com.teddyware' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'Teddyware'
 
 compileJava {
     sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
@@ -97,11 +97,11 @@ reobf {
 jar {
     manifest {
         attributes([
-                "MixinConfigs": 'mixins.teddyhack.json',
+                "MixinConfigs": 'mixins.teddyware.json',
                 "tweakClass": 'org.spongepowered.asm.launch.MixinTweaker',
                 "TweakOrder": 0,
                 "FMLCorePluginContainsFMLMod": true,
-                "FMLCorePlugin": "com.teddyhack.api.mixin.MixinLoader",
+                "FMLCorePlugin": "com.teddyware.api.mixin.MixinLoader",
                 "ForceLoadAsMod": true,
         ])
     }

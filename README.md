@@ -23,7 +23,7 @@ I really only know how to set this up for intellij, soooo yeah <br>
 - Put the name to whatever you want, doesn't matter (i usually put it as runClient) <br>
 - First go to modify options, then select add VM options (VM arguments for eclipse). <br>
 - The main class should already be GradleStart, but if it isn't just type gradlestart in the box and it will show it. <br>
-- Now in VM options, you want to put this in: `-Dforge.logging.console.level=debug -Dforge.logging.markers=SCAN,REGISTRIES,REGISTRYDUMP -Dfml.coreMods.load=com.teddyhack.api.mixin.MixinLoader` <br>
+- Now in VM options, you want to put this in: `-Dforge.logging.console.level=debug -Dforge.logging.markers=SCAN,REGISTRIES,REGISTRYDUMP -Dfml.coreMods.load=com.teddyware.api.mixin.MixinLoader` <br>
 - Finally, set the working directory to `TeddyhackDirectory\run` (replace the teddyhackdirectory with wherever the main file is) <br>
 - You are done with everything, now just press run <br>
 - If setupdecompworkspace is showing an error, just remove it.
