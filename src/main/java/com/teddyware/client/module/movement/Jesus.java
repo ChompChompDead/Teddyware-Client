@@ -13,7 +13,7 @@ import org.lwjgl.input.Keyboard;
 public class Jesus extends Module {
 
     public Jesus() {
-        super("Jesus", "walk on water", Keyboard.KEY_NONE, Category.Movement);
+        super("Jesus", "Allows you to walk on water.", Keyboard.KEY_NONE, Category.Movement);
     }
 
     public float offset = 0.5f;

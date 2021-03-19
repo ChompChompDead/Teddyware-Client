@@ -10,7 +10,7 @@ import org.lwjgl.input.Keyboard;
 public class Step extends Module {
 
     public Step() {
-        super("Step", "go up block without jump ez.", Keyboard.KEY_NONE, Category.Movement);
+        super("Step", "Allows you to step up normal blocks like stairs.", Keyboard.KEY_NONE, Category.Movement);
     }
 
     @Override

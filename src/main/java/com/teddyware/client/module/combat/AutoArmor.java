@@ -18,7 +18,7 @@ public class AutoArmor extends Module {
     public Minecraft mc = Minecraft.getMinecraft();
 
     public AutoArmor() {
-        super("AutoArmor", "auto armor so u are ez", Keyboard.KEY_NONE, Category.Combat);
+        super("AutoArmor", "Automatically equips the best armor.", Keyboard.KEY_NONE, Category.Combat);
     }
 
     @Override

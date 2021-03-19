@@ -7,7 +7,7 @@ import org.lwjgl.input.Keyboard;
 public class AutoSuicide extends Module {
 
     public AutoSuicide() {
-        super("AutoSuicide", "Automatically kills yourself.", Keyboard.KEY_NONE, Category.Player);
+        super("AutoSuicide", "Automatically kills yourself. Useful for regearing in practice servers.", Keyboard.KEY_NONE, Category.Player);
     }
 
     @Override

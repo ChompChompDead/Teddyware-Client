@@ -16,7 +16,7 @@ public class Velocity extends Module {
     }
 
     public Velocity() {
-        super("Velocity", "anti knockback", Keyboard.KEY_NONE, Category.Movement);
+        super("Velocity", "Negates or reduces knockback.", Keyboard.KEY_NONE, Category.Movement);
     }
 
     @Override

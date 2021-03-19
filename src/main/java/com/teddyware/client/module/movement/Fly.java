@@ -7,7 +7,7 @@ import org.lwjgl.input.Keyboard;
 public class Fly extends Module {
 
     public Fly() {
-        super("Fly", "Fly lolololo", Keyboard.KEY_NONE, Category.Movement);
+        super("Fly", "Fly without being in creative mode.", Keyboard.KEY_NONE, Category.Movement);
     }
 
     @Override

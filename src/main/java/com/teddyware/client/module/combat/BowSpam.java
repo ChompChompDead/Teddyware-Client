@@ -12,7 +12,7 @@ import org.lwjgl.input.Keyboard;
 public class BowSpam extends Module {
 
     public BowSpam() {
-        super("BowSpam", "spam arrow :D", Keyboard.KEY_NONE, Category.Combat);
+        super("BowSpam", "Allows you to release arrows without cooldown.", Keyboard.KEY_NONE, Category.Combat);
     }
 
     @Override

@@ -20,7 +20,7 @@ import org.lwjgl.input.Keyboard;
 public class Strafe extends Module {
 
     public Strafe() {
-        super("Strafe", "move cool", Keyboard.KEY_NONE, Category.Movement);
+        super("Strafe", "Automatically jump back and forth while sprinting.", Keyboard.KEY_NONE, Category.Movement);
         this.addSetting(onWater, autoJump, backwards);
     }
 

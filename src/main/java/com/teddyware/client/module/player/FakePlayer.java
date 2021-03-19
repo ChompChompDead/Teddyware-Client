@@ -10,7 +10,7 @@ import java.util.UUID;
 public class FakePlayer extends Module {
 
     public FakePlayer() {
-        super("FakePlayer", "spawns a random fake player", Keyboard.KEY_NONE, Category.Player);
+        super("FakePlayer", "Spawns a dummy to test things on.", Keyboard.KEY_NONE, Category.Player);
     }
 
     EntityOtherPlayerMP fakePlayer;

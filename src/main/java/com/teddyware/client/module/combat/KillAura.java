@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class KillAura extends Module {
 
     public KillAura() {
-        super("KillAura", "kill thing :)", Keyboard.KEY_NONE, Category.Combat);
+        super("KillAura", "Automatically attacks enemies.", Keyboard.KEY_NONE, Category.Combat);
         this.addSetting(range, passiveMobs, hostileMobs, players, cooldown);
     }
 

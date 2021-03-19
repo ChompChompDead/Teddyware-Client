@@ -13,7 +13,7 @@ import net.minecraft.item.Item;
 public class AutoTotem extends Module {
     
     public AutoTotem() {
-        super("AutoTotem", "auto totem :)", Keyboard.KEY_NONE, Category.Combat);
+        super("AutoTotem", "Automatically place a totem into your offhand.", Keyboard.KEY_NONE, Category.Combat);
     }
 
     public boolean switching = false;
