@@ -14,6 +14,7 @@ import org.lwjgl.input.Keyboard;
 /*
 * @author TrvsF
 * pasted from wp2. sorry
+* chomp is wp2 fan xd
  */
 
 public class Strafe extends Module {

@@ -1,4 +1,4 @@
-package com.teddyware.client.module.combat;
+package com.teddyware.client.module.movement;
 
 import com.teddyware.api.event.Event;
 import com.teddyware.api.event.events.EventUpdate;
@@ -16,7 +16,7 @@ public class Velocity extends Module {
     }
 
     public Velocity() {
-        super("Velocity", "anti knockback", Keyboard.KEY_NONE, Category.Combat);
+        super("Velocity", "anti knockback", Keyboard.KEY_NONE, Category.Movement);
     }
 
     @Override
