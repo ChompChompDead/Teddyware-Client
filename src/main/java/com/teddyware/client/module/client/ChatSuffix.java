@@ -13,7 +13,7 @@ import java.util.Arrays;
 public class ChatSuffix extends Module {
 
     public ChatSuffix() {
-        super("ChatSuffix", "teddyhack suffix at end of your messages :)", Keyboard.KEY_NONE, Category.Client);
+        super("ChatSuffix", "Show everyone you're using the superior client.", Keyboard.KEY_NONE, Category.Client);
     }
 
     @SubscribeEvent
