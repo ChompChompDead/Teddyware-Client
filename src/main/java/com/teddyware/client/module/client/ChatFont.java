@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class ChatFont extends Module {
 
     public ChatFont() {
-        super("ChatFont", "makes your chat have font", Keyboard.KEY_NONE, Category.Client);
+        super("ChatFont", "Changes the font of your messages", Keyboard.KEY_NONE, Category.Client);
     }
 
     @SubscribeEvent
