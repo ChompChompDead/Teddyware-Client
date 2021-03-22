@@ -29,7 +29,7 @@ public class ClickGUIModule extends Module {
     }
 
     public ClickGUIModule() {
-        super("ClickGUI", "clickgui, finally", Keyboard.KEY_RSHIFT, Category.Client);
+        super("ClickGUI", "Change your GUI settings.", Keyboard.KEY_RSHIFT, Category.Client);
         this.addSetting(enabledColor, backgroundColor, settingBackgroundColor, outlineColor, fontColor, animationSpeed, opacity);
         INSTANCE = this;
     }
