@@ -7,7 +7,7 @@ import org.lwjgl.input.Keyboard;
 public class DiscordRPC extends Module {
 
     public DiscordRPC() {
-        super("DiscordRPC", "dee cord rich presence :)", Keyboard.KEY_NONE, Category.Client);
+        super("DiscordRPC", "Show everyone you're playing Teddyware on Discord.", Keyboard.KEY_NONE, Category.Client);
         this.toggled = true;
     }
 
