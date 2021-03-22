@@ -26,7 +26,7 @@ public class TabGUI extends Module {
     public boolean expanded;
 
     public TabGUI() {
-        super("TabGUI", "clickgui but worse", Keyboard.KEY_NONE, Category.Client);
+        super("TabGUI", "Have a tab where you can change modules.", Keyboard.KEY_NONE, Category.Client);
         this.toggled = true;
     }
 
