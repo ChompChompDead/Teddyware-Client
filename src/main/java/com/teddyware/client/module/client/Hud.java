@@ -7,7 +7,7 @@ import org.lwjgl.input.Keyboard;
 public class Hud extends Module {
 
     public Hud() {
-        super("Hud", "da gui", Keyboard.KEY_NONE, Category.Client);
+        super("Hud", "GUI elements.", Keyboard.KEY_NONE, Category.Client);
         this.toggled = true;
     }
 
