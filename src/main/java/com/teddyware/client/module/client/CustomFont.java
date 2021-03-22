@@ -15,7 +15,7 @@ public class CustomFont extends Module {
     public ModeSetting font = new ModeSetting("Font", this, "Verdana", "Verdana", "Arial", "Comic Sans Ms", "Helvetica");
 
     public CustomFont() {
-        super("CustomFont", "Custom font :D", Keyboard.KEY_NONE, Category.Client);
+        super("CustomFont", "Changes GUI font.", Keyboard.KEY_NONE, Category.Client);
         this.addSetting(font);
         INSTANCE = this;
     }
