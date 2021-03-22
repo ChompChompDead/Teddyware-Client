@@ -7,7 +7,7 @@ import org.lwjgl.input.Keyboard;
 public class Coords extends Module {
 
     public Coords() {
-        super("Coords", "Shows coordartinitesndak", Keyboard.KEY_NONE, Category.Client);
+        super("Coords", "Shows your position in the world.", Keyboard.KEY_NONE, Category.Client);
     }
 
     @Override
