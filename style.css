@@ -1,0 +1,156 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
+
+html {
+    scroll-behavior: smooth;
+}
+
+body { 
+    font-family: 'Raleway', sans-serif; 
+    background-image: url('images/BackgroundImage.jpg');
+}
+
+button { 
+    font-family: 'Raleway', sans-serif; 
+}
+
+* { 
+    box-sizing: border-box; 
+}
+
+hr {
+    width: 15%;
+}
+
+.center {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+p {
+    font-size: large;
+}
+
+.center h1 {
+    color: white;
+}
+
+.center p {
+    color: white;
+}
+
+.center button {
+    width: 175px;
+    height: 40px;
+    overflow: hidden;
+    outline: none;
+    transition: 0.2s;
+    border: 0;
+    border-radius: 8px;
+    margin-right: 3px;
+    margin-left: 3px;
+    background-color: #c7c7c7;
+}
+
+.center button:hover {
+    color: white;
+    background-color: #835C3B;
+    box-shadow: 0 0 10px #835C3B, 0 0 40px #835C3B, 0 0 80px #835C3B;
+}
+
+svg {
+    position: absolute;
+    bottom: 0%;
+    left: 0%;
+}
+
+.about {
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    width: 100%;
+    bottom: -100%;
+    height: 70%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: #835c3b;
+    color: white;
+}
+
+.about img {
+    border-radius: 50%; 
+    width: 200px; 
+    height: 200px;
+}
+
+.images {
+    float: right;
+    width: 33.33%;
+    padding: 5px;
+}
+
+.credits::after {
+    content: "";
+    clear: both;
+    display: table-row;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    background-color: rgb(37, 37, 37);
+}
+
+.navbar img {
+    float: left;
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+.navbar li {
+    float: left;
+}
+
+.navbar a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.navbar a:hover {
+    color: white;
+    background-color: #835C3B;
+    box-shadow: 0 0 10px #835C3B, 0 0 40px #835C3B, 0 0 80px #835C3B;
+}
+
+.navbar img {
+    margin-top: 4.5px;
+    overflow: hidden;
+}
+
+
+@media screen and (max-width: 500px) {
+    .images {
+        width: 100%;
+    }
+
+    .about {
+        position: absolute;
+        bottom: -225%;
+        height: 150%;
+        width: 100%;
+    }
+
+    .navbar a {
+        float: none;
+        display: block;
+    }
+}
