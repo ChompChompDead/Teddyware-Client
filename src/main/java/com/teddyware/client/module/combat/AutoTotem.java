@@ -17,7 +17,7 @@ public class AutoTotem extends Module {
     }
 
     public boolean switching = false;
-    public int last_slot;
+    public int lastSlot;
 
     @Override
     public void onEvent(Event e) {
@@ -26,19 +26,19 @@ public class AutoTotem extends Module {
                 if (mc.currentScreen == null || mc.currentScreen instanceof GuiInventory) {
 
                     if (switching) {
-                        swap_items(last_slot, 2);
+                        swapItems(lastSlot, 2);
                         return;
                     }
 
                     if (mc.player.getHeldItemOffhand().getItem() == Items.AIR) {
-                        swap_items(get_item_slot(), 0);
+                        swapItems(getItemSlot(), 0);
                     }
                 }
             }
         }
     }
 
-    public int get_item_slot() {
+    public int getItemSlot() {
         if (Items.TOTEM_OF_UNDYING == mc.player.getHeldItemOffhand().getItem()) return -1;
         for(int i = 36; i >= 0; i--) {
             final Item item = mc.player.inventory.getStackInSlot(i).getItem();
@@ -52,7 +52,7 @@ public class AutoTotem extends Module {
         return -1;
     }
 
-    public void swap_items(int slot, int step) {
+    public void swapItems(int slot, int step) {
         if (slot == -1) return;
         if (step == 0) {
             mc.playerController.windowClick(0, slot, 0, ClickType.PICKUP, mc.player);
@@ -62,7 +62,7 @@ public class AutoTotem extends Module {
         if (step == 1) {
             mc.playerController.windowClick(0, slot, 0, ClickType.PICKUP, mc.player);
             switching = true;
-            last_slot = slot;
+            lastSlot = slot;
         }
         if (step == 2) {
             mc.playerController.windowClick(0, 45, 0, ClickType.PICKUP, mc.player);

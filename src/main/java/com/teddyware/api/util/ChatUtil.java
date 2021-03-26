@@ -4,7 +4,7 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import com.teddyware.client.Teddyware;
 import net.minecraft.util.text.TextComponentString;
 
-public class ChatUtil implements Util {
+public class ChatUtil implements UtilInterface {
 
     public static String message;
 

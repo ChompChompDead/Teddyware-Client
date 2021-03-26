@@ -26,9 +26,6 @@ public class ModeSetting extends Setting implements EnumSetting {
 
     public void setMode(String mode) {
         this.index = this.modes.indexOf(mode);
-        if (Teddyware.config != null) {
-            Teddyware.config.save();
-        }
     }
 
     public boolean is(String mode) {

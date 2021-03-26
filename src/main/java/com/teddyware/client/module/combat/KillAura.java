@@ -69,7 +69,6 @@ public class KillAura extends Module {
     }
 
     private boolean attackCheck(Entity entity) {
-
         if (players.isEnabled() && entity instanceof EntityPlayer){
             if (((EntityPlayer) entity).getHealth() > 0) {
                 return true;

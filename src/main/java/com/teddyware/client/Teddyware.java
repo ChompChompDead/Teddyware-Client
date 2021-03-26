@@ -15,6 +15,7 @@ import com.teddyware.client.module.client.CustomFont;
 import com.teddyware.client.setting.SettingManager;
 import com.teddyware.client.ui.MainHud;
 import com.teddyware.client.ui.clickgui.ClickGUIScreen;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -23,6 +24,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.Display;
@@ -109,6 +111,11 @@ public class Teddyware
                 continue;
             m.onEvent(e);
         }
+    }
+
+    @SubscribeEvent
+    public void onWorldRender(final RenderWorldLastEvent event) {
+        ModuleManager.onWorldRender(event);
     }
 
     public String getName() { return NAME; }

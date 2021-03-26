@@ -1,6 +1,5 @@
 package com.teddyware.client.setting.settings;
 
-import com.teddyware.client.Teddyware;
 import com.teddyware.client.module.Module;
 import com.teddyware.client.setting.Setting;
 
@@ -26,9 +25,6 @@ public class NumberSetting extends Setting implements com.lukflug.panelstudio.se
     public void setValue(double value) {
         double precision = 1.0D / this.increment;
         this.value = Math.round(Math.max(this.minimum, Math.min(this.maximum, value)) * precision) / precision;
-        if (Teddyware.config != null) {
-            Teddyware.config.save();
-        }
     }
 
     public void increment(boolean positive) {

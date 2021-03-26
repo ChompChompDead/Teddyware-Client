@@ -1,4 +1,4 @@
-package com.teddyware.api.util.gui;
+package com.teddyware.api.util.color;
 
 import java.awt.Color;
 

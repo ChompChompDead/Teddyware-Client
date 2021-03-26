@@ -7,7 +7,7 @@ public class KeybindSetting extends Setting implements com.lukflug.panelstudio.s
     public int code;
 
     public KeybindSetting(int code) {
-        this.name = "Key Bind";
+        this.name = "Keybind";
         this.code = code;
     }
 

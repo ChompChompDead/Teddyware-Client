@@ -1,5 +1,7 @@
 package com.teddyware.client.module;
 
+import com.teddyware.api.event.events.EventRender;
+import com.teddyware.api.util.TWTessellator;
 import com.teddyware.client.Teddyware;
 import com.teddyware.api.event.events.EventKey;
 import com.teddyware.api.event.events.EventNotifier;
@@ -10,10 +12,14 @@ import com.teddyware.client.module.movement.*;
 import com.teddyware.client.module.player.AutoSuicide;
 import com.teddyware.client.module.player.FakePlayer;
 import com.teddyware.client.module.player.NoFall;
+import com.teddyware.client.module.player.Velocity;
 import com.teddyware.client.module.render.FullBright;
 import com.teddyware.client.module.client.Hud;
 import com.teddyware.client.module.client.TabGUI;
+import com.teddyware.client.module.render.HoleESP;
+import com.teddyware.client.module.render.StorageESP;
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
@@ -36,9 +42,11 @@ public class ModuleManager {
 
         // Render
         modules.add(new FullBright());
+        modules.add(new HoleESP());
+        modules.add(new StorageESP());
 
         // Client
-        modules.add(new com.teddyware.client.module.client.ArrayList());
+        modules.add(new ArrayListt());
         modules.add(new Hud());
         modules.add(new ChatSuffix());
         modules.add(new ChatFont());
@@ -53,12 +61,14 @@ public class ModuleManager {
         modules.add(new AutoSuicide());
         modules.add(new FakePlayer());
         modules.add(new NoFall());
+        modules.add(new Velocity());
 
         // Exploits
         modules.add(new ServerBackdoor());
 
         // Combat
         modules.add(new AutoArmor());
+        modules.add(new AutoCrystal());
         modules.add(new AutoTotem());
         modules.add(new BowSpam());
         modules.add(new KillAura());
@@ -107,5 +117,24 @@ public class ModuleManager {
                 }
             }
         } catch (Exception q) { q.printStackTrace(); }
+    }
+
+    public static void onWorldRender(RenderWorldLastEvent event) {
+        Minecraft.getMinecraft().mcProfiler.startSection(Teddyware.MODID);
+        Minecraft.getMinecraft().mcProfiler.startSection("setup");
+        TWTessellator.prepare();
+        EventRender e = new EventRender(event.getPartialTicks());
+        Minecraft.getMinecraft().mcProfiler.endSection();
+
+        modules.stream().filter(module -> module.isToggled()).forEach(module -> {
+            Minecraft.getMinecraft().mcProfiler.startSection(module.getName());
+            module.onWorldRender(e);
+            Minecraft.getMinecraft().mcProfiler.endSection();
+        });
+
+        Minecraft.getMinecraft().mcProfiler.startSection("release");
+        TWTessellator.release();
+        Minecraft.getMinecraft().mcProfiler.endSection();
+        Minecraft.getMinecraft().mcProfiler.endSection();
     }
 }

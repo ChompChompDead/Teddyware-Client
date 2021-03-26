@@ -3,6 +3,7 @@ package com.teddyware.client.module;
 import com.lukflug.panelstudio.settings.Toggleable;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import com.teddyware.api.event.Event;
+import com.teddyware.api.event.events.EventRender;
 import com.teddyware.client.Teddyware;
 import com.teddyware.client.setting.Setting;
 import com.teddyware.client.setting.settings.KeybindSetting;
@@ -35,13 +36,13 @@ public class Module implements Toggleable {
         super();
         this.name = name;
         this.description = description;
-        this.key = key;
         keyCode.code = key;
         this.addSetting(keyCode);
         this.category = category;
         this.toggled = false;
     }
 
+    public void onWorldRender(EventRender e) { }
     public void onEvent(Event e) {}
     public String getDescription() {
         return description;
@@ -55,11 +56,7 @@ public class Module implements Toggleable {
     }
 
     public void setKey(int key) {
-        this.key = key;
         keyCode.setKeyCode(key);
-        if (Teddyware.config != null) {
-            Teddyware.config.save();
-        }
     }
 
     public boolean isToggled() {
@@ -79,9 +76,6 @@ public class Module implements Toggleable {
         } else {
             this.onDisable();
         }
-        if (Teddyware.config != null) {
-            Teddyware.config.save();
-        }
     }
 
     public void toggle() {
@@ -91,9 +85,6 @@ public class Module implements Toggleable {
             this.onEnable();
         } else {
             this.onDisable();
-        }
-        if (Teddyware.config != null) {
-            Teddyware.config.save();
         }
     }
 

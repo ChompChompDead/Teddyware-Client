@@ -1,4 +1,4 @@
-package com.teddyware.api.util.gui;
+package com.teddyware.api.util.color;
 
 import com.lukflug.panelstudio.settings.ColorComponent;
 import com.lukflug.panelstudio.Animation;
@@ -17,7 +17,7 @@ import net.minecraft.util.text.TextFormatting;
 public class SyncableColorComponent extends ColorComponent {
 
     public SyncableColorComponent (Theme theme, ColorSetting setting, Toggleable colorToggle, Animation animation) {
-        super(TextFormatting.BOLD+setting.name,null,theme.getContainerRenderer(),animation,theme.getComponentRenderer(),setting,true,true,colorToggle);
+        super(setting.name,null,theme.getContainerRenderer(),animation,theme.getComponentRenderer(),setting,true,true,colorToggle);
         if (setting!=((ClickGUIModule) ModuleManager.getModule("ClickGUI")).enabledColor) addComponent(new SyncButton(theme.getComponentRenderer()));
     }
 
@@ -38,8 +38,8 @@ public class SyncableColorComponent extends ColorComponent {
         public void handleButton (Context context, int button) {
             super.handleButton(context,button);
             if (button==Interface.LBUTTON && context.isClicked()) {
-                setting.setValue(((ClickGUIModule) ModuleManager.getModule("clickGui")).enabledColor.getColor());
-                setting.setRainbow(((ClickGUIModule) ModuleManager.getModule("clickGui")).enabledColor.getRainbow());
+                setting.setValue(((ClickGUIModule) ModuleManager.getModule("ClickGUI")).enabledColor.getColor());
+                setting.setRainbow(((ClickGUIModule) ModuleManager.getModule("ClickGUI")).enabledColor.getRainbow());
             }
         }
     }

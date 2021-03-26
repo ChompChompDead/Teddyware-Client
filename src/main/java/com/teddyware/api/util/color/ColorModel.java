@@ -1,4 +1,4 @@
-package com.teddyware.api.util.gui;
+package com.teddyware.api.util.color;
 
 import com.teddyware.client.module.Module;
 import com.teddyware.client.setting.settings.ModeSetting;

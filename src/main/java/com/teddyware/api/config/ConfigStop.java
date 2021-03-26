@@ -15,6 +15,8 @@ public class ConfigStop extends Thread {
         try {
             Teddyware.instance.clickGUISave.clickGUISave();
             Teddyware.instance.clickGUISave.saveClickGUIPositions();
+            Teddyware.instance.config.save();
+            Teddyware.instance.config.saveOthers();
             Teddyware.log.info("ClickGUI positions are saved");
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,6 +1,6 @@
 package com.teddyware.api.util.font;
 
-import com.teddyware.api.util.gui.JColor;
+import com.teddyware.api.util.color.JColor;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.DynamicTexture;

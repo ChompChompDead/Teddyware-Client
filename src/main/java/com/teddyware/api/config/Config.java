@@ -2,132 +2,165 @@ package com.teddyware.api.config;
 
 import com.teddyware.client.Teddyware;
 import com.teddyware.client.command.CommandManager;
-import com.teddyware.client.module.Module;
-import com.teddyware.client.module.ModuleManager;
-import com.teddyware.client.setting.Setting;
-import com.teddyware.client.setting.settings.BooleanSetting;
-import com.teddyware.client.setting.settings.ColorSetting;
-import com.teddyware.client.setting.settings.ModeSetting;
-import com.teddyware.client.setting.settings.NumberSetting;
+import com.teddyware.client.setting.settings.*;
 import net.minecraft.client.Minecraft;
+import org.json.simple.*;
+import org.json.simple.parser.*;
 
 import java.io.*;
 import java.util.ArrayList;
 
 public class Config {
 
-    private final File dir;
-    private final File dataFile;
+    public Minecraft mc = Minecraft.getMinecraft();
+
+    public BufferedWriter writer;
+    public BufferedReader reader;
+    public JSONParser parser = new JSONParser();
+
+    public File dir = new File(mc.mcDataDir, Teddyware.MODID);
+    public File moduleDir = new File(dir,  "/Modules");
 
     public Config() {
-        dir = new File(Minecraft.getMinecraft().mcDataDir, Teddyware.NAME.toLowerCase());
+        create();
+        this.load();
+        this.loadOthers();
+    }
+
+    public void create() {
         if (!dir.exists()) {
             dir.mkdir();
         }
-        dataFile = new File(dir, "config.txt");
-        if (!dataFile.exists()) {
-            try {
-                dataFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if (!moduleDir.exists()) {
+            moduleDir.mkdir();
         }
-        this.load();
     }
 
     public void save() {
-        ArrayList<String> toSave = new ArrayList<String>();
+        create();
+        Teddyware.moduleManager.getModuleList().forEach(module -> {
+            JSONObject moduleObj = new JSONObject();
+            moduleObj.put("enabled", module.isToggled());
 
-        for (Module mod : Teddyware.instance.moduleManager.modules) {
-            toSave.add("MOD:" + mod.getName() + ":" + mod.isToggled() + ":" + mod.keyCode.getKey());
-        }
+            module.settings.forEach(setting -> {
+                if (setting instanceof KeybindSetting) {
+                    KeybindSetting key = (KeybindSetting) setting;
+                    moduleObj.put(setting.name, key.getKeyCode());
+                }
 
-        for(Module mod : ModuleManager.modules) {
-            for (Setting setting : mod.settings) {
                 if (setting instanceof BooleanSetting) {
                     BooleanSetting bool = (BooleanSetting) setting;
-                    toSave.add("SET:" + mod.getName() + ":" + setting.name + ":" + bool.isEnabled());
+                    moduleObj.put(setting.name, bool.isEnabled());
                 }
 
                 if (setting instanceof NumberSetting) {
                     NumberSetting numb = (NumberSetting) setting;
-                    toSave.add("SET:" + mod.getName() + ":" + setting.name + ":" + numb.getValue());
+                    moduleObj.put(setting.name, numb.getValue());
                 }
 
                 if (setting instanceof ModeSetting) {
                     ModeSetting mode = (ModeSetting) setting;
-                    toSave.add("SET:" + mod.getName() + ":" + setting.name + ":" + mode.getMode());
+                    moduleObj.put(setting.name, mode.getMode());
                 }
 
                 if (setting instanceof ColorSetting) {
                     ColorSetting color = (ColorSetting) setting;
-                    toSave.add("SET:" + mod.getName() + ":" + setting.name + ":" + color.toInteger());
+                    moduleObj.put(setting.name, color.toInteger());
                 }
-            }
-        }
+            });
 
-        toSave.add("PREFIX:" + CommandManager.prefix);
-
-        try {
-            PrintWriter pw = new PrintWriter(this.dataFile);
-            for (String str : toSave) {
-                pw.println(str);
+            try {
+                writer = new BufferedWriter(new FileWriter(new File(moduleDir, module.getName() + ".json")));
+                writer.write(moduleObj.toJSONString());
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            pw.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        });
     }
 
     public void load() {
-        ArrayList<String> lines = new ArrayList<String>();
+        create();
+        Teddyware.moduleManager.getModuleList().forEach(module -> {
+            try {
+                reader = new BufferedReader(new FileReader(new File(moduleDir, module.getName() + ".json")));
+                JSONObject parsedModule = (JSONObject) parser.parse(reader);
 
+                if ((boolean) parsedModule.get("enabled") && !module.name.equals("ClickGUI") && !module.name.equals("FakePlayer")) {
+                    module.setToggled(true);
+                }
+
+                if (module != null) {
+                    module.settings.forEach(setting -> {
+                        if (parsedModule.containsKey(setting.name)) {
+                            if (setting instanceof KeybindSetting) {
+                                Long value = (long) parsedModule.get(setting.name);
+                                KeybindSetting key = (KeybindSetting) setting;
+                                key.setKeyCode(value.intValue());
+                            }
+
+                            if (setting instanceof BooleanSetting) {
+                                BooleanSetting bool = (BooleanSetting) setting;
+                                bool.setEnabled((boolean) parsedModule.get(setting.name));
+                            }
+
+                            if (setting instanceof NumberSetting) {
+                                NumberSetting numb = (NumberSetting) setting;
+                                numb.setValue((double) parsedModule.get(setting.name));
+                            }
+
+                            if (setting instanceof ModeSetting) {
+                                ModeSetting mode = (ModeSetting) setting;
+                                mode.setMode((String) parsedModule.get(setting.name));
+                            }
+
+                            if (setting instanceof ColorSetting) {
+                                ColorSetting color = (ColorSetting) setting;
+                                color.fromInteger((long) parsedModule.get(setting.name));
+                            }
+                        }
+                    });
+                }
+            } catch (IOException | ParseException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void loadOthers() {
+        ArrayList<String> lines = new ArrayList<String>();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(this.dataFile));
+            File file = new File(dir, "others.txt");
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+
             String line = reader.readLine();
 
             while (line != null) {
                 lines.add(line);
                 line = reader.readLine();
             }
+
             reader.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         for (String s : lines) {
             String[] args = s.split(":");
-            if (s.toLowerCase().startsWith("mod:")) {
-                Module m = Teddyware.instance.moduleManager.getModule(args[1]);
-                if(m != null) {
-                    if(Boolean.parseBoolean(args[2]) && !m.name.equals("ClickGUI") && !m.name.equals("FakePlayer")) {
-                        m.setToggled(true);
-                    }
-                    m.setKey(Integer.parseInt(args[3]));
-                }
-            } else if (s.toLowerCase().startsWith("set:")) {
-                Module m = Teddyware.instance.moduleManager.getModule(args[1]);
-
-                if (m != null) {
-                    Setting setting = Teddyware.instance.settingManager.getSettingByName(m,args[2]);
-                    if(setting != null) {
-                        if(setting instanceof BooleanSetting) {
-                            ((BooleanSetting)setting).setEnabled(Boolean.parseBoolean(args[3]));
-                        }
-                        if(setting instanceof NumberSetting) {
-                            ((NumberSetting)setting).setValue(Double.parseDouble(args[3]));
-                        }
-                        if(setting instanceof ModeSetting) {
-                            ((ModeSetting)setting).setMode(args[3]);
-                        }
-                        if (setting instanceof ColorSetting) {
-                            ((ColorSetting)setting).fromInteger(Integer.parseInt(args[3]));
-                        }
-                    }
-                }
-            } else if (s.toLowerCase().startsWith("prefix:")) {
+            if (s.toLowerCase().startsWith("prefix:")) {
                 CommandManager.setPrefix(args[1]);
             }
+        }
+    }
+
+    public void saveOthers() {
+        try {
+            File others = new File(dir, "others.txt");
+            FileWriter otherWriter = new FileWriter(others);
+            otherWriter.write("PREFIX:" + CommandManager.getPrefix());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

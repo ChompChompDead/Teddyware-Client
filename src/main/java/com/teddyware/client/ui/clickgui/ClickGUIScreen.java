@@ -9,9 +9,9 @@ import com.lukflug.panelstudio.mc12.MinecraftGUI;
 import com.lukflug.panelstudio.settings.*;
 import com.lukflug.panelstudio.theme.*;
 import com.teddyware.api.util.font.FontUtil;
-import com.teddyware.api.util.gui.ColorModel;
-import com.teddyware.api.util.gui.JColor;
-import com.teddyware.api.util.gui.SyncableColorComponent;
+import com.teddyware.api.util.color.ColorModel;
+import com.teddyware.api.util.color.JColor;
+import com.teddyware.api.util.color.SyncableColorComponent;
 import com.teddyware.client.module.Category;
 import com.teddyware.client.module.Module;
 import com.teddyware.client.module.ModuleManager;
@@ -57,7 +57,6 @@ public class ClickGUIScreen extends MinecraftGUI {
 
             @Override
             public void drawString(Point pos, String s, Color c) {
-                GL11.glEnable(GL11.GL_TEXTURE_2D);
                 GLInterface.end();
                 int x = pos.x + 2, y = pos.y + 1;
                 FontUtil.drawStringWithShadow(s,x,y,new JColor(c));
@@ -81,9 +80,9 @@ public class ClickGUIScreen extends MinecraftGUI {
                 ClickGUIModule.getInstance().outlineColor,
                 ClickGUIModule.getInstance().fontColor,
                 ClickGUIModule.getInstance().opacity),
-                HEIGHT, 2
+                HEIGHT, 1
         );
-        gui = new ClickGUI(guiInterface,ClickGUIModule.INSTANCE.description.is("mouse") ? new MouseDescription(new Point(5,0)) : new FixedDescription(new Point(0,0)));
+        gui = new ClickGUI(guiInterface,ClickGUIModule.INSTANCE.description.is("Mouse") ? new MouseDescription(new Point(5,0)) : new FixedDescription(new Point(0,0)));
         Point pos = new Point(DISTANCE,DISTANCE);
         for (Category category : Category.values()) {
             DraggableContainer panel = new DraggableContainer(category.name, null, theme.getPanelRenderer(), new SimpleToggleable(false), new SettingsAnimation(ClickGUIModule.INSTANCE.animationSpeed), null, new Point(pos), WIDTH);

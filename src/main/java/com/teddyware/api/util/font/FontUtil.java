@@ -1,7 +1,7 @@
 package com.teddyware.api.util.font;
 
 import com.teddyware.client.Teddyware;
-import com.teddyware.api.util.gui.JColor;
+import com.teddyware.api.util.color.JColor;
 import net.minecraft.client.Minecraft;
 
 public class FontUtil {

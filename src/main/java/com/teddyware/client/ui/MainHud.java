@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import com.teddyware.api.util.font.FontUtil;
-import com.teddyware.api.util.gui.JColor;
+import com.teddyware.api.util.color.JColor;
 import com.teddyware.client.Teddyware;
 import com.teddyware.api.event.events.EventRenderGUI;
 import com.teddyware.client.module.Module;

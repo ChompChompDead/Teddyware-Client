@@ -29,6 +29,7 @@ public class Jesus extends Module {
                 }
             }
         }
+
         if (e instanceof EventLiquidCollisionBB) {
             EventLiquidCollisionBB event = ((EventLiquidCollisionBB) e);
 

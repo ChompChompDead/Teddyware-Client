@@ -3,6 +3,7 @@ package com.teddyware.api.mixin;
 import com.teddyware.client.Teddyware;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import org.spongepowered.asm.launch.MixinBootstrap;
+import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.Mixins;
 
 import javax.annotation.Nullable;
@@ -13,6 +14,7 @@ public class MixinLoader implements IFMLLoadingPlugin {
     public MixinLoader() {
         MixinBootstrap.init();
         Mixins.addConfiguration("mixins.teddyware.json");
+        MixinEnvironment.getDefaultEnvironment().setSide(MixinEnvironment.Side.CLIENT);
         Teddyware.log.info("mixins are ready");
     }
 

@@ -5,6 +5,8 @@
   "refmap": "mixins.teddyware.refmap.json",
   "mixins": [
       "MixinEntityPlayerSP",
-      "MixinGuiMainMenu"
+      "MixinGuiMainMenu",
+      "MixinNetworkManager",
+      "ICPacketPlayer"
   ]
 }

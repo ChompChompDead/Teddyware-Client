@@ -4,9 +4,9 @@ import com.teddyware.client.module.Category;
 import com.teddyware.client.module.Module;
 import org.lwjgl.input.Keyboard;
 
-public class ArrayList extends Module {
+public class ArrayListt extends Module {
 
-    public ArrayList() {
+    public ArrayListt() {
         super("ArrayList", "Shows which modules are toggled", Keyboard.KEY_NONE, Category.Client);
     }
 

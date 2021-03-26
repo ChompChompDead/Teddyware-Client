@@ -11,7 +11,7 @@ import com.lukflug.panelstudio.theme.ColorScheme;
 import com.lukflug.panelstudio.theme.DescriptionRenderer;
 import com.lukflug.panelstudio.theme.Renderer;
 import com.lukflug.panelstudio.theme.RendererBase;
-import com.teddyware.api.util.gui.JColor;
+import com.teddyware.api.util.color.JColor;
 
 
 public class CustomTheme implements Theme {
@@ -19,11 +19,11 @@ public class CustomTheme implements Theme {
     protected Renderer componentRenderer,containerRenderer,panelRenderer;
     protected DescriptionRenderer descriptionRenderer;
 
-    public CustomTheme (ColorScheme scheme, int height, int border) {
-        this.scheme=scheme;
-        panelRenderer=new ComponentRenderer(0,height,border);
-        containerRenderer=new ComponentRenderer(1,height,border);
-        componentRenderer=new ComponentRenderer(2,height,border);
+    public CustomTheme(ColorScheme scheme, int height, int border) {
+        this.scheme = scheme;
+        panelRenderer = new ComponentRenderer(0, height, border);
+        containerRenderer = new ComponentRenderer(1, height, border);
+        componentRenderer = new ComponentRenderer(2, height, border);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class CustomTheme implements Theme {
         protected final int level,border;
 
         public ComponentRenderer (int level, int height, int border) {
-            super(height+1,0,0,0,0);
+            super(height + 1,1,1,1,0);
             this.level=level;
             this.border=border;
         }
@@ -92,15 +92,11 @@ public class CustomTheme implements Theme {
         }
 
         @Override
-        public Color getMainColor (boolean focus, boolean active) {
+        public Color getMainColor(boolean focus, boolean active) {
             Color color;
-            // active modules
             if (active && level>0) color=getColorScheme().getActiveColor();
-                // background
             else color=getColorScheme().getBackgroundColor();
-            // inactive modules
             if (!active && level<2) color=getColorScheme().getBackgroundColor();
-            // category
             if (active && level<1) color=getColorScheme().getFontColor();
             color=new Color(color.getRed(),color.getGreen(),color.getBlue(),getColorScheme().getOpacity());
             return color;

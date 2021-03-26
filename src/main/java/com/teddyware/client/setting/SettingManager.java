@@ -34,7 +34,7 @@ public class SettingManager {
         return out;
     }
 
-    public Setting getSettingByName(Module mod, String name) {
+    public static Setting getSettingByName(Module mod, String name) {
         for (Module m : ModuleManager.modules) {
             for (Setting set : m.settings) {
                 if (set.name.equalsIgnoreCase(name) && set.parent == mod) {
