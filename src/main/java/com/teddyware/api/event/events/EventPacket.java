@@ -1,30 +1,30 @@
 package com.teddyware.api.event.events;
 
-import com.teddyware.api.event.Event;
+import com.teddyware.api.event.Event2;
 import net.minecraft.network.Packet;
 
-public class EventPacket extends Event {
+public class EventPacket extends Event2 {
 
-    private final Packet packet;
+    private final Packet<?> packet;
 
-    public EventPacket(Packet packet) {
+    public EventPacket(Packet<?> packet) {
         this.packet = packet;
     }
 
     public static class Send extends EventPacket {
-        public Send(Packet packet) {
+        public Send(Packet<?> packet) {
             super(packet);
         }
     }
 
     public static class Receive extends EventPacket{
-        public Receive(Packet packet) {
+        public Receive(Packet<?> packet) {
             super(packet);
         }
     }
 
-    public Packet getPacket() {
-        return packet;
+    public <T extends Packet<?>> T getPacket() {
+        return (T)this.packet;
     }
 
 }

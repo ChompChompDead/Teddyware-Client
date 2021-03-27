@@ -6,6 +6,8 @@ import com.teddyware.api.event.events.EventUpdate;
 import com.teddyware.api.util.EntityUtil;
 import com.teddyware.client.module.Category;
 import com.teddyware.client.module.Module;
+import me.zero.alpine.listener.EventHandler;
+import me.zero.alpine.listener.Listener;
 import net.minecraft.block.Block;
 import net.minecraft.util.math.AxisAlignedBB;
 import org.lwjgl.input.Keyboard;
@@ -29,26 +31,25 @@ public class Jesus extends Module {
                 }
             }
         }
-
-        if (e instanceof EventLiquidCollisionBB) {
-            EventLiquidCollisionBB event = ((EventLiquidCollisionBB) e);
-
-            if (toggled) {
-                if (mc.world != null && mc.player != null) {
-                    if (this.checkCollide() && !(mc.player.motionY >= 0.1f) && event.getBlockPos().getY() < mc.player.posY - this.offset) {
-                        if (mc.player.getRidingEntity() != null) {
-                            event.setBoundingBox(new AxisAlignedBB(0, 0, 0, 1, 1 - this.offset, 1));
-                        } else {
-                            event.setBoundingBox(Block.FULL_BLOCK_AABB);
-                        }
-                    }
-                }
-            }
-        }
     }
 
-    private boolean checkCollide() {
+    @EventHandler
+    private final Listener<EventLiquidCollisionBB> getLiquidCollisionBB = new Listener<>(event -> {
+        if(toggled) {
+            if (mc.world != null && mc.player != null) {
+                if (this.checkCollide() && !(mc.player.motionY >= 0.1f) && event.getBlockPos().getY() < mc.player.posY - this.offset) {
+                    if (mc.player.getRidingEntity() != null) {
+                        event.setBoundingBox(new AxisAlignedBB(0, 0, 0, 1, 1 - this.offset, 1));
+                    } else {
+                        event.setBoundingBox(Block.FULL_BLOCK_AABB);
+                    }
+                }
+                event.cancel();
+            }
+        }
+    });
 
+    private boolean checkCollide() {
         if (mc.player.isSneaking()) {
             return false;
         }

@@ -1,14 +1,26 @@
 package com.teddyware.api.event.events;
 
-import com.teddyware.api.event.Event;
+import com.teddyware.api.event.Event2;
+import com.teddyware.client.module.Module;
 
-public class EventNotifier extends Event<EventNotifier> {
+public class EventNotifier extends Event2 {
 
-    public String name;
-    public boolean toggle;
+    public Module module;
 
-    public EventNotifier(String name, boolean toggle) {
-        this.name = name;
-        this.toggle = toggle;
+    public EventNotifier(final Module mod) {
+        super();
+        module = mod;
+    }
+
+    public static class EventNotifierEnable extends EventNotifier {
+        public EventNotifierEnable(Module p_Mod) {
+            super(p_Mod);
+        }
+    }
+
+    public static class EventNotifierDisable extends EventNotifier {
+        public EventNotifierDisable(Module p_Mod) {
+            super(p_Mod);
+        }
     }
 }

@@ -15,6 +15,8 @@ import com.teddyware.client.module.client.CustomFont;
 import com.teddyware.client.setting.SettingManager;
 import com.teddyware.client.ui.MainHud;
 import com.teddyware.client.ui.clickgui.ClickGUIScreen;
+import me.zero.alpine.EventBus;
+import me.zero.alpine.EventManager;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -41,6 +43,7 @@ public class Teddyware
     public static final String CLIENT_PROXY_CLASS = "com.teddyware.api.proxy.ClientProxy";
     public static final String COMMON_PROXY_CLASS = "com.teddyware.api.proxy.CommonProxy";
     public static final Logger log = LogManager.getLogger(NAME + " v" + VERSION);
+    public static final EventBus EVENT_BUS = new EventManager();
 
     public static MainHud mainHud;
     public static ModuleManager moduleManager;
@@ -106,11 +109,7 @@ public class Teddyware
     }
 
     public static void onEvent(Event e) {
-        for (Module m : ModuleManager.modules) {
-            if(!m.toggled)
-                continue;
-            m.onEvent(e);
-        }
+        moduleManager.modules.stream().filter(Module::isToggled).forEach(module -> module.onEvent(e) );
     }
 
     @SubscribeEvent

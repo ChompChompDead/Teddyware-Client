@@ -1,7 +1,6 @@
 package com.teddyware.client.module.client;
 
 import com.teddyware.api.event.Event;
-import com.teddyware.api.event.events.EventKey;
 import com.teddyware.api.event.events.EventNotifier;
 import com.teddyware.api.event.events.EventRenderGUI;
 import com.teddyware.api.util.color.JColor;
@@ -15,6 +14,8 @@ import com.teddyware.client.setting.settings.BooleanSetting;
 import com.teddyware.client.setting.settings.KeybindSetting;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
@@ -94,8 +95,14 @@ public class TabGUI extends Module {
             }
         }
         // make tabgui work lol
-        if (e instanceof EventKey) {
-            int code = ((EventKey) e).code;
+
+    }
+
+    @SubscribeEvent
+    public void onKey(InputEvent.KeyInputEvent e) {
+        if (Keyboard.getEventKeyState()) {
+            int code = Keyboard.getEventKey();
+
             Category category = Category.values()[currentTab];
             List<Module> modules = ModuleManager.getModulesByCategory(category);
             Module module = modules.get(category.moduleIndex);
@@ -172,7 +179,6 @@ public class TabGUI extends Module {
                 if (expanded && modules.size() > 0) {
                     if (!module.name.equals("TabGUI")) {
                         module.toggle();
-                        Teddyware.onEvent(new EventNotifier(module.name, module.toggled));
                     }
                 }
             }

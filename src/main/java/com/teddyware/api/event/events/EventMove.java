@@ -1,37 +1,28 @@
 package com.teddyware.api.event.events;
 
-import com.teddyware.api.event.Event;
+import com.teddyware.api.event.Event2;
 import net.minecraft.entity.MoverType;
 
-public class EventMove extends Event<EventMove> {
+public class EventMove extends Event2 {
 
-    private MoverType moveType;
+    private MoverType type;
 
     public double x, y, z;
 
     public EventMove(MoverType type, double x, double y, double z) {
-        this.moveType = type;
+        super();
+        this.type = type;
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
-    public void setMoveType(MoverType type) {
-        this.moveType = type;
+    public MoverType getType() {
+        return this.type;
     }
 
-    public void setX(double xPos) { this.x = xPos; }
-
-    public void setY(double y) {
-        this.y = y;
-    }
-
-    public void setZ(double zPos) {
-        this.z = zPos;
-    }
-
-    public MoverType getMoveType() {
-        return this.moveType;
+    public void setType(MoverType type) {
+        this.type = type;
     }
 
     public double getX() {
@@ -44,5 +35,17 @@ public class EventMove extends Event<EventMove> {
 
     public double getZ() {
         return this.z;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public void setZ(double z) {
+        this.z = z;
     }
 }

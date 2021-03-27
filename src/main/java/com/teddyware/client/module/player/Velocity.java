@@ -2,8 +2,11 @@ package com.teddyware.client.module.player;
 
 import com.teddyware.api.event.Event;
 import com.teddyware.api.event.events.EventPacket;
+import com.teddyware.client.Teddyware;
 import com.teddyware.client.module.Category;
 import com.teddyware.client.module.Module;
+import me.zero.alpine.listener.EventHandler;
+import me.zero.alpine.listener.Listener;
 import net.minecraft.network.play.server.SPacketEntityVelocity;
 import net.minecraft.network.play.server.SPacketExplosion;
 import org.lwjgl.input.Keyboard;
@@ -14,23 +17,24 @@ public class Velocity extends Module {
         super("Velocity", "no kb. ez.", Keyboard.KEY_NONE, Category.Player);
     }
 
-    public void onEnable() { }
+    public void onEnable() {
+        Teddyware.EVENT_BUS.subscribe(this);
+    }
 
-    public void onDisable() { }
+    public void onDisable() {
+        Teddyware.EVENT_BUS.unsubscribe(this);
+    }
 
-    public void onEvent(Event e) {
-        if (e instanceof EventPacket.Receive) {
-            EventPacket.Receive event = (EventPacket.Receive) e;
+    @EventHandler
+    private final Listener<EventPacket.Receive> receiveListener = new Listener<>(event -> {
+        if (event.getPacket() instanceof SPacketExplosion) {
+            event.cancel();
+        }
 
-            if (event.getPacket() instanceof SPacketExplosion) {
-                event.setCancelled(true);
-            }
-
-            if (event.getPacket() instanceof SPacketEntityVelocity) {
-                if (((SPacketEntityVelocity) event.getPacket()).getEntityID() == mc.player.getEntityId()) {
-                    event.setCancelled(true);
-                }
+        if (event.getPacket() instanceof SPacketEntityVelocity) {
+            if (((SPacketEntityVelocity) event.getPacket()).getEntityID() == mc.player.getEntityId()) {
+                event.cancel();
             }
         }
-    }
+    });
 }

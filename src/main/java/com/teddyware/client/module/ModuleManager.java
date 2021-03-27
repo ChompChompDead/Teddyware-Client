@@ -3,7 +3,6 @@ package com.teddyware.client.module;
 import com.teddyware.api.event.events.EventRender;
 import com.teddyware.api.util.TWTessellator;
 import com.teddyware.client.Teddyware;
-import com.teddyware.api.event.events.EventKey;
 import com.teddyware.api.event.events.EventNotifier;
 import com.teddyware.client.module.client.*;
 import com.teddyware.client.module.combat.*;
@@ -107,11 +106,9 @@ public class ModuleManager {
                     int keyCode = Keyboard.getEventKey();
                     if(keyCode <= 0)
                         return;
-                    Teddyware.onEvent(new EventKey(keyCode));
                     for(Module m : ModuleManager.modules) {
                         if(m.keyCode.getKey() == keyCode && keyCode > 0) {
                             m.toggle();
-                            Teddyware.onEvent(new EventNotifier(m.name, m.toggled));
                         }
                     }
                 }

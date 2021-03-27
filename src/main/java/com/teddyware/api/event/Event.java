@@ -14,6 +14,8 @@ public class Event<T> {
         this.cancelled = cancelled;
     }
 
+    public void cancel() { this.cancelled = true; }
+
     public EventType getType() {
         return type;
     }

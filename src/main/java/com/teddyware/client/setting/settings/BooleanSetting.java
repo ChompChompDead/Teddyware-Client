@@ -27,6 +27,9 @@ public class BooleanSetting extends Setting implements Toggleable {
 
     public void toggle() {
         this.enabled = !this.enabled;
+        if (Teddyware.config != null) {
+            Teddyware.config.save();
+        }
     }
 
     @Override

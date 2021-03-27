@@ -4,6 +4,7 @@ import com.teddyware.api.event.Event;
 import com.teddyware.api.event.events.EventRender;
 import com.teddyware.api.event.events.EventUpdate;
 import com.teddyware.api.util.TWTessellator;
+import com.teddyware.api.util.TimerUtil;
 import com.teddyware.api.util.color.JColor;
 import com.teddyware.client.setting.settings.BooleanSetting;
 import com.teddyware.client.setting.settings.ColorSetting;
@@ -56,10 +57,13 @@ public class AutoCrystal extends Module {
     public BooleanSetting rayTrace = new BooleanSetting("Raytrace", this, false);
     public ColorSetting color = new ColorSetting("Color", this, new JColor(255, 255, 255, 255));
     public ModeSetting breakHand = new ModeSetting("BrkHand", this, "Main", "Main", "Offhand");
+    public NumberSetting breakSpeed = new NumberSetting("BrkSpeed", this, 20, 0, 20, 1);
+    public NumberSetting placeSpeed = new NumberSetting("PlaceSpeed", this, 20, 0, 20, 1);
+
 
     public AutoCrystal() {
         super("AutoCrystal", "worst ac dont use", Keyboard.KEY_NONE, Category.Combat);
-        this.addSetting(players, mobs, passives, breakHand, minDamage, selfDamage, range, place, explode, switchToCrystal, antiWeakness, singlePlace, rotate, rayTrace, color);
+        this.addSetting(players, mobs, passives, breakHand, breakSpeed, placeSpeed, minDamage, selfDamage, range, place, explode, switchToCrystal, antiWeakness, singlePlace, rotate, rayTrace, color);
     }
 
     private BlockPos render;
@@ -71,6 +75,8 @@ public class AutoCrystal extends Module {
     private int oldSlot = -1;
     private int newSlot;
     private int breaks;
+
+    private TimerUtil timer = new TimerUtil();
 
     @Override
     public void onEvent(Event e) {
@@ -110,23 +116,26 @@ public class AutoCrystal extends Module {
                     }
                     lookAtPacket(crystal.posX, crystal.posY, crystal.posZ, mc.player);
                     mc.playerController.attackEntity(mc.player, crystal);
-                    mc.player.swingArm(getHandToBreak());
+                    if (timer.getTimePassed() / 50 >= 20 - breakSpeed.getValue()) {
+                        timer.reset();
+                        mc.player.swingArm(getHandToBreak());
+                    }
                     breaks++;
-                    if(breaks == 2 && !singlePlace.isEnabled()) {
-                        if(rotate.isEnabled()) {
+                    if (breaks == 2 && !singlePlace.isEnabled()) {
+                        if (rotate.isEnabled()) {
                             resetRotation();
                         }
                         breaks = 0;
                         return;
-                    } else if(singlePlace.isEnabled() &&  breaks == 1) {
-                        if(singlePlace.isEnabled()) {
+                    } else if (singlePlace.isEnabled() && breaks == 1) {
+                        if (singlePlace.isEnabled()) {
                             resetRotation();
                         }
                         breaks = 0;
                         return;
                     }
                 } else {
-                    if(rotate.isEnabled()) {
+                    if (rotate.isEnabled()) {
                         resetRotation();
                     }
                     if (oldSlot != -1) {
@@ -172,7 +181,7 @@ public class AutoCrystal extends Module {
                             continue;
                         }
                         double d = calculateDamage(blockPos.getX() + .5, blockPos.getY() + 1, blockPos.getZ() + .5, entity);
-                        if(d < minDamage.getValue()) {
+                        if (d < minDamage.getValue()) {
                             continue;
                         }
                         if (d > damage) {
@@ -189,7 +198,7 @@ public class AutoCrystal extends Module {
                 if (damage == .5) {
                     render = null;
                     renderEnt = null;
-                    if(rotate.isEnabled()) {
+                    if (rotate.isEnabled()) {
                         resetRotation();
                     }
                     return;
@@ -200,7 +209,7 @@ public class AutoCrystal extends Module {
                     if (!offhand && mc.player.inventory.currentItem != crystalSlot) {
                         if (switchToCrystal.isEnabled()) {
                             mc.player.inventory.currentItem = crystalSlot;
-                            if(rotate.isEnabled()) {
+                            if (rotate.isEnabled()) {
                                 resetRotation();
                             }
                             switchCooldown = true;
@@ -209,7 +218,7 @@ public class AutoCrystal extends Module {
                     }
                     EnumFacing f;
                     lookAtPacket(q.getX() + .5, q.getY() - .5, q.getZ() + .5, mc.player);
-                    if(rayTrace.isEnabled()) {
+                    if (rayTrace.isEnabled()) {
                         RayTraceResult result = mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + mc.player.getEyeHeight(), mc.player.posZ), new Vec3d(q.getX() + .5, q.getY() - .5d, q.getZ() + .5));
                         if (result == null || result.sideHit == null) {
                             f = EnumFacing.UP;
@@ -221,9 +230,12 @@ public class AutoCrystal extends Module {
                             return;
                         }
                     } else {
-                        f =  EnumFacing.UP;
+                        f = EnumFacing.UP;
                     }
-                    mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(q, f, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));
+                    if (timer.getTimePassed() / 50 >= 20 - placeSpeed.getValue()) {
+                        timer.reset();
+                        mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(q, f, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));
+                    }
                 }
 
                 if (isSpoofingAngles) {

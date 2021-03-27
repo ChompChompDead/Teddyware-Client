@@ -3,6 +3,7 @@ package com.teddyware.client.module;
 import com.lukflug.panelstudio.settings.Toggleable;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import com.teddyware.api.event.Event;
+import com.teddyware.api.event.events.EventNotifier;
 import com.teddyware.api.event.events.EventRender;
 import com.teddyware.client.Teddyware;
 import com.teddyware.client.setting.Setting;
@@ -57,6 +58,9 @@ public class Module implements Toggleable {
 
     public void setKey(int key) {
         keyCode.setKeyCode(key);
+        if (Teddyware.config != null) {
+            Teddyware.config.save();
+        }
     }
 
     public boolean isToggled() {
@@ -76,6 +80,9 @@ public class Module implements Toggleable {
         } else {
             this.onDisable();
         }
+        if (Teddyware.config != null) {
+            Teddyware.config.save();
+        }
     }
 
     public void toggle() {
@@ -86,14 +93,22 @@ public class Module implements Toggleable {
         } else {
             this.onDisable();
         }
+
+        if (Teddyware.config != null) {
+            Teddyware.config.save();
+        }
     }
 
     public void onEnable() {
         MinecraftForge.EVENT_BUS.register(this);
+        Teddyware.EVENT_BUS.subscribe(this);
+        Teddyware.EVENT_BUS.post(new EventNotifier.EventNotifierEnable(this));
     }
 
     public void onDisable() {
         MinecraftForge.EVENT_BUS.unregister(this);
+        Teddyware.EVENT_BUS.unsubscribe(this);
+        Teddyware.EVENT_BUS.post(new EventNotifier.EventNotifierDisable(this));
     }
 
     public void enable() {

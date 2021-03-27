@@ -100,14 +100,14 @@ reobf {
 
 jar {
     manifest {
-        attributes([
+        attributes(
             "MixinConfigs": 'mixins.teddyware.json',
-            "tweakClass": 'org.spongepowered.asm.launch.MixinTweaker',
+            "TweakClass": 'org.spongepowered.asm.launch.MixinTweaker',
             "TweakOrder": 0,
             "FMLCorePluginContainsFMLMod": true,
             "FMLCorePlugin": "com.teddyware.api.mixin.MixinLoader",
             "ForceLoadAsMod": true,
-        ])
+        )
     }
 }
 
