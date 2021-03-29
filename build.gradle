@@ -11,7 +11,7 @@ buildscript {
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-        classpath 'org.spongepowered:mixingradle:0.4-SNAPSHOT'
+        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
         classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
     }
 }
@@ -26,15 +26,16 @@ version = '0.28'
 group = 'com.teddyware' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'Teddyware'
 
+sourceCompatibility = targetCompatibility = '1.8'
 compileJava {
-    sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+    sourceCompatibility = targetCompatibility = '1.8'
 }
 
 minecraft {
     version = "1.12.2-14.23.5.2768"
-    runDir = 'run'
+    runDir = "run"
     mappings = "snapshot_20171003"
-    makeObfSourceJar = false
+    coreMod = "com.teddyware.api.mixin.MixinLoader"
 }
 
 repositories {
@@ -69,7 +70,7 @@ dependencies {
     compile('com.github.ZeroMemes:Alpine:1.5')
     compile('com.googlecode.json-simple:json-simple:1.1.1')
     implementation('org.jetbrains:annotations:15.0')
-    //compile('club.minnced:java-discord-rpc:2.0.1')
+    compile('club.minnced:java-discord-rpc:2.0.1')
 }
 
 shadowJar {
@@ -79,7 +80,7 @@ shadowJar {
         include(dependency('com.lukflug:panelstudio-mc12'))
         include(dependency('com.github.ZeroMemes:Alpine'))
         include(dependency('com.googlecode.json-simple:json-simple:1.1.1'))
-        //include(dependency('club.minnced:java-discord-rpc:2.0.1'))
+        include(dependency('club.minnced:java-discord-rpc:2.0.1'))
     }
     exclude 'dummyThing'
     exclude 'LICENSE.txt'
@@ -102,7 +103,7 @@ jar {
     manifest {
         attributes(
             "MixinConfigs": 'mixins.teddyware.json',
-            "TweakClass": 'org.spongepowered.asm.launch.MixinTweaker',
+            "tweakClass": 'org.spongepowered.asm.launch.MixinTweaker',
             "TweakOrder": 0,
             "FMLCorePluginContainsFMLMod": true,
             "FMLCorePlugin": "com.teddyware.api.mixin.MixinLoader",

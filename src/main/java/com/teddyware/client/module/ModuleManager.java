@@ -3,10 +3,10 @@ package com.teddyware.client.module;
 import com.teddyware.api.event.events.EventRender;
 import com.teddyware.api.util.TWTessellator;
 import com.teddyware.client.Teddyware;
-import com.teddyware.api.event.events.EventNotifier;
 import com.teddyware.client.module.client.*;
 import com.teddyware.client.module.combat.*;
 import com.teddyware.client.module.exploits.ServerBackdoor;
+import com.teddyware.client.module.exploits.XCarry;
 import com.teddyware.client.module.movement.*;
 import com.teddyware.client.module.player.AutoSuicide;
 import com.teddyware.client.module.player.FakePlayer;
@@ -24,13 +24,14 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ModuleManager {
 
-    public static ArrayList<Module> modules;
+    public static CopyOnWriteArrayList<Module> modules;
 
     public ModuleManager() {
-        modules = new ArrayList<>();
+        modules = new CopyOnWriteArrayList<>();
 
         // Movement
         modules.add(new Fly());
@@ -55,6 +56,7 @@ public class ModuleManager {
         modules.add(new CustomFont());
         modules.add(new TabGUI());
         modules.add(new Watermark());
+        modules.add(new DiscordRPC());
 
         // Player
         modules.add(new AutoSuicide());
@@ -64,13 +66,20 @@ public class ModuleManager {
 
         // Exploits
         modules.add(new ServerBackdoor());
+        modules.add(new XCarry());
 
         // Combat
         modules.add(new AutoArmor());
         modules.add(new AutoCrystal());
         modules.add(new AutoTotem());
         modules.add(new BowSpam());
+        modules.add(new Burrow());
         modules.add(new KillAura());
+        modules.add(new Offhand());
+    }
+
+    public static void onUpdate() {
+        modules.stream().filter(Module::isToggled).forEach(Module::onUpdate);
     }
 
     public static Module getModule(String name) {
@@ -82,7 +91,7 @@ public class ModuleManager {
         return null;
     }
 
-    public static ArrayList<Module> getModuleList() {
+    public static CopyOnWriteArrayList<Module> getModuleList() {
         return modules;
     }
 

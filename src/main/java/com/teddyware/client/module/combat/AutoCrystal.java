@@ -1,8 +1,7 @@
 package com.teddyware.client.module.combat;
 
-import com.teddyware.api.event.Event;
+import com.teddyware.api.event.events.EventPlayerUpdate;
 import com.teddyware.api.event.events.EventRender;
-import com.teddyware.api.event.events.EventUpdate;
 import com.teddyware.api.util.TWTessellator;
 import com.teddyware.api.util.TimerUtil;
 import com.teddyware.api.util.color.JColor;
@@ -10,6 +9,8 @@ import com.teddyware.client.setting.settings.BooleanSetting;
 import com.teddyware.client.setting.settings.ColorSetting;
 import com.teddyware.client.setting.settings.ModeSetting;
 import com.teddyware.client.setting.settings.NumberSetting;
+import me.zero.alpine.listener.EventHandler;
+import me.zero.alpine.listener.Listener;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -79,174 +80,170 @@ public class AutoCrystal extends Module {
     private TimerUtil timer = new TimerUtil();
 
     @Override
-    public void onEvent(Event e) {
-        if (e instanceof EventUpdate) {
-            if (e.isPre()) {
-                EntityEnderCrystal crystal = mc.world.loadedEntityList.stream()
-                        .filter(entity -> entity instanceof EntityEnderCrystal)
-                        .map(entity -> (EntityEnderCrystal) entity)
-                        .min(Comparator.comparing(c -> mc.player.getDistance(c)))
-                        .orElse(null);
-                if (explode.isEnabled() && crystal != null && mc.player.getDistance(crystal) <= range.getValue() && mc.player.getHealth() >= selfDamage.getValue()) {
-                    if (antiWeakness.isEnabled() && mc.player.isPotionActive(MobEffects.WEAKNESS)) {
-                        if (!isAttacking) {
-                            oldSlot = mc.player.inventory.currentItem;
-                            isAttacking = true;
-                        }
-                        newSlot = -1;
-                        for (int i = 0; i < 9; i++) {
-                            ItemStack stack = mc.player.inventory.getStackInSlot(i);
-                            if (stack == ItemStack.EMPTY) {
-                                continue;
-                            }
-                            if ((stack.getItem() instanceof ItemSword)) {
-                                newSlot = i;
-                                break;
-                            }
-                            if ((stack.getItem() instanceof ItemTool)) {
-                                newSlot = i;
-                                break;
-                            }
-                        }
-
-                        if (newSlot != -1) {
-                            mc.player.inventory.currentItem = newSlot;
-                            switchCooldown = true;
-                        }
-                    }
-                    lookAtPacket(crystal.posX, crystal.posY, crystal.posZ, mc.player);
-                    mc.playerController.attackEntity(mc.player, crystal);
-                    if (timer.getTimePassed() / 50 >= 20 - breakSpeed.getValue()) {
-                        timer.reset();
-                        mc.player.swingArm(getHandToBreak());
-                    }
-                    breaks++;
-                    if (breaks == 2 && !singlePlace.isEnabled()) {
-                        if (rotate.isEnabled()) {
-                            resetRotation();
-                        }
-                        breaks = 0;
-                        return;
-                    } else if (singlePlace.isEnabled() && breaks == 1) {
-                        if (singlePlace.isEnabled()) {
-                            resetRotation();
-                        }
-                        breaks = 0;
-                        return;
-                    }
-                } else {
-                    if (rotate.isEnabled()) {
-                        resetRotation();
-                    }
-                    if (oldSlot != -1) {
-                        mc.player.inventory.currentItem = oldSlot;
-                        oldSlot = -1;
-                    }
-                    isAttacking = false;
+    public void onUpdate() {
+        EntityEnderCrystal crystal = mc.world.loadedEntityList.stream()
+                    .filter(entity -> entity instanceof EntityEnderCrystal)
+                    .map(entity -> (EntityEnderCrystal) entity)
+                    .min(Comparator.comparing(c -> mc.player.getDistance(c)))
+                    .orElse(null);
+        if (explode.isEnabled() && crystal != null && mc.player.getDistance(crystal) <= range.getValue() && mc.player.getHealth() >= selfDamage.getValue()) {
+            if (antiWeakness.isEnabled() && mc.player.isPotionActive(MobEffects.WEAKNESS)) {
+                if (!isAttacking) {
+                    oldSlot = mc.player.inventory.currentItem;
+                    isAttacking = true;
                 }
-
-                int crystalSlot = mc.player.getHeldItemMainhand().getItem() == Items.END_CRYSTAL ? mc.player.inventory.currentItem : -1;
-                if (crystalSlot == -1) {
-                    for (int l = 0; l < 9; ++l) {
-                        if (mc.player.inventory.getStackInSlot(l).getItem() == Items.END_CRYSTAL) {
-                            crystalSlot = l;
-                            break;
-                        }
-                    }
-                }
-
-                boolean offhand = false;
-                if (mc.player.getHeldItemOffhand().getItem() == Items.END_CRYSTAL) {
-                    offhand = true;
-                } else if (crystalSlot == -1) {
-                    return;
-                }
-
-                List<BlockPos> blocks = findCrystalBlocks();
-                List<Entity> entities = new ArrayList<>();
-                if (players.isEnabled()) {
-                    entities.addAll(mc.world.playerEntities);
-                }
-                entities.addAll(mc.world.loadedEntityList.stream().filter(entity -> EntityUtil.isLiving(entity) && (EntityUtil.isPassive(entity) ? passives.isEnabled() : mobs.isEnabled())).collect(Collectors.toList()));
-
-                BlockPos q = null;
-                double damage = .5;
-                for (Entity entity : entities) {
-                    if (entity == mc.player || ((EntityLivingBase) entity).getHealth() <= 0) {
+                newSlot = -1;
+                for (int i = 0; i < 9; i++) {
+                    ItemStack stack = mc.player.inventory.getStackInSlot(i);
+                    if (stack == ItemStack.EMPTY) {
                         continue;
                     }
-                    for (BlockPos blockPos : blocks) {
-                        double b = entity.getDistanceSq(blockPos);
-                        if (b >= 169) {
-                            continue;
-                        }
-                        double d = calculateDamage(blockPos.getX() + .5, blockPos.getY() + 1, blockPos.getZ() + .5, entity);
-                        if (d < minDamage.getValue()) {
-                            continue;
-                        }
-                        if (d > damage) {
-                            double self = calculateDamage(blockPos.getX() + .5, blockPos.getY() + 1, blockPos.getZ() + .5, mc.player);
-                            if ((self > d && !(d < ((EntityLivingBase) entity).getHealth())) || self - .5 > mc.player.getHealth()) {
-                                continue;
-                            }
-                            damage = d;
-                            q = blockPos;
-                            renderEnt = entity;
-                        }
+                    if ((stack.getItem() instanceof ItemSword)) {
+                        newSlot = i;
+                        break;
+                    }
+                    if ((stack.getItem() instanceof ItemTool)) {
+                        newSlot = i;
+                        break;
                     }
                 }
-                if (damage == .5) {
-                    render = null;
-                    renderEnt = null;
+
+                if (newSlot != -1) {
+                    mc.player.inventory.currentItem = newSlot;
+                    switchCooldown = true;
+                }
+            }
+            lookAtPacket(crystal.posX, crystal.posY, crystal.posZ, mc.player);
+            mc.playerController.attackEntity(mc.player, crystal);
+            if (timer.getTimePassed() / 50 >= 20 - breakSpeed.getValue()) {
+                timer.reset();
+                mc.player.swingArm(getHandToBreak());
+            }
+            breaks++;
+            if (breaks == 2 && !singlePlace.isEnabled()) {
+                if (rotate.isEnabled()) {
+                    resetRotation();
+                }
+                breaks = 0;
+                return;
+            } else if (singlePlace.isEnabled() && breaks == 1) {
+                if (singlePlace.isEnabled()) {
+                    resetRotation();
+                }
+                breaks = 0;
+                return;
+            }
+        } else {
+            if (rotate.isEnabled()) {
+                resetRotation();
+            }
+            if (oldSlot != -1) {
+                mc.player.inventory.currentItem = oldSlot;
+                oldSlot = -1;
+            }
+            isAttacking = false;
+        }
+
+        int crystalSlot = mc.player.getHeldItemMainhand().getItem() == Items.END_CRYSTAL ? mc.player.inventory.currentItem : -1;
+        if (crystalSlot == -1) {
+            for (int l = 0; l < 9; ++l) {
+                if (mc.player.inventory.getStackInSlot(l).getItem() == Items.END_CRYSTAL) {
+                    crystalSlot = l;
+                    break;
+                }
+            }
+        }
+
+        boolean offhand = false;
+        if (mc.player.getHeldItemOffhand().getItem() == Items.END_CRYSTAL) {
+            offhand = true;
+        } else if (crystalSlot == -1) {
+            return;
+        }
+
+        List<BlockPos> blocks = findCrystalBlocks();
+        List<Entity> entities = new ArrayList<>();
+        if (players.isEnabled()) {
+            entities.addAll(mc.world.playerEntities);
+        }
+        entities.addAll(mc.world.loadedEntityList.stream().filter(entity -> EntityUtil.isLiving(entity) && (EntityUtil.isPassive(entity) ? passives.isEnabled() : mobs.isEnabled())).collect(Collectors.toList()));
+
+        BlockPos q = null;
+        double damage = .5;
+        for (Entity entity : entities) {
+            if (entity == mc.player || ((EntityLivingBase) entity).getHealth() <= 0) {
+                continue;
+            }
+            for (BlockPos blockPos : blocks) {
+                double b = entity.getDistanceSq(blockPos);
+                if (b >= 169) {
+                    continue;
+                }
+                double d = calculateDamage(blockPos.getX() + .5, blockPos.getY() + 1, blockPos.getZ() + .5, entity);
+                if (d < minDamage.getValue()) {
+                    continue;
+                }
+                if (d > damage) {
+                    double self = calculateDamage(blockPos.getX() + .5, blockPos.getY() + 1, blockPos.getZ() + .5, mc.player);
+                    if ((self > d && !(d < ((EntityLivingBase) entity).getHealth())) || self - .5 > mc.player.getHealth()) {
+                        continue;
+                    }
+                    damage = d;
+                    q = blockPos;
+                    renderEnt = entity;
+                }
+            }
+        }
+        if (damage == .5) {
+            render = null;
+            renderEnt = null;
+            if (rotate.isEnabled()) {
+                resetRotation();
+            }
+            return;
+        }
+        render = q;
+
+        if (place.isEnabled()) {
+            if (!offhand && mc.player.inventory.currentItem != crystalSlot) {
+                if (switchToCrystal.isEnabled()) {
+                    mc.player.inventory.currentItem = crystalSlot;
                     if (rotate.isEnabled()) {
                         resetRotation();
                     }
+                    switchCooldown = true;
+                }
+                return;
+            }
+            EnumFacing f;
+            lookAtPacket(q.getX() + .5, q.getY() - .5, q.getZ() + .5, mc.player);
+            if (rayTrace.isEnabled()) {
+                RayTraceResult result = mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + mc.player.getEyeHeight(), mc.player.posZ), new Vec3d(q.getX() + .5, q.getY() - .5d, q.getZ() + .5));
+                if (result == null || result.sideHit == null) {
+                    f = EnumFacing.UP;
+                } else {
+                    f = result.sideHit;
+                }
+                if (switchCooldown) {
+                    switchCooldown = false;
                     return;
                 }
-                render = q;
+            } else {
+                f = EnumFacing.UP;
+            }
+            if (timer.getTimePassed() / 50 >= 20 - placeSpeed.getValue()) {
+                timer.reset();
+                mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(q, f, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));
+            }
+        }
 
-                if (place.isEnabled()) {
-                    if (!offhand && mc.player.inventory.currentItem != crystalSlot) {
-                        if (switchToCrystal.isEnabled()) {
-                            mc.player.inventory.currentItem = crystalSlot;
-                            if (rotate.isEnabled()) {
-                                resetRotation();
-                            }
-                            switchCooldown = true;
-                        }
-                        return;
-                    }
-                    EnumFacing f;
-                    lookAtPacket(q.getX() + .5, q.getY() - .5, q.getZ() + .5, mc.player);
-                    if (rayTrace.isEnabled()) {
-                        RayTraceResult result = mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + mc.player.getEyeHeight(), mc.player.posZ), new Vec3d(q.getX() + .5, q.getY() - .5d, q.getZ() + .5));
-                        if (result == null || result.sideHit == null) {
-                            f = EnumFacing.UP;
-                        } else {
-                            f = result.sideHit;
-                        }
-                        if (switchCooldown) {
-                            switchCooldown = false;
-                            return;
-                        }
-                    } else {
-                        f = EnumFacing.UP;
-                    }
-                    if (timer.getTimePassed() / 50 >= 20 - placeSpeed.getValue()) {
-                        timer.reset();
-                        mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(q, f, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));
-                    }
-                }
-
-                if (isSpoofingAngles) {
-                    if (togglePitch) {
-                        mc.player.rotationPitch += 0.0004;
-                        togglePitch = false;
-                    } else {
-                        mc.player.rotationPitch -= 0.0004;
-                        togglePitch = true;
-                    }
-                }
+        if (isSpoofingAngles) {
+            if (togglePitch) {
+                mc.player.rotationPitch += 0.0004;
+                togglePitch = false;
+            } else {
+                mc.player.rotationPitch -= 0.0004;
+                togglePitch = true;
             }
         }
     }

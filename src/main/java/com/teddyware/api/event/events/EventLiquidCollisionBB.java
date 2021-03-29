@@ -1,10 +1,10 @@
 package com.teddyware.api.event.events;
 
-import com.teddyware.api.event.Event2;
+import com.teddyware.api.event.Event;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 
-public class EventLiquidCollisionBB extends Event2 {
+public class EventLiquidCollisionBB extends Event {
 
     private AxisAlignedBB boundingBox;
     private BlockPos blockPos;

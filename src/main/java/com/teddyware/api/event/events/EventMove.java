@@ -1,9 +1,9 @@
 package com.teddyware.api.event.events;
 
-import com.teddyware.api.event.Event2;
+import com.teddyware.api.event.Event;
 import net.minecraft.entity.MoverType;
 
-public class EventMove extends Event2 {
+public class EventMove extends Event {
 
     private MoverType type;
 

@@ -1,9 +1,9 @@
 package com.teddyware.api.event.events;
 
-import com.teddyware.api.event.Event2;
+import com.teddyware.api.event.Event;
 import com.teddyware.client.module.Module;
 
-public class EventNotifier extends Event2 {
+public class EventNotifier extends Event {
 
     public Module module;
 

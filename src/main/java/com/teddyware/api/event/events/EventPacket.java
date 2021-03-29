@@ -1,9 +1,9 @@
 package com.teddyware.api.event.events;
 
-import com.teddyware.api.event.Event2;
+import com.teddyware.api.event.Event;
 import net.minecraft.network.Packet;
 
-public class EventPacket extends Event2 {
+public class EventPacket extends Event {
 
     private final Packet<?> packet;
 

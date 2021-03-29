@@ -1,21 +1,26 @@
 package com.teddyware.client.module.combat;
 
+import com.teddyware.api.event.events.EventPlayerUpdate;
 import com.teddyware.client.module.Category;
 import com.teddyware.client.module.Module;
-import com.teddyware.client.setting.settings.BooleanSetting;
-import org.lwjgl.input.Keyboard;
+import com.teddyware.client.setting.settings.ModeSetting;
+import com.teddyware.client.setting.settings.NumberSetting;
+import me.zero.alpine.listener.EventHandler;
+import me.zero.alpine.listener.Listener;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.item.Item;
+import org.lwjgl.input.Keyboard;
 
-public class AutoTotem extends Module {
+public class Offhand extends Module {
 
-    public BooleanSetting delay = new BooleanSetting("Delay", this, false);
-    
-    public AutoTotem() {
-        super("AutoTotem", "auto totem :)", Keyboard.KEY_NONE, Category.Combat);
-        this.addSetting(delay);
+    public NumberSetting totemHP = new NumberSetting("TotemHP", this, 10, 0, 20, 1);
+    public ModeSetting OHItem = new ModeSetting("OHItem", this, "Crystal", "Crystal", "Gapple");
+
+    public Offhand() {
+        super("Offhand", "offhand cristal.", Keyboard.KEY_NONE, Category.Combat);
+        this.addSetting(totemHP, OHItem);
     }
 
     public boolean switching = false;
@@ -24,22 +29,23 @@ public class AutoTotem extends Module {
     @Override
     public void onUpdate() {
         if (mc.currentScreen == null || mc.currentScreen instanceof GuiInventory) {
+
             if (switching) {
                 swapItems(lastSlot, 2);
                 return;
             }
 
-            if (mc.player.getHeldItemOffhand().getItem() == Items.AIR) {
-                swapItems(getItemSlot(), delay.isEnabled() ? 1 : 0);
+            if (mc.player.getHeldItemOffhand().getItem() != getItemToSwitch()) {
+                swapItems(getItemSlot(), 0);
             }
         }
     }
 
     public int getItemSlot() {
-        if (Items.TOTEM_OF_UNDYING == mc.player.getHeldItemOffhand().getItem()) return -1;
-        for(int i = 0; i < 36; i++) {
+        if (getItemToSwitch() == mc.player.getHeldItemOffhand().getItem()) return -1;
+        for(int i = 44; i >= 0; i--) {
             final Item item = mc.player.inventory.getStackInSlot(i).getItem();
-            if(item == Items.TOTEM_OF_UNDYING) {
+            if(item == getItemToSwitch()) {
                 if (i < 9) {
                     return -1;
                 }
@@ -69,4 +75,16 @@ public class AutoTotem extends Module {
 
         mc.playerController.updateController();
     }
+
+    public Item getItemToSwitch() {
+        if (totemHP.getValue() >= mc.player.getHealth()) {
+            return Items.TOTEM_OF_UNDYING;
+        } else {
+            if (OHItem.is("Crystal")) {
+                return Items.END_CRYSTAL;
+            }
+            return Items.GOLDEN_APPLE;
+        }
+    }
+
 }

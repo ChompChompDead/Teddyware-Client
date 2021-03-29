@@ -1,14 +1,11 @@
 package com.teddyware.client.module.render;
 
-import com.teddyware.api.event.Event;
 import com.teddyware.api.event.events.EventRender;
-import com.teddyware.api.event.events.EventUpdate;
 import com.teddyware.api.util.GeometryMasks;
 import com.teddyware.api.util.TWTessellator;
 import com.teddyware.api.util.color.JColor;
 import com.teddyware.client.module.Category;
 import com.teddyware.client.module.Module;
-import com.teddyware.client.setting.settings.BooleanSetting;
 import com.teddyware.client.setting.settings.ColorSetting;
 import com.teddyware.client.setting.settings.ModeSetting;
 import com.teddyware.client.setting.settings.NumberSetting;
@@ -43,76 +40,49 @@ public class HoleESP extends Module {
 
     private ConcurrentHashMap<BlockPos, Boolean> safeHoles;
 
-    public List<BlockPos> getSphere(BlockPos loc, float r, int h, boolean hollow, boolean sphere, int plus_y) {
-        List<BlockPos> circleblocks = new ArrayList<>();
-        int cx = loc.getX();
-        int cy = loc.getY();
-        int cz = loc.getZ();
-        for (int x = cx - (int) r; x <= cx + r; x++){
-            for (int z = cz - (int) r; z <= cz + r; z++){
-                for (int y = (sphere ? cy - (int) r : cy); y < (sphere ? cy + r : cy + h); y++){
-                    double dist = (cx - x) * (cx - x) + (cz - z) * (cz - z) + (sphere ? (cy - y) * (cy - y) : 0);
-                    if (dist < r * r && !(hollow && dist < (r - 1) * (r - 1))){
-                        BlockPos l = new BlockPos(x, y + plus_y, z);
-                        circleblocks.add(l);
-                    }
+    @Override
+    public void onUpdate() {
+        if (safeHoles == null) {
+            safeHoles = new ConcurrentHashMap<>();
+        }
+        else{
+            safeHoles.clear();
+        }
+
+        int range = (int) Math.ceil(8);
+
+        List<BlockPos> blockPosList = getSphere(getPlayerPos(), range, range, false, true, 0);
+        for (BlockPos pos : blockPosList){
+
+            if (!mc.world.getBlockState(pos).getBlock().equals(Blocks.AIR)){
+                continue;
+            }
+            if (!mc.world.getBlockState(pos.add(0, 1, 0)).getBlock().equals(Blocks.AIR)) {
+                continue;
+            }
+            if (!mc.world.getBlockState(pos.add(0, 2, 0)).getBlock().equals(Blocks.AIR)) {
+                continue;
+            }
+
+            boolean isSafe = true;
+            boolean isBedrock = true;
+
+            for (BlockPos offset : surroundOffset) {
+                Block block = mc.world.getBlockState(pos.add(offset)).getBlock();
+                if (block != Blocks.BEDROCK){
+                    isBedrock = false;
+                }
+                if (block != Blocks.BEDROCK && block != Blocks.OBSIDIAN && block != Blocks.ENDER_CHEST && block != Blocks.ANVIL) {
+                    isSafe = false;
+                    break;
+                }
+                if (block == Blocks.AIR) {
+                    isSafe = false;
+                    break;
                 }
             }
-        }
-        return circleblocks;
-    }
-
-    public BlockPos getPlayerPos() {
-        return new BlockPos(Math.floor(mc.player.posX), Math.floor(mc.player.posY), Math.floor(mc.player.posZ));
-    }
-
-    @Override
-    public void onEvent(Event e) {
-        if (e instanceof EventUpdate) {
-            if (e.isPre()) {
-                if (safeHoles == null) {
-                    safeHoles = new ConcurrentHashMap<>();
-                }
-                else{
-                    safeHoles.clear();
-                }
-
-                int range = (int) Math.ceil(8);
-
-                List<BlockPos> blockPosList = getSphere(getPlayerPos(), range, range, false, true, 0);
-                for (BlockPos pos : blockPosList){
-
-                    if (!mc.world.getBlockState(pos).getBlock().equals(Blocks.AIR)){
-                        continue;
-                    }
-                    if (!mc.world.getBlockState(pos.add(0, 1, 0)).getBlock().equals(Blocks.AIR)) {
-                        continue;
-                    }
-                    if (!mc.world.getBlockState(pos.add(0, 2, 0)).getBlock().equals(Blocks.AIR)) {
-                        continue;
-                    }
-
-                    boolean isSafe = true;
-                    boolean isBedrock = true;
-
-                    for (BlockPos offset : surroundOffset) {
-                        Block block = mc.world.getBlockState(pos.add(offset)).getBlock();
-                        if (block != Blocks.BEDROCK){
-                            isBedrock = false;
-                        }
-                        if (block != Blocks.BEDROCK && block != Blocks.OBSIDIAN && block != Blocks.ENDER_CHEST && block != Blocks.ANVIL) {
-                            isSafe = false;
-                            break;
-                        }
-                        if (block == Blocks.AIR) {
-                            isSafe = false;
-                            break;
-                        }
-                    }
-                    if (isSafe){
-                        safeHoles.put(pos, isBedrock);
-                    }
-                }
+            if (isSafe){
+                safeHoles.put(pos, isBedrock);
             }
         }
     }
@@ -153,6 +123,29 @@ public class HoleESP extends Module {
         if(style.is("Outline")) {
             TWTessellator.drawBoundingBox(blockPos, height.getValue(), width, color);
         }
+    }
+
+    public List<BlockPos> getSphere(BlockPos loc, float r, int h, boolean hollow, boolean sphere, int plus_y) {
+        List<BlockPos> circleblocks = new ArrayList<>();
+        int cx = loc.getX();
+        int cy = loc.getY();
+        int cz = loc.getZ();
+        for (int x = cx - (int) r; x <= cx + r; x++){
+            for (int z = cz - (int) r; z <= cz + r; z++){
+                for (int y = (sphere ? cy - (int) r : cy); y < (sphere ? cy + r : cy + h); y++){
+                    double dist = (cx - x) * (cx - x) + (cz - z) * (cz - z) + (sphere ? (cy - y) * (cy - y) : 0);
+                    if (dist < r * r && !(hollow && dist < (r - 1) * (r - 1))){
+                        BlockPos l = new BlockPos(x, y + plus_y, z);
+                        circleblocks.add(l);
+                    }
+                }
+            }
+        }
+        return circleblocks;
+    }
+
+    public BlockPos getPlayerPos() {
+        return new BlockPos(Math.floor(mc.player.posX), Math.floor(mc.player.posY), Math.floor(mc.player.posZ));
     }
 
 }

@@ -1,8 +1,6 @@
 package com.teddyware.client.module.movement;
 
-import com.teddyware.api.event.Event;
 import com.teddyware.api.event.events.EventLiquidCollisionBB;
-import com.teddyware.api.event.events.EventUpdate;
 import com.teddyware.api.util.EntityUtil;
 import com.teddyware.client.module.Category;
 import com.teddyware.client.module.Module;
@@ -21,14 +19,10 @@ public class Jesus extends Module {
     public float offset = 0.5f;
 
     @Override
-    public void onEvent(Event e) {
-        if (e instanceof EventUpdate) {
-            if (e.isPre()) {
-                if(toggled) {
-                    if (!mc.player.isSneaking() && !mc.player.noClip && !mc.gameSettings.keyBindJump.isKeyDown() && EntityUtil.isInLiquid()) {
-                        mc.player.motionY = 0.1f;
-                    }
-                }
+    public void onUpdate() {
+        if(toggled) {
+            if (!mc.player.isSneaking() && !mc.player.noClip && !mc.gameSettings.keyBindJump.isKeyDown() && EntityUtil.isInLiquid()) {
+                mc.player.motionY = 0.1f;
             }
         }
     }

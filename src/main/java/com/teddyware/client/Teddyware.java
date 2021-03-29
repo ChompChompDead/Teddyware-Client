@@ -6,6 +6,7 @@ import com.teddyware.api.config.ClickGUISave;
 import com.teddyware.api.config.Config;
 import com.teddyware.api.config.ConfigStop;
 import com.teddyware.api.event.Event;
+import com.teddyware.api.event.EventProcessor;
 import com.teddyware.api.util.font.CustomFontRenderer;
 import com.teddyware.client.command.CommandManager;
 import com.teddyware.client.module.Module;
@@ -54,6 +55,7 @@ public class Teddyware
     public static CommandManager commandManager;
     public static ClickGUIScreen clickGUIScreen;
     public static CustomFontRenderer customFontRenderer;
+    public static EventProcessor eventProcessor;
 
     @Instance
     public static Teddyware instance = new Teddyware();
@@ -77,6 +79,9 @@ public class Teddyware
         MinecraftForge.EVENT_BUS.register(new ModuleManager());
         moduleManager = new ModuleManager();
         log.info("module manager is ready");
+
+        eventProcessor = new EventProcessor();
+        log.info("events are ready");
 
         settingManager = new SettingManager();
         log.info("settings are ready");

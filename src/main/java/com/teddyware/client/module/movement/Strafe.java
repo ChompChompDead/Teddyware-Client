@@ -1,8 +1,6 @@
 package com.teddyware.client.module.movement;
 
-import com.teddyware.api.event.Event;
 import com.teddyware.api.event.events.EventMove;
-import com.teddyware.api.event.events.EventUpdate;
 import com.teddyware.client.module.Category;
 import com.teddyware.client.module.Module;
 import com.teddyware.client.setting.settings.BooleanSetting;
@@ -13,7 +11,7 @@ import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.math.MathHelper;
 import org.lwjgl.input.Keyboard;
 
-/*
+/**
 * @author TrvsF
 * pasted from wp2. sorry
  */
@@ -30,34 +28,28 @@ public class Strafe extends Module {
     public BooleanSetting backwards = new BooleanSetting("Backwards", this, true);
 
     @Override
-    public void onEvent(Event e) {
-        if (e instanceof EventUpdate) {
-            if (e.isPre()) {
-                if (mc.player.isRiding()) return;
-                if (mc.player.isInWater() || mc.player.isInLava()) {
-                   if (!onWater.isEnabled()) return;
-                }
+    public void onUpdate() {
+        if (mc.player.isRiding()) return;
+        if (mc.player.isInWater() || mc.player.isInLava()) {
+            if (!onWater.isEnabled()) return;
+        }
 
-                if (mc.player.moveForward != 0 || mc.player.moveStrafing != 0) {
+        if (mc.player.moveForward != 0 || mc.player.moveStrafing != 0) {
 
-                    if (mc.player.moveForward < 0 && !backwards.isEnabled()) return;
-                    if (mc.player.onGround) {
-                        if (autoJump.isEnabled()) {
-                            mc.player.motionY = 0.405f;
-                        }
-
-                        final float yaw = getRotationYaw();
-                        mc.player.motionX -= MathHelper.sin(yaw) * 0.2f;
-                        mc.player.motionZ += MathHelper.cos(yaw) * 0.2f;
-                        mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY + 0.4, mc.player.posZ, false));
-                    }
-                }
-                if (mc.gameSettings.keyBindJump.isKeyDown() && mc.player.onGround) {
+            if (mc.player.moveForward < 0 && !backwards.isEnabled()) return;
+            if (mc.player.onGround) {
+                if (autoJump.isEnabled()) {
                     mc.player.motionY = 0.405f;
                 }
 
-
+                final float yaw = getRotationYaw();
+                mc.player.motionX -= MathHelper.sin(yaw) * 0.2f;
+                mc.player.motionZ += MathHelper.cos(yaw) * 0.2f;
+                mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY + 0.4, mc.player.posZ, false));
             }
+        }
+        if (mc.gameSettings.keyBindJump.isKeyDown() && mc.player.onGround) {
+            mc.player.motionY = 0.405f;
         }
     }
 

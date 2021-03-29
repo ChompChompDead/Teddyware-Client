@@ -1,9 +1,9 @@
 package com.teddyware.api.mixin.mixins;
 
 import com.teddyware.api.event.events.EventMove;
+import com.teddyware.api.event.events.EventPlayerMotionUpdate;
+import com.teddyware.api.event.events.EventPlayerUpdate;
 import com.teddyware.client.Teddyware;
-import com.teddyware.api.event.EventType;
-import com.teddyware.api.event.events.EventUpdate;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.MoverType;
@@ -21,7 +21,7 @@ public abstract class MixinEntityPlayerSP extends AbstractClientPlayer {
     }
 
     @Redirect(method = "move", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/AbstractClientPlayer;move(Lnet/minecraft/entity/MoverType;DDD)V"))
-    public void move(AbstractClientPlayer player, MoverType type, double x, double y, double z) {
+    private void move(AbstractClientPlayer player, MoverType type, double x, double y, double z) {
         EventMove moveEvent = new EventMove(type, x, y, z);
         Teddyware.EVENT_BUS.post(moveEvent);
         super.move(type, moveEvent.x, moveEvent.y, moveEvent.z);
@@ -29,9 +29,20 @@ public abstract class MixinEntityPlayerSP extends AbstractClientPlayer {
 
 
     @Inject(method = "onUpdateWalkingPlayer", at = @At("HEAD"), cancellable = true)
-    public void onUpdateWalkingPlayer(CallbackInfo info) {
-        EventUpdate e = new EventUpdate();
-        e.setType(EventType.PRE);
-        Teddyware.onEvent(e);
+    private void onUpdateWalkingPlayer(CallbackInfo info) {
+        EventPlayerMotionUpdate event = new EventPlayerMotionUpdate();
+        Teddyware.EVENT_BUS.post(event);
+        if (event.isCancelled()) {
+            info.cancel();
+        }
+    }
+
+    @Inject(method = "onUpdate", at = @At("HEAD"), cancellable = true)
+    private void onUpdate(CallbackInfo info) {
+        EventPlayerUpdate event = new EventPlayerUpdate();
+        Teddyware.EVENT_BUS.post(event);
+        if (event.isCancelled()) {
+            info.cancel();
+        }
     }
 }

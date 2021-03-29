@@ -12,6 +12,7 @@ import com.teddyware.client.module.ModuleManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 
@@ -20,7 +21,7 @@ import java.util.Comparator;
 
 public class MainHud extends Gui {
 
-    private final Minecraft mc = Minecraft.getMinecraft();
+    Minecraft mc = Minecraft.getMinecraft();
 
     public static class ModuleComparator implements Comparator<Module> {
 
@@ -29,7 +30,7 @@ public class MainHud extends Gui {
             if (Minecraft.getMinecraft().fontRenderer.getStringWidth(arg0.getName()) > Minecraft.getMinecraft().fontRenderer.getStringWidth(arg1.getName())) {
                 return -1;
             }
-            if (Minecraft.getMinecraft().fontRenderer.getStringWidth(arg0.getName()) > Minecraft.getMinecraft().fontRenderer.getStringWidth(arg1.getName())) {
+            if (Minecraft.getMinecraft().fontRenderer.getStringWidth(arg0.getName()) < Minecraft.getMinecraft().fontRenderer.getStringWidth(arg1.getName())) {
                 return 1;
             }
             return 0;
@@ -63,11 +64,8 @@ public class MainHud extends Gui {
                 if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
                     int y = 5;
                     final int[] counter = {1};
-                    for (Module mod : Teddyware.moduleManager.getModuleList()) {
-                        if (!mod.getName().equalsIgnoreCase("TabGUI") &&
-                                !mod.getName().equalsIgnoreCase("DiscordRPC") &&
-                                !mod.getName().equalsIgnoreCase("ClickGUI") &&
-                                mod.isToggled()) {
+                    for (Module mod : ModuleManager.getModuleList()) {
+                        if (mod.isToggled() && !mod.hidden.isEnabled()) {
                             FontUtil.drawStringWithShadow(mod.getName(), sr.getScaledWidth() - FontUtil.getStringWidth(mod.getName()) - 2, y, new JColor(rainbow(counter[0] * 500)));
                             y += FontUtil.getFontHeight();
                             counter[0]++;
@@ -77,7 +75,7 @@ public class MainHud extends Gui {
             }
 
             if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
-                Teddyware.onEvent(new EventRenderGUI());
+                Teddyware.EVENT_BUS.post(new EventRenderGUI());
             }
         }
     }

@@ -1,7 +1,6 @@
 package com.teddyware.client.module.client;
 
-import com.teddyware.api.event.Event;
-import com.teddyware.api.event.events.EventUpdate;
+import com.teddyware.api.event.events.EventPlayerUpdate;
 import com.teddyware.client.Teddyware;
 import com.teddyware.client.module.Category;
 import com.teddyware.client.module.Module;
@@ -9,6 +8,8 @@ import com.teddyware.client.setting.settings.ColorSetting;
 import com.teddyware.client.setting.settings.ModeSetting;
 import com.teddyware.client.setting.settings.NumberSetting;
 import com.teddyware.api.util.color.JColor;
+import me.zero.alpine.listener.EventHandler;
+import me.zero.alpine.listener.Listener;
 import org.lwjgl.input.Keyboard;
 
 public class ClickGUIModule extends Module {
@@ -38,13 +39,10 @@ public class ClickGUIModule extends Module {
         Teddyware.instance.clickGUIScreen.enterGUI();
     }
 
-    public void onEvent(Event e) {
-        if (e instanceof EventUpdate) {
-            if (e.isPre()) {
-                if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
-                    this.setToggled(!toggled);
-                }
-            }
+    @Override
+    public void onUpdate() {
+        if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+            this.setToggled(!toggled);
         }
     }
 

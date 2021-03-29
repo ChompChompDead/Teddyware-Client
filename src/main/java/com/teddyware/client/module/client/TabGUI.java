@@ -12,6 +12,8 @@ import com.teddyware.client.module.ModuleManager;
 import com.teddyware.client.setting.Setting;
 import com.teddyware.client.setting.settings.BooleanSetting;
 import com.teddyware.client.setting.settings.KeybindSetting;
+import me.zero.alpine.listener.EventHandler;
+import me.zero.alpine.listener.Listener;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -31,72 +33,68 @@ public class TabGUI extends Module {
         this.toggled = true;
     }
 
-    @Override
-    public void onEvent(Event e) {
-        if (e instanceof EventRenderGUI) {
-            // Main tab
-            FontRenderer fr = mc.fontRenderer;
-            int count = 0;
+    @EventHandler
+    private final Listener<EventRenderGUI> eventRenderGUIListener = new Listener<>(event -> {
+        // Main tab
+        FontRenderer fr = mc.fontRenderer;
+        int count = 0;
 
-            // background
-            Gui.drawRect(5, 37, 75, 36 + Category.values().length * 16 + 2, new Color(0, 0, 0, 100).getRGB());
-            // outline
-            Gui.drawRect(7, 40 + currentTab * 16, 7 + 61, 40 + currentTab * 16 + 12, 0xff783F04);
+        // background
+        Gui.drawRect(5, 37, 75, 36 + Category.values().length * 16 + 2, new Color(0, 0, 0, 100).getRGB());
+        // outline
+        Gui.drawRect(7, 40 + currentTab * 16, 7 + 61, 40 + currentTab * 16 + 12, 0xff783F04);
 
-            for (Category c : Category.values()) {
-                FontUtil.drawStringWithShadow(c.name, 11, 42 + count * 16, new JColor(255, 255, 255));
+        for (Category c : Category.values()) {
+            FontUtil.drawStringWithShadow(c.name, 11, 42 + count * 16, new JColor(255, 255, 255));
+            count++;
+        }
+        if (expanded) {
+            // Multiple tabs
+            Category category = Category.values()[currentTab];
+            List<Module> modules = ModuleManager.getModulesByCategory(category);
+            Module moduleOnSetting = modules.get(category.moduleIndex);
+
+            if (modules.size() == 0)
+                return;
+            //background
+            Gui.drawRect(75, (int) 37.5, 78 + 68, 36 + modules.size() * 16 + 2, new Color(0, 0, 0, 100).getRGB());
+            //outline
+            Gui.drawRect(75, 40 + category.moduleIndex * 16, 10 + 60 + 68, 40 + category.moduleIndex * 16 + 12, 0xff783F04);
+
+            count = 0;
+            for (Module m : modules) {
+
+                if (count == category.moduleIndex && m.settingExpanded) {
+
+                    if (!m.settings.isEmpty()) {
+                        //background
+                        Gui.drawRect(146, (int) 37.5, 217, 36 + m.settings.size() * 16 + 2, new Color(0, 0, 0, 100).getRGB());
+                        //outline
+                        Gui.drawRect(147, 40 + m.settingIndex * 16, 208, 40 + m.settingIndex * 16 + 12, 0xff783F04);
+                    }
+
+                    int settingIndex = 0;
+                    for (Setting setting : m.settings) {
+                        if (setting instanceof BooleanSetting) {
+                            BooleanSetting bool = (BooleanSetting) setting;
+                            fr.drawStringWithShadow(setting.name + ": " + (bool.isEnabled() ? "On" : "Off"), 83, 42 + settingIndex * 16, -1);
+                        }
+                        if (setting instanceof KeybindSetting) {
+                            KeybindSetting keyBind = (KeybindSetting) setting;
+                            fr.drawStringWithShadow(setting.name + ": " + Keyboard.getKeyName(keyBind.code), 83, 42 + settingIndex * 16, -1);
+
+                        }
+
+                        settingIndex++;
+                    }
+
+                }
+                // names
+                FontUtil.drawStringWithShadow(m.name, 79, 42 + count * 16, new JColor(255, 255, 255));
                 count++;
             }
-            if (expanded) {
-                // Multiple tabs
-                Category category = Category.values()[currentTab];
-                List<Module> modules = ModuleManager.getModulesByCategory(category);
-                Module moduleOnSetting = modules.get(category.moduleIndex);
-
-                if (modules.size() == 0)
-                    return;
-                //background
-                Gui.drawRect(75, (int) 37.5, 78 + 68, 36 + modules.size() * 16 + 2, new Color(0, 0, 0, 100).getRGB());
-                //outline
-                Gui.drawRect(75, 40 + category.moduleIndex * 16, 10 + 60 + 68, 40 + category.moduleIndex * 16 + 12, 0xff783F04);
-
-                count = 0;
-                for (Module m : modules) {
-
-                    if (count == category.moduleIndex && m.settingExpanded) {
-
-                        if (!m.settings.isEmpty()) {
-                            //background
-                            Gui.drawRect(146, (int) 37.5, 217, 36 + m.settings.size() * 16 + 2, new Color(0, 0, 0, 100).getRGB());
-                            //outline
-                            Gui.drawRect(147, 40 + m.settingIndex * 16, 208, 40 + m.settingIndex * 16 + 12, 0xff783F04);
-                        }
-
-                        int settingIndex = 0;
-                        for (Setting setting : m.settings) {
-                            if (setting instanceof BooleanSetting) {
-                                BooleanSetting bool = (BooleanSetting) setting;
-                                fr.drawStringWithShadow(setting.name + ": " + (bool.isEnabled() ? "On" : "Off"), 83, 42 + settingIndex * 16, -1);
-                            }
-                            if (setting instanceof KeybindSetting) {
-                                KeybindSetting keyBind = (KeybindSetting) setting;
-                                fr.drawStringWithShadow(setting.name + ": " + Keyboard.getKeyName(keyBind.code), 83, 42 + settingIndex * 16, -1);
-
-                            }
-
-                            settingIndex++;
-                        }
-
-                    }
-                    // names
-                    FontUtil.drawStringWithShadow(m.name, 79, 42 + count * 16, new JColor(255, 255, 255));
-                    count++;
-                }
-            }
         }
-        // make tabgui work lol
-
-    }
+    });
 
     @SubscribeEvent
     public void onKey(InputEvent.KeyInputEvent e) {

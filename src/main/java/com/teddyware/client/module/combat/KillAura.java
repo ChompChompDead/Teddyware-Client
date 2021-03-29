@@ -1,7 +1,5 @@
 package com.teddyware.client.module.combat;
 
-import com.teddyware.api.event.Event;
-import com.teddyware.api.event.events.EventUpdate;
 import com.teddyware.client.module.Category;
 import com.teddyware.client.module.Module;
 import com.teddyware.client.setting.settings.BooleanSetting;
@@ -33,21 +31,17 @@ public class KillAura extends Module {
     public BooleanSetting cooldown = new BooleanSetting("HitCooldown", this, true);
 
     @Override
-    public void onEvent(Event e) {
-        if (e instanceof EventUpdate) {
-            if (e.isPre()) {
-                if (mc.player == null || mc.player.isDead) return;
-                List<Entity> targets = mc.world.loadedEntityList.stream()
-                        .filter(entity -> entity != mc.player)
-                        .filter(entity -> mc.player.getDistance(entity) <= range.getValue())
-                        .filter(entity -> !entity.isDead)
-                        .filter(entity -> attackCheck(entity))
-                        .sorted(Comparator.comparing(s -> mc.player.getDistance(s)))
-                        .collect(Collectors.toList());
+    public void onUpdate() {
+        if (mc.player == null || mc.player.isDead) return;
+        List<Entity> targets = mc.world.loadedEntityList.stream()
+                .filter(entity -> entity != mc.player)
+                .filter(entity -> mc.player.getDistance(entity) <= range.getValue())
+                .filter(entity -> !entity.isDead)
+                .filter(entity -> attackCheck(entity))
+                .sorted(Comparator.comparing(s -> mc.player.getDistance(s)))
+                .collect(Collectors.toList());
 
-                targets.forEach(this::attack);
-            }
-        }
+        targets.forEach(this::attack);
     }
 
     @Override

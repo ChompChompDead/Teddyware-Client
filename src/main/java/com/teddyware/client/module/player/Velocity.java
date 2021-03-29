@@ -1,6 +1,5 @@
 package com.teddyware.client.module.player;
 
-import com.teddyware.api.event.Event;
 import com.teddyware.api.event.events.EventPacket;
 import com.teddyware.client.Teddyware;
 import com.teddyware.client.module.Category;

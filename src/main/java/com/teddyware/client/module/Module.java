@@ -7,6 +7,7 @@ import com.teddyware.api.event.events.EventNotifier;
 import com.teddyware.api.event.events.EventRender;
 import com.teddyware.client.Teddyware;
 import com.teddyware.client.setting.Setting;
+import com.teddyware.client.setting.settings.BooleanSetting;
 import com.teddyware.client.setting.settings.KeybindSetting;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
@@ -29,6 +30,7 @@ public class Module implements Toggleable {
     public boolean settingExpanded;
 
     public KeybindSetting keyCode = new KeybindSetting(0);
+    public BooleanSetting hidden = new BooleanSetting("Hidden", this, false);
     public List<Setting> settings = new ArrayList<Setting>();
 
     public Minecraft mc = Minecraft.getMinecraft();
@@ -38,12 +40,13 @@ public class Module implements Toggleable {
         this.name = name;
         this.description = description;
         keyCode.code = key;
-        this.addSetting(keyCode);
+        this.addSetting(keyCode, hidden);
         this.category = category;
         this.toggled = false;
     }
 
     public void onWorldRender(EventRender e) { }
+    public void onUpdate() { }
     public void onEvent(Event e) {}
     public String getDescription() {
         return description;
@@ -69,7 +72,7 @@ public class Module implements Toggleable {
 
     public void addSetting(Setting... settings) {
         this.settings.addAll(Arrays.asList(settings));
-        this.settings.sort(Comparator.comparingInt(s->s==keyCode?1:0));
+        this.settings.sort(Comparator.comparingInt(s -> s == keyCode ? 1 : 0));
     }
 
     public void setToggled(boolean toggled) {

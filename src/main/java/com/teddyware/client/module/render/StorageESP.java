@@ -22,6 +22,7 @@ public class StorageESP extends Module {
     public JColor containerBox;
     public JColor containerColor;
     public int opacityGradient;
+
     public StorageESP() {
         super("StorageESP", "find dupe stahs real", Keyboard.KEY_NONE, Category.Render);
         this.addSetting(style, chestColor, enderChestColor, shulkerBoxColor, otherColor);

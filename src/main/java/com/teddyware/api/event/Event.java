@@ -1,63 +1,36 @@
 package com.teddyware.api.event;
 
-public class Event<T> {
+import me.zero.alpine.type.Cancellable;
+import net.minecraft.client.Minecraft;
 
-    public boolean cancelled;
-    public EventType type;
-    public EventDirection direction;
+public class Event extends Cancellable {
 
-    public boolean isCancelled() {
-        return cancelled;
+    private Era era = Era.PRE;
+    private final float partialTicks;
+
+    private Minecraft mc = Minecraft.getMinecraft();
+
+    public Event() {
+        partialTicks = mc.getRenderPartialTicks();
     }
 
-    public void setCancelled(boolean cancelled) {
-        this.cancelled = cancelled;
+    public Event(Era era) {
+        partialTicks = mc.getRenderPartialTicks();
+        era = era;
     }
 
-    public void cancel() { this.cancelled = true; }
-
-    public EventType getType() {
-        return type;
+    public Era getEra() {
+        return era;
     }
 
-    public void setType(EventType type) {
-        this.type = type;
+    public float getPartialTicks() {
+        return partialTicks;
     }
 
-    public EventDirection getDirection() {
-        return direction;
-    }
-
-    public void setDirection(EventDirection direction) {
-        this.direction = direction;
-    }
-
-    public boolean isPre() {
-        if(type == null)
-            return false;
-
-        return type == EventType.PRE;
-    }
-
-    public boolean isPost() {
-        if(type == null)
-            return false;
-
-        return type == EventType.POST;
-    }
-
-    public boolean isIncoming() {
-        if(direction == null)
-            return false;
-
-        return direction == EventDirection.INCOMING;
-    }
-
-    public boolean isOutgoing() {
-        if(direction == null)
-            return false;
-
-        return direction == EventDirection.OUTGOING;
+    public enum Era {
+        PRE,
+        PERI,
+        POST
     }
 
 }
