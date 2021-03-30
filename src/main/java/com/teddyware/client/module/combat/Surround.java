@@ -21,7 +21,7 @@ public class Surround extends Module {
     @Override
     public void onUpdate() {
         for (BlockPos block : surroundBlocks) {
-            //mc.playerController.processRightClickBlock(mc.player, mc.world, block);
+
         }
     }
 }

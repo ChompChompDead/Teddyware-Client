@@ -23,7 +23,7 @@ public class SyncableColorComponent extends ColorComponent {
 
     private class SyncButton extends FocusableComponent {
         public SyncButton (Renderer renderer) {
-            super("Sync Color",null,renderer);
+            super("Sync Color",null, renderer);
         }
 
         @Override

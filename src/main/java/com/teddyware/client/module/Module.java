@@ -2,7 +2,6 @@ package com.teddyware.client.module;
 
 import com.lukflug.panelstudio.settings.Toggleable;
 import com.mojang.realmsclient.gui.ChatFormatting;
-import com.teddyware.api.event.Event;
 import com.teddyware.api.event.events.EventNotifier;
 import com.teddyware.api.event.events.EventRender;
 import com.teddyware.client.Teddyware;
@@ -47,7 +46,6 @@ public class Module implements Toggleable {
 
     public void onWorldRender(EventRender e) { }
     public void onUpdate() { }
-    public void onEvent(Event e) {}
     public String getDescription() {
         return description;
     }

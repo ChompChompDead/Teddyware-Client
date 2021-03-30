@@ -16,7 +16,6 @@ import net.minecraft.util.math.Vec3d;
 
 public class EntityUtil implements UtilInterface {
 
-    //Finds the entities interpolated amount
     public static Vec3d getInterpolatedAmount(Entity entity, double x, double y, double z) {
         return new Vec3d(
                 (entity.posX - entity.lastTickPosX) * x,

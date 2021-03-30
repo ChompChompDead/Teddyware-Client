@@ -27,7 +27,6 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.Display;
@@ -36,11 +35,10 @@ import java.awt.*;
 
 // set mod variables and client class
 @Mod(modid = Teddyware.MODID, name = Teddyware.NAME, version = Teddyware.VERSION)
-public class Teddyware
-{
+public class Teddyware {
     public static final String MODID = "teddyware";
     public static final String NAME = "Teddyware";
-    public static final String VERSION = "0.28";
+    public static final String VERSION = "0.29";
     public static final String CLIENT_PROXY_CLASS = "com.teddyware.api.proxy.ClientProxy";
     public static final String COMMON_PROXY_CLASS = "com.teddyware.api.proxy.CommonProxy";
     public static final Logger log = LogManager.getLogger(NAME + " v" + VERSION);
@@ -111,15 +109,6 @@ public class Teddyware
     @EventHandler
     public void PostInit(FMLPostInitializationEvent event) {
 
-    }
-
-    public static void onEvent(Event e) {
-        moduleManager.modules.stream().filter(Module::isToggled).forEach(module -> module.onEvent(e) );
-    }
-
-    @SubscribeEvent
-    public void onWorldRender(final RenderWorldLastEvent event) {
-        ModuleManager.onWorldRender(event);
     }
 
     public String getName() { return NAME; }

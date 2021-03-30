@@ -1,8 +1,10 @@
 package com.teddyware.client;
 
+/*
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRichPresence;
 import club.minnced.discord.rpc.DiscordRPC;
+ */
 
 
 public class Discord {
