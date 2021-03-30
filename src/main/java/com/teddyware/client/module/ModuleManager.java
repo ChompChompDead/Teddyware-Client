@@ -35,6 +35,7 @@ public class ModuleManager {
         modules = new CopyOnWriteArrayList<>();
 
         // Movement
+        modules.add(new ElytraFly());
         modules.add(new Fly());
         modules.add(new Jesus());
         modules.add(new Sprint());
@@ -127,21 +128,21 @@ public class ModuleManager {
     }
 
     public static void onWorldRender(RenderWorldLastEvent event) {
-        Minecraft.getMinecraft().mcProfiler.startSection(Teddyware.MODID);
-        Minecraft.getMinecraft().mcProfiler.startSection("setup");
+        Minecraft.getMinecraft().profiler.startSection(Teddyware.MODID);
+        Minecraft.getMinecraft().profiler.startSection("setup");
         TWTessellator.prepare();
         EventRender e = new EventRender(event.getPartialTicks());
-        Minecraft.getMinecraft().mcProfiler.endSection();
+        Minecraft.getMinecraft().profiler.endSection();
 
         modules.stream().filter(module -> module.isToggled()).forEach(module -> {
-            Minecraft.getMinecraft().mcProfiler.startSection(module.getName());
+            Minecraft.getMinecraft().profiler.startSection(module.getName());
             module.onWorldRender(e);
-            Minecraft.getMinecraft().mcProfiler.endSection();
+            Minecraft.getMinecraft().profiler.endSection();
         });
 
-        Minecraft.getMinecraft().mcProfiler.startSection("release");
+        Minecraft.getMinecraft().profiler.startSection("release");
         TWTessellator.release();
-        Minecraft.getMinecraft().mcProfiler.endSection();
-        Minecraft.getMinecraft().mcProfiler.endSection();
+        Minecraft.getMinecraft().profiler.endSection();
+        Minecraft.getMinecraft().profiler.endSection();
     }
 }

@@ -8,6 +8,8 @@
       "MixinGuiMainMenu",
       "MixinNetworkManager",
       "MixinBlockLiquid",
-      "ICPacketPlayer"
+      "ICPacketPlayer",
+      "MixinEntity",
+      "MixinEntityPlayer"
   ]
 }

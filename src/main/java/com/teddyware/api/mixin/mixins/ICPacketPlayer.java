@@ -25,8 +25,17 @@ public interface ICPacketPlayer {
     @Accessor(value = "y")
     double getY();
 
+    @Accessor(value = "x")
+    void setX(double x);
+
+    @Accessor(value = "x")
+    double getX();
+
     @Accessor(value = "onGround")
     void setOnGround(boolean onGround);
+
+    @Accessor(value = "onGround")
+    boolean getOnGround();
 
     @Accessor(value = "rotating")
     boolean isRotating();

@@ -18,7 +18,7 @@ public class Config {
     public BufferedReader reader;
     public JSONParser parser = new JSONParser();
 
-    public File dir = new File(mc.mcDataDir, Teddyware.MODID);
+    public File dir = new File(mc.gameDir, Teddyware.MODID);
     public File moduleDir = new File(dir,  "/Modules");
 
     public Config() {
