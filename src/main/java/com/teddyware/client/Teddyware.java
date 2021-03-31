@@ -102,7 +102,7 @@ public class Teddyware {
         log.info("custom font is ready");
 
         log.info(NAME + " is done loading!");
-        //Discord.startRPC();
+        Discord.start();
         Display.setTitle(NAME + " | v" + VERSION);
     }
 

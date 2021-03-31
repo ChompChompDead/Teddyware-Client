@@ -72,12 +72,14 @@ dependencies {
     compile('com.lukflug:panelstudio-mc12:0.1.8')
     compile('com.github.ZeroMemes:Alpine:1.5')
     compile('com.googlecode.json-simple:json-simple:1.1.1')
+    compile('com.github.Vatuu:discord-rpc:1.5.0')
     implementation('org.jetbrains:annotations:15.0')
 }
 
 shadowJar {
     dependencies {
         include(dependency('net.jodah:typetools'))
+        include(dependency('com.github.Vatuu:discord-rpc'))
         include(dependency('org.spongepowered:mixin'))
         include(dependency('com.lukflug:panelstudio'))
         include(dependency('com.lukflug:panelstudio-mc12'))
