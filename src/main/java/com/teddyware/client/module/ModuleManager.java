@@ -8,10 +8,7 @@ import com.teddyware.client.module.combat.*;
 import com.teddyware.client.module.exploits.ServerBackdoor;
 import com.teddyware.client.module.exploits.XCarry;
 import com.teddyware.client.module.movement.*;
-import com.teddyware.client.module.player.AutoSuicide;
-import com.teddyware.client.module.player.FakePlayer;
-import com.teddyware.client.module.player.NoFall;
-import com.teddyware.client.module.player.Velocity;
+import com.teddyware.client.module.player.*;
 import com.teddyware.client.module.render.FullBright;
 import com.teddyware.client.module.client.Hud;
 import com.teddyware.client.module.client.TabGUI;
@@ -19,7 +16,6 @@ import com.teddyware.client.module.render.HoleESP;
 import com.teddyware.client.module.render.StorageESP;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
@@ -38,6 +34,7 @@ public class ModuleManager {
         modules.add(new ElytraFly());
         modules.add(new Fly());
         modules.add(new Jesus());
+        modules.add(new SafeWalk());
         modules.add(new Sprint());
         modules.add(new Step());
         modules.add(new Strafe());
@@ -56,13 +53,14 @@ public class ModuleManager {
         modules.add(new ClickGUIModule());
         modules.add(new Coords());
         modules.add(new CustomFont());
+        modules.add(new DiscordRPCModule());
         modules.add(new TabGUI());
         modules.add(new Watermark());
-        modules.add(new DiscordRPC());
 
         // Player
         modules.add(new AutoSuicide());
         modules.add(new FakePlayer());
+        modules.add(new FastUse());
         modules.add(new NoFall());
         modules.add(new Velocity());
 

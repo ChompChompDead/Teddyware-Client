@@ -13,14 +13,14 @@ public class EventNotifier extends Event {
     }
 
     public static class EventNotifierEnable extends EventNotifier {
-        public EventNotifierEnable(Module p_Mod) {
-            super(p_Mod);
+        public EventNotifierEnable(Module mod) {
+            super(mod);
         }
     }
 
     public static class EventNotifierDisable extends EventNotifier {
-        public EventNotifierDisable(Module p_Mod) {
-            super(p_Mod);
+        public EventNotifierDisable(Module mod) {
+            super(mod);
         }
     }
 }

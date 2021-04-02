@@ -1,4 +1,4 @@
-package com.teddyware.api.util.font;
+package com.teddyware.api.util.font2;
 
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import org.lwjgl.opengl.GL11;

@@ -1,12 +1,11 @@
 package com.teddyware.client.command;
 
+import com.teddyware.api.util.ChatUtil;
+
 import java.util.Arrays;
 import java.util.List;
 
 public abstract class Command {
-
-    public String prefix = CommandManager.getPrefix();
-
     public String name;
     public String description;
     public String syntax;
@@ -22,7 +21,7 @@ public abstract class Command {
     public abstract void onCommand(String[] args, String command);
 
     public String getName() {
-        return name;
+        return name.toLowerCase();
     }
 
     public void setName(String name) {
@@ -51,6 +50,10 @@ public abstract class Command {
 
     public void setAliases(List<String> aliases) {
         this.aliases = aliases;
+    }
+
+    public void sendError() {
+        ChatUtil.type("The correct syntax for " + getName() + " is " + getSyntax() + ". Try again.");
     }
 
 }

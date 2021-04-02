@@ -31,6 +31,10 @@ public class ModeSetting extends Setting implements EnumSetting {
         }
     }
 
+    public int getValue() {
+        return this.index;
+    }
+
     public boolean is(String mode) {
         return (this.index == this.modes.indexOf(mode));
     }

@@ -1,4 +1,4 @@
-package com.teddyware.api.util.font;
+package com.teddyware.api.util.font2;
 
 import com.teddyware.api.util.color.JColor;
 

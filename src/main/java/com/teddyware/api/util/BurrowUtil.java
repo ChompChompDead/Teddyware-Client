@@ -14,11 +14,16 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-//skidded for codex
+/**
+ * @author Ciruu
+ * i hate myself. please go away
+ */
+
 
 public class BurrowUtil implements UtilInterface {
 
@@ -47,6 +52,7 @@ public class BurrowUtil implements UtilInterface {
 
         rightClickBlock(neighbour, hitVec, hand, opposite, packet);
         mc.player.swingArm(EnumHand.MAIN_HAND);
+        ObfuscationReflectionHelper.setPrivateValue(Minecraft.class, mc, 4, "rightClickDelayTimer", "field_71467_ac");
         return sneaking || isSneaking;
     }
 
@@ -106,6 +112,7 @@ public class BurrowUtil implements UtilInterface {
             mc.playerController.processRightClickBlock(mc.player, mc.world, pos, direction, vec, hand);
         }
         mc.player.swingArm(EnumHand.MAIN_HAND);
+        ObfuscationReflectionHelper.setPrivateValue(Minecraft.class, mc, 4, "rightClickDelayTimer", "field_71467_ac");
     }
 
     public static int findHotbarBlock(Class clazz) {

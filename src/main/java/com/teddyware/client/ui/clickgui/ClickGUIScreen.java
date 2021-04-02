@@ -12,12 +12,14 @@ import com.teddyware.api.util.font.FontUtil;
 import com.teddyware.api.util.color.ColorModel;
 import com.teddyware.api.util.color.JColor;
 import com.teddyware.api.util.color.SyncableColorComponent;
+import com.teddyware.api.util.font.FontUtil;
 import com.teddyware.client.module.Category;
 import com.teddyware.client.module.Module;
 import com.teddyware.client.module.ModuleManager;
 import com.teddyware.client.module.client.ClickGUIModule;
 import com.teddyware.client.setting.Setting;
 import com.teddyware.client.setting.settings.BooleanSetting;
+import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;

@@ -16,6 +16,11 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import org.lwjgl.input.Keyboard;
 
+/**
+ * @author Ciruu
+ * codex moment
+ */
+
 public class Burrow extends Module {
 
     public BooleanSetting rotate = new BooleanSetting("Rotate", this, false);
@@ -47,7 +52,7 @@ public class Burrow extends Module {
     @Override
     public void onUpdate() {
         if (BurrowUtil.findHotbarBlock(BlockObsidian.class) == -1) {
-            ChatUtil.type("Can't find obsidian in hotbar!");
+            ChatUtil.type("No obsidian in hotbar, toggling...");
             toggle();
             return;
         }

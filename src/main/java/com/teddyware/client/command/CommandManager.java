@@ -21,7 +21,7 @@ import java.util.List;
 public class CommandManager {
 
     public List<Command> commands = new ArrayList<Command>();
-    public static String prefix = "!";
+    public static char prefix = '!';
 
     public CommandManager() {
         MinecraftForge.EVENT_BUS.register(this);
@@ -38,15 +38,16 @@ public class CommandManager {
     public void onChat(final ClientChatEvent event) {
         String message = event.getMessage();
 
-        if (!message.startsWith(prefix)) return;
+        if (!message.startsWith(String.valueOf(prefix))) return;
 
         event.setCanceled(true);
-        message = message.substring(prefix.length());
+        message = message.substring(1);
         if (message.split(" ").length > 0) {
             boolean foundCommand = false;
             String commandName = message.split(" ")[0];
             for (Command c : commands) {
-                if (c.aliases.contains(commandName) || c.name.equalsIgnoreCase(commandName)) {
+                String cmdName = c.name.toLowerCase();
+                if (c.aliases.contains(commandName) || cmdName.equalsIgnoreCase(commandName)) {
                     c.onCommand(Arrays.copyOfRange(message.split(" "), 1, message.split(" ").length), message);
                     foundCommand = true;
                     break;
@@ -64,16 +65,16 @@ public class CommandManager {
 
     @SubscribeEvent
     public void onKey(InputEvent.KeyInputEvent e) {
-        if (prefix.length() == 1) {
+        if (prefix == 1) {
             final char key = Keyboard.getEventCharacter();
-            if (prefix.charAt(0) == key) {
+            if (prefix == key) {
                 Minecraft mc = Minecraft.getMinecraft();
                 mc.displayGuiScreen(new GuiChat());
             }
         }
     }
 
-    public static void setPrefix(String pref) {
+    public static void setPrefix(char pref) {
         prefix = pref;
 
         if (Teddyware.config != null) {
@@ -81,7 +82,7 @@ public class CommandManager {
         }
     }
 
-    public static String getPrefix() {
+    public static char getPrefix() {
         return prefix;
     }
 

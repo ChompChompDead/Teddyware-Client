@@ -1,6 +1,5 @@
 package com.teddyware.client.command.commands;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
 import com.teddyware.api.util.ChatUtil;
 import com.teddyware.client.Teddyware;
 import com.teddyware.client.command.Command;
@@ -11,7 +10,7 @@ import org.lwjgl.input.Keyboard;
 public class Bind extends Command {
 
     public Bind() {
-        super("bind", "bind a key :D", "bind [module] [key]", "b");
+        super("Bind", "Changes a module bind key.", "bind [module] [key]", "b");
     }
 
     @Override
@@ -42,11 +41,11 @@ public class Bind extends Command {
                 }
                 ChatUtil.type("Cleared all keybinds.");
             } else {
-                ChatUtil.type("Wrong syntax. The correct usage for this command is " + ChatFormatting.ITALIC + syntax + ChatFormatting.RESET + ".");
+                ChatUtil.type("The correct syntax for " + this.getName() + " is " + this.getSyntax() + ". Try again.");
             }
         }
         if (args.length == 0) {
-            ChatUtil.type("Wrong syntax. The correct usage for this command is " + ChatFormatting.ITALIC + syntax + ChatFormatting.RESET + ".");
+            ChatUtil.type("The correct syntax for " + this.getName() + " is " + this.getSyntax() + ". Try again.");
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.teddyware.client;
 
+import com.teddyware.client.module.client.DiscordRPCModule;
 import net.arikia.dev.drpc.DiscordEventHandlers;
 import net.arikia.dev.drpc.DiscordRPC;
 import net.arikia.dev.drpc.DiscordRichPresence;
@@ -14,8 +15,6 @@ public class Discord {
     public static String state;
     public static int players;
     public static int maxPlayers;
-    public static int players2;
-    public static int maxPlayers2;
     public static ServerData server;
 
     public static void start() {
@@ -30,7 +29,7 @@ public class Discord {
         presence.startTimestamp = System.currentTimeMillis() / 1000;
         presence.details = "teddyware coooool.";
         presence.state = "Teddyware";
-        presence.largeImageKey = "teddyhacklogo";
+        presence.largeImageKey = "teddywarelogo";
 
         new Thread(() -> {
             while (!Thread.currentThread().isInterrupted()) {
@@ -41,13 +40,13 @@ public class Discord {
                     maxPlayers = 0;
 
                     if (mc.isIntegratedServerRunning()) {
-                        details = "In a singleplayer world";
+                        details = "In a singleplayer world.";
                     } else if (mc.getCurrentServerData() != null) {
                         server = mc.getCurrentServerData();
 
                         if (!server.serverIP.equals("")) {
-                            details = "On Server:";
-                            state = server.serverIP;
+                            details = "Ezing people with teddyware.";
+                            state = "Playing on " + server.serverIP;
                         }
                     } else {
                         details = "teddyware coooool.";
@@ -72,26 +71,8 @@ public class Discord {
 
     }
 
-    /*
-    private static final String discordID = "809223921575395370";
-    private static final DiscordRichPresence discordRichPresence = new DiscordRichPresence();
-    private static final DiscordRPC discordRPC = DiscordRPC.INSTANCE;
-
-    public static void startRPC() {
-        DiscordEventHandlers eventHandlers = new DiscordEventHandlers();
-        discordRPC.Discord_Initialize(discordID, eventHandlers, true, null);
-        discordRichPresence.startTimestamp = System.currentTimeMillis() / 1000L;
-        discordRichPresence.details = "Version " + Teddyware.VERSION;
-        discordRichPresence.largeImageKey = "teddyhacklogo";
-        discordRichPresence.largeImageText = ":)";
-        discordRichPresence.state = null;
-        discordRPC.Discord_UpdatePresence(discordRichPresence);
+    public static void stop() {
+        DiscordRPC.discordShutdown();
     }
-
-    public static void stopRPC() {
-        discordRPC.Discord_Shutdown();
-        discordRPC.Discord_ClearPresence();
-    }
-     */
 
 }

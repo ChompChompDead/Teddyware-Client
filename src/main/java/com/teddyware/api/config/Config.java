@@ -19,7 +19,8 @@ public class Config {
     public JSONParser parser = new JSONParser();
 
     public File dir = new File(mc.gameDir, Teddyware.MODID);
-    public File moduleDir = new File(dir,  "/Modules");
+    public File moduleDir = new File(dir, "/Modules");
+    public File othersDir = new File(dir, "/others.txt");
 
     public Config() {
         create();
@@ -127,40 +128,48 @@ public class Config {
         });
     }
 
+    public void saveOthers() {
+        create();
+        ArrayList<String> toSave = new ArrayList<>();
+
+        toSave.add("PREFIX:" + CommandManager.getPrefix());
+
+        try {
+            PrintWriter pw = new PrintWriter(othersDir);
+            for (String str : toSave) {
+                pw.println(str);
+            }
+            pw.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void loadOthers() {
-        ArrayList<String> lines = new ArrayList<String>();
+        create();
+        ArrayList<String> lines = new ArrayList<>();
+
         try {
             File file = new File(dir, "others.txt");
             BufferedReader reader = new BufferedReader(new FileReader(file));
-
             String line = reader.readLine();
 
             while (line != null) {
                 lines.add(line);
                 line = reader.readLine();
             }
-
             reader.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         for (String s : lines) {
             String[] args = s.split(":");
+
             if (s.toLowerCase().startsWith("prefix:")) {
-                CommandManager.setPrefix(args[1]);
+                CommandManager.setPrefix(args[1].charAt(0));
             }
         }
     }
-
-    public void saveOthers() {
-        try {
-            File others = new File(dir, "others.txt");
-            FileWriter otherWriter = new FileWriter(others);
-            otherWriter.write("PREFIX:" + CommandManager.getPrefix());
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
+

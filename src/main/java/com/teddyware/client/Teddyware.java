@@ -7,7 +7,8 @@ import com.teddyware.api.config.Config;
 import com.teddyware.api.config.ConfigStop;
 import com.teddyware.api.event.Event;
 import com.teddyware.api.event.EventProcessor;
-import com.teddyware.api.util.font.CustomFontRenderer;
+import com.teddyware.api.util.font2.CustomFontRenderer;
+import com.teddyware.api.util.font.FontUtil;
 import com.teddyware.client.command.CommandManager;
 import com.teddyware.client.module.Module;
 import com.teddyware.client.module.ModuleManager;
@@ -53,6 +54,7 @@ public class Teddyware {
     public static CommandManager commandManager;
     public static ClickGUIScreen clickGUIScreen;
     public static CustomFontRenderer customFontRenderer;
+    public static FontUtil fontManager;
     public static EventProcessor eventProcessor;
 
     @Instance
@@ -98,8 +100,12 @@ public class Teddyware {
         Runtime.getRuntime().addShutdownHook(new ConfigStop());
         log.info("clickGUI saves and loads are ready");
 
-        customFontRenderer = new CustomFontRenderer(new Font(CustomFont.INSTANCE.font.getMode(), Font.PLAIN, 18), false, false);
+        customFontRenderer = new CustomFontRenderer(new Font(CustomFont.font.getMode(), Font.PLAIN, 18), false, false);
         log.info("custom font is ready");
+
+        fontManager = new FontUtil();
+        fontManager.load();
+        log.info("custom font 2 is ready");
 
         log.info(NAME + " is done loading!");
         Discord.start();
