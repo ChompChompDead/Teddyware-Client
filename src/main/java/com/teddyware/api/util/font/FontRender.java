@@ -78,7 +78,6 @@ public class FontRender extends FontRenderer implements UtilInterface {
 
         int alpha = currentColor >> 24 & 0xFF;
         if (text.contains("§")) {
-            Teddyware.log.info("Contains funny code");
             String[] parts = text.split("§");
             ImageAWT currentFont = this.defaultFont;
             double width = 0.0;

@@ -58,7 +58,7 @@ public class AutoCrystal extends Module {
     public BooleanSetting rotate = new BooleanSetting("Rotate", this, false);
     public BooleanSetting rayTrace = new BooleanSetting("Raytrace", this, false);
     public ColorSetting color = new ColorSetting("Color", this, new JColor(255, 255, 255, 255));
-    public ModeSetting breakHand = new ModeSetting("BrkHand", this, "Main", "Main", "Offhand");
+    public ModeSetting breakHand = new ModeSetting("Swing", this, "Main", "Main", "Offhand");
     public NumberSetting breakSpeed = new NumberSetting("BrkSpeed", this, 20, 0, 20, 1);
     public NumberSetting placeSpeed = new NumberSetting("PlaceSpeed", this, 20, 0, 20, 1);
 
