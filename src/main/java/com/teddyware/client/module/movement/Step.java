@@ -7,12 +7,12 @@ import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
 import org.lwjgl.input.Keyboard;
 
+@Module.Data(name = "Step", description = "Go up or down blocks without jumping.", key = Keyboard.KEY_NONE, category = Category.Movement)
 public class Step extends Module {
 
     public ModeSetting mode = new ModeSetting("Mode", this, "Normal", "Normal", "Backwards");
 
     public Step() {
-        super("Step", "go up block without jump ez.", Keyboard.KEY_NONE, Category.Movement);
         this.addSetting(mode);
     }
 

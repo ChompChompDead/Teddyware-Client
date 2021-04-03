@@ -4,11 +4,8 @@ import com.teddyware.client.module.Category;
 import com.teddyware.client.module.Module;
 import org.lwjgl.input.Keyboard;
 
+@Module.Data(name = "Sprint", description = "Automatically sprints for you.", key = Keyboard.KEY_NONE, category = Category.Movement)
 public class Sprint extends Module {
-
-    public Sprint() {
-        super("Sprint", "Automatically run without holding your run hotkey.", Keyboard.KEY_NONE, Category.Movement);
-    }
 
     @Override
     public void onEnable() {

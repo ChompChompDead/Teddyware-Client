@@ -13,13 +13,13 @@ import net.minecraft.inventory.ClickType;
 import net.minecraft.item.Item;
 import org.lwjgl.input.Keyboard;
 
+@Module.Data(name = "Offhand", description = "Offhand utilities for crystals or gapples.", key = Keyboard.KEY_NONE, category = Category.Combat)
 public class Offhand extends Module {
 
     public NumberSetting totemHP = new NumberSetting("TotemHP", this, 10, 0, 20, 1);
     public ModeSetting OHItem = new ModeSetting("OHItem", this, "Crystal", "Crystal", "Gapple");
 
     public Offhand() {
-        super("Offhand", "offhand cristal.", Keyboard.KEY_NONE, Category.Combat);
         this.addSetting(totemHP, OHItem);
     }
 

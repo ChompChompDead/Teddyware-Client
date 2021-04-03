@@ -4,11 +4,8 @@ import com.teddyware.client.module.Category;
 import com.teddyware.client.module.Module;
 import org.lwjgl.input.Keyboard;
 
+@Module.Data(name = "Fly", description = "Fly as if you are in creative.", key = Keyboard.KEY_NONE, category = Category.Movement)
 public class Fly extends Module {
-
-    public Fly() {
-        super("Fly", "Fly lolololo", Keyboard.KEY_NONE, Category.Movement);
-    }
 
     @Override
     public void onEnable() {

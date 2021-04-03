@@ -10,11 +10,8 @@ import java.util.Arrays;
 
 // skid from postman thx moo :)
 
+@Module.Data(name = "ChatSuffix", description = "Adds a chat suffix at the end of your messages.", key = Keyboard.KEY_NONE, category = Category.Client)
 public class ChatSuffix extends Module {
-
-    public ChatSuffix() {
-        super("ChatSuffix", "teddyhack suffix at end of your messages :)", Keyboard.KEY_NONE, Category.Client);
-    }
 
     @SubscribeEvent
     public void chat(final ClientChatEvent event) {

@@ -22,6 +22,7 @@ import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketPlayer;
 import org.lwjgl.input.Keyboard;
 
+@Module.Data(name = "ElytraFly", description = "Fly with an elytra.", key = Keyboard.KEY_NONE, category = Category.Movement)
 public class ElytraFly extends Module {
 
     public ModeSetting mode = new ModeSetting("Mode", this, "Normal", "Normal", "Superior", "Control");
@@ -45,7 +46,6 @@ public class ElytraFly extends Module {
     private int elytraSlot = -1;
 
     public ElytraFly() {
-        super("ElytraFly", "Fly eagles fly", Keyboard.KEY_NONE, Category.Movement);
         this.addSetting(mode, speed, glideSpeed, upSpeed, downSpeed, cancelAtHeight, cancelInWater, accelerate, accelTimer, rotationPitch, instantFlight, equipElytra, pitchSpoof);
     }
 

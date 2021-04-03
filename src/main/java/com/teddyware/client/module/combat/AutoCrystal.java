@@ -41,6 +41,7 @@ import com.teddyware.api.util.EntityUtil;
 
 // SKID FROM EVERY CLIENT U KNOW INCLUDING TATER!!!!!!!!!!!!
 
+@Module.Data(name = "AutoCrystal", description = "Automatically places crystals and breaks it for you.", key = Keyboard.KEY_NONE, category = Category.Combat)
 public class AutoCrystal extends Module {
 
     public BooleanSetting switchToCrystal = new BooleanSetting("SwitchToCrystal", this, false);
@@ -63,7 +64,6 @@ public class AutoCrystal extends Module {
 
 
     public AutoCrystal() {
-        super("AutoCrystal", "worst ac dont use", Keyboard.KEY_NONE, Category.Combat);
         this.addSetting(players, mobs, passives, breakHand, breakSpeed, placeSpeed, minDamage, selfDamage, range, place, explode, switchToCrystal, antiWeakness, singlePlace, rotate, rayTrace, color);
     }
 

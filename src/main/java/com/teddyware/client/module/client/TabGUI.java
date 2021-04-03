@@ -23,13 +23,13 @@ import org.lwjgl.input.Keyboard;
 import java.awt.*;
 import java.util.List;
 
+@Module.Data(name = "TabGUI", description = "A GUI similar to ClickGUI for quick use.", key = Keyboard.KEY_NONE, category = Category.Client)
 public class TabGUI extends Module {
 
     public static int currentTab;
     public boolean expanded;
 
     public TabGUI() {
-        super("TabGUI", "clickgui but worse", Keyboard.KEY_NONE, Category.Client);
         this.toggled = true;
     }
 

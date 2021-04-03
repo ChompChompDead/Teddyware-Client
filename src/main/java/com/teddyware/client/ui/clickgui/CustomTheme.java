@@ -13,6 +13,10 @@ import com.lukflug.panelstudio.theme.Renderer;
 import com.lukflug.panelstudio.theme.RendererBase;
 import com.teddyware.api.util.color.JColor;
 
+/**
+ * @author srgantmoomoo
+ * derived from postman. changed some stuff up :)
+ */
 
 public class CustomTheme implements Theme {
     protected ColorScheme scheme;

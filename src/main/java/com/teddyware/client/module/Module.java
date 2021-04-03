@@ -11,6 +11,8 @@ import com.teddyware.client.setting.settings.KeybindSetting;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -30,18 +32,33 @@ public class Module implements Toggleable {
 
     public KeybindSetting keyCode = new KeybindSetting(0);
     public BooleanSetting hidden = new BooleanSetting("Hidden", this, false);
-    public List<Setting> settings = new ArrayList<Setting>();
+    public List<Setting> settings = new ArrayList<>();
 
     public Minecraft mc = Minecraft.getMinecraft();
 
-    public Module(String name, String description, int key, Category category) {
+    public Module() {
         super();
-        this.name = name;
-        this.description = description;
-        keyCode.code = key;
+        this.name = getAnnotation().name();
+        this.description = getAnnotation().description();
+        keyCode.code = getAnnotation().key();
         this.addSetting(keyCode, hidden);
-        this.category = category;
+        this.category = getAnnotation().category();
         this.toggled = false;
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface Data {
+        String name();
+        String description() default "";
+        int key();
+        Category category();
+    }
+
+    private Data getAnnotation() {
+        if (getClass().isAnnotationPresent(Data.class)) {
+            return getClass().getAnnotation(Data.class);
+        }
+        throw new IllegalStateException("No data annotation on module " + this.getClass().getCanonicalName() + ".");
     }
 
     public void onWorldRender(EventRender e) { }

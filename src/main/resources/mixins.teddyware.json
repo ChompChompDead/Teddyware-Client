@@ -10,6 +10,6 @@
       "MixinBlockLiquid",
       "ICPacketPlayer",
       "MixinEntity",
-      "MixinEntityPlayer"
+      "MixinEntityPlayer",
   ]
 }

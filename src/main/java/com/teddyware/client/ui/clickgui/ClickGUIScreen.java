@@ -1,11 +1,10 @@
 package com.teddyware.client.ui.clickgui;
 
-import com.lukflug.panelstudio.ClickGUI;
-import com.lukflug.panelstudio.CollapsibleContainer;
-import com.lukflug.panelstudio.DraggableContainer;
-import com.lukflug.panelstudio.SettingsAnimation;
+import com.lukflug.panelstudio.*;
+import com.lukflug.panelstudio.hud.HUDClickGUI;
 import com.lukflug.panelstudio.mc12.GLInterface;
 import com.lukflug.panelstudio.mc12.MinecraftGUI;
+import com.lukflug.panelstudio.mc12.MinecraftHUDGUI;
 import com.lukflug.panelstudio.settings.*;
 import com.lukflug.panelstudio.theme.*;
 import com.teddyware.api.util.font.FontUtil;
@@ -24,14 +23,14 @@ import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
-public class ClickGUIScreen extends MinecraftGUI {
+public class ClickGUIScreen extends MinecraftHUDGUI {
 
     public static ClickGUIScreen INSTANCE;
 
     private final Toggleable colorToggle;
     private final GUIInterface guiInterface;
     private final Theme theme;
-    public final ClickGUI gui;
+    public final HUDClickGUI gui;
 
     public static final int WIDTH = 100, HEIGHT = 12, DISTANCE = 10;
     private Category category;
@@ -54,7 +53,7 @@ public class ClickGUIScreen extends MinecraftGUI {
         guiInterface = new GUIInterface(true) {
             @Override
             protected String getResourcePrefix() {
-                return "teddyhack:ui/";
+                return "teddyware:ui/";
             }
 
             @Override
@@ -84,10 +83,32 @@ public class ClickGUIScreen extends MinecraftGUI {
                 ClickGUIModule.getInstance().opacity),
                 HEIGHT, 1
         );
-        gui = new ClickGUI(guiInterface,ClickGUIModule.INSTANCE.description.is("Mouse") ? new MouseDescription(new Point(5,0)) : new FixedDescription(new Point(0,0)));
+
+        gui = new HUDClickGUI(guiInterface,ClickGUIModule.INSTANCE.description.is("Mouse") ? new MouseDescription(new Point(5,0)) : new FixedDescription(new Point(0,0))) {
+            @Override
+            public void handleScroll (int diff) {
+                super.handleScroll(diff);
+                if (ClickGUIModule.INSTANCE.scrollMode.is("GUI")) {
+                    for (FixedComponent component : components) {
+                        if (!hudComponents.contains(component)) {
+                            Point p = component.getPosition(guiInterface);
+                            p.translate(0, -diff);
+                            component.setPosition(guiInterface, p);
+                        }
+                    }
+                }
+            }
+        };
+
         Point pos = new Point(DISTANCE,DISTANCE);
         for (Category category : Category.values()) {
-            DraggableContainer panel = new DraggableContainer(category.name, null, theme.getPanelRenderer(), new SimpleToggleable(false), new SettingsAnimation(ClickGUIModule.INSTANCE.animationSpeed), null, new Point(pos), WIDTH);
+            DraggableContainer panel = new DraggableContainer(category.name, null, theme.getPanelRenderer(), new SimpleToggleable(false), new SettingsAnimation(ClickGUIModule.INSTANCE.animationSpeed), null, new Point(pos), WIDTH) {
+                @Override
+                protected int getScrollHeight (int childHeight) {
+                    if (ClickGUIModule.INSTANCE.scrollMode.is("GUI")) return childHeight;
+                    return Math.min(childHeight,Math.max(HEIGHT * 4, ClickGUIScreen.this.height - getPosition (guiInterface).y - renderer.getHeight(open.getValue() != 0) - HEIGHT));
+                }
+            };
             gui.addComponent(panel);
             for (Module module : ModuleManager.getModulesByCategory(category)) {
                 addModule(panel, module);
@@ -112,9 +133,8 @@ public class ClickGUIScreen extends MinecraftGUI {
         }
     }
 
-
     @Override
-    protected ClickGUI getGUI() {
+    protected HUDClickGUI getHUDGUI() {
         return gui;
     }
 
@@ -125,7 +145,7 @@ public class ClickGUIScreen extends MinecraftGUI {
 
     @Override
     protected int getScrollSpeed() {
-        return 5;
+        return (int) ClickGUIModule.INSTANCE.scrollSpeed.getValue();
     }
 
 }

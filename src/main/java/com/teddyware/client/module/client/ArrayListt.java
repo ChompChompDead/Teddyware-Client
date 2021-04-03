@@ -7,14 +7,12 @@ import com.teddyware.client.setting.settings.BooleanSetting;
 import com.teddyware.client.setting.settings.ColorSetting;
 import org.lwjgl.input.Keyboard;
 
+@Module.Data(name = "ArrayList", description = "Shows which modules are toggled on a GUI.", key = Keyboard.KEY_NONE, category = Category.Client)
 public class ArrayListt extends Module {
-
-    public ArrayListt() {
-        super("ArrayList", "Shows which modules are toggled", Keyboard.KEY_NONE, Category.Client);
-    }
 
     @Override
     public void onEnable() { }
     @Override
     public void onDisable() { }
+
 }

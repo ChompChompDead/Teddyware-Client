@@ -96,6 +96,14 @@ public class FontUtil implements UtilInterface {
         }
     }
 
+    public static int getString(String text, float x, float y, int color) {
+        if (ModuleManager.getModule("CustomFont").isToggled()) {
+            return Teddyware.fontManager.getCustomFont().drawString(text, (int) x, (int) y, color);
+        } else {
+            return mc.fontRenderer.drawString(text, (int) x, (int) y, color);
+        }
+    }
+
     public static int getStringWithShadow(String text, float x, float y, JColor color) {
         if (ModuleManager.getModule("CustomFont").isToggled()) {
             return Teddyware.fontManager.getCustomFont().drawStringWithShadow(text, (int) x, (int) y, color.getRGB());

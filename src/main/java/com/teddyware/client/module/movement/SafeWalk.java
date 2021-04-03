@@ -7,11 +7,8 @@ import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
 import org.lwjgl.input.Keyboard;
 
+@Module.Data(name = "SafeWalk", description = "Makes yourself not able to walk off the edge of blocks.", key = Keyboard.KEY_NONE, category = Category.Movement)
 public class SafeWalk extends Module {
-
-    public SafeWalk() {
-        super("SafeWalk", "Don't fall off blocks", Keyboard.KEY_NONE, Category.Movement);
-    }
 
     int height = 1;
 

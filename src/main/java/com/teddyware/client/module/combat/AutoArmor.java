@@ -11,13 +11,10 @@ import net.minecraft.inventory.ClickType;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 
+@Module.Data(name = "AutoArmor", description = "Automanically equips the best armor in your inventory.", key = Keyboard.KEY_NONE, category = Category.Combat)
 public class AutoArmor extends Module {
 
     public Minecraft mc = Minecraft.getMinecraft();
-
-    public AutoArmor() {
-        super("AutoArmor", "auto armor so u are ez", Keyboard.KEY_NONE, Category.Combat);
-    }
 
     @Override
     public void onUpdate() {

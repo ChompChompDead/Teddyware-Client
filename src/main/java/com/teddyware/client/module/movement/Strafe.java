@@ -16,10 +16,10 @@ import org.lwjgl.input.Keyboard;
 * pasted from wp2. sorry
  */
 
+@Module.Data(name = "Strafe", description = "Move with modified speeds and strafes.", key = Keyboard.KEY_NONE, category = Category.Movement)
 public class Strafe extends Module {
 
     public Strafe() {
-        super("Strafe", "move cool", Keyboard.KEY_NONE, Category.Movement);
         this.addSetting(onWater, autoJump, backwards);
     }
 

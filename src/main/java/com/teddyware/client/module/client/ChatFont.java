@@ -8,11 +8,8 @@ import org.lwjgl.input.Keyboard;
 
 import java.util.Arrays;
 
+@Module.Data(name = "ChatFont", description = "Sets your messages to a special font.", key = Keyboard.KEY_NONE, category = Category.Client)
 public class ChatFont extends Module {
-
-    public ChatFont() {
-        super("ChatFont", "makes your chat have font", Keyboard.KEY_NONE, Category.Client);
-    }
 
     @SubscribeEvent
     public void chat(final ClientChatEvent event) {

@@ -21,6 +21,7 @@ import org.lwjgl.input.Keyboard;
  * codex moment
  */
 
+@Module.Data(name = "Burrow", description = "Places a block on your lower body. Works best in holes.", key = Keyboard.KEY_NONE, category = Category.Combat)
 public class Burrow extends Module {
 
     public BooleanSetting rotate = new BooleanSetting("Rotate", this, false);
@@ -30,7 +31,6 @@ public class Burrow extends Module {
     private int oldSlot = -1;
 
     public Burrow() {
-        super("Burrow", "bad meta", Keyboard.KEY_NONE, Category.Combat);
         this.addSetting(rotate, offset);
     }
 

@@ -9,12 +9,12 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.item.Item;
 
+@Module.Data(name = "AutoTotem", description = "Automatically equips totems in your offhand.", key = Keyboard.KEY_NONE, category = Category.Combat)
 public class AutoTotem extends Module {
 
     public BooleanSetting delay = new BooleanSetting("Delay", this, false);
     
     public AutoTotem() {
-        super("AutoTotem", "auto totem :)", Keyboard.KEY_NONE, Category.Combat);
         this.addSetting(delay);
     }
 

@@ -9,11 +9,8 @@ import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
 import org.lwjgl.input.Keyboard;
 
+@Module.Data(name = "ChatNotifier", description = "Notifies you in chat when a module is toggled.", key = Keyboard.KEY_NONE, category = Category.Client)
 public class ChatNotifier extends Module {
-
-    public ChatNotifier() {
-        super("ChatNotifier", "notifies you when a module is toggled or other stuff.", Keyboard.KEY_NONE, Category.Client);
-    }
 
     @EventHandler
     private final Listener<EventNotifier.EventNotifierEnable> eventNotifierEnableListener = new Listener<>(event -> {
@@ -26,4 +23,5 @@ public class ChatNotifier extends Module {
         Module module = event.module;
         ChatUtil.type(module.name + " is now " + module.getToggledStatus(module.toggled));
     });
+
 }

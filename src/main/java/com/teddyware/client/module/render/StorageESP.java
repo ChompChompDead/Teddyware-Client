@@ -12,6 +12,7 @@ import net.minecraft.tileentity.*;
 import net.minecraft.util.math.BlockPos;
 import org.lwjgl.input.Keyboard;
 
+@Module.Data(name = "StorageESP", description = "See storage objects (helpful for stash finding.)", key = Keyboard.KEY_NONE, category = Category.Render)
 public class StorageESP extends Module {
 
     public ModeSetting style = new ModeSetting("Style", this, "Outline", "Fill", "Outline");
@@ -24,7 +25,6 @@ public class StorageESP extends Module {
     public int opacityGradient;
 
     public StorageESP() {
-        super("StorageESP", "find dupe stahs real", Keyboard.KEY_NONE, Category.Render);
         this.addSetting(style, chestColor, enderChestColor, shulkerBoxColor, otherColor);
     }
 

@@ -7,11 +7,8 @@ import net.minecraft.client.entity.EntityOtherPlayerMP;
 import org.lwjgl.input.Keyboard;
 import java.util.UUID;
 
+@Module.Data(name = "FakePlayer", description = "Spawns a random fake player to test with.", key = Keyboard.KEY_NONE, category = Category.Player)
 public class FakePlayer extends Module {
-
-    public FakePlayer() {
-        super("FakePlayer", "spawns a random fake player", Keyboard.KEY_NONE, Category.Player);
-    }
 
     EntityOtherPlayerMP fakePlayer;
 

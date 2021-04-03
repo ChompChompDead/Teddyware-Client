@@ -4,10 +4,10 @@ import com.teddyware.client.module.Category;
 import com.teddyware.client.module.Module;
 import org.lwjgl.input.Keyboard;
 
+@Module.Data(name = "Hud", description = "Shows the client GUI.", key = Keyboard.KEY_NONE, category = Category.Client)
 public class Hud extends Module {
 
     public Hud() {
-        super("Hud", "da gui", Keyboard.KEY_NONE, Category.Client);
         this.toggled = true;
     }
 

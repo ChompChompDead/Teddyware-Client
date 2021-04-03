@@ -6,12 +6,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.input.Keyboard;
 
+@Module.Data(name = "FastUse", description = "Right click items and blocks quickly.", key = Keyboard.KEY_NONE, category = Category.Player)
 public class FastUse extends Module {
-
-    public FastUse() {
-        super("FastUse", "Use stuff fast", Keyboard.KEY_NONE, Category.Player);
-    }
-
     @Override
     public void onUpdate() {
         if (mc.player != null || mc.world != null) {

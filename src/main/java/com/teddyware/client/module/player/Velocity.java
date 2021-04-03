@@ -10,11 +10,8 @@ import net.minecraft.network.play.server.SPacketEntityVelocity;
 import net.minecraft.network.play.server.SPacketExplosion;
 import org.lwjgl.input.Keyboard;
 
+@Module.Data(name = "Velocity", description = "Take no knockback.", key = Keyboard.KEY_NONE, category = Category.Player)
 public class Velocity extends Module {
-
-    public Velocity() {
-        super("Velocity", "no kb. ez.", Keyboard.KEY_NONE, Category.Player);
-    }
 
     public void onEnable() {
         Teddyware.EVENT_BUS.subscribe(this);

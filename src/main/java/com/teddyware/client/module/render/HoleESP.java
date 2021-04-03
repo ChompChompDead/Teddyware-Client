@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Module.Data(name = "HoleESP", description = "See holes for crystal pvp.", key = Keyboard.KEY_NONE, category = Category.Render)
 public class HoleESP extends Module {
 
     public NumberSetting height = new NumberSetting("Height", this, 0.1, 0.0, 1.0, 0.1);
@@ -26,7 +27,6 @@ public class HoleESP extends Module {
     public ColorSetting bedrockColor = new ColorSetting("BedrockColor", this, new JColor(255, 66, 66));
 
     public HoleESP() {
-        super("HoleESP", "See holes for cpvpvpvp", Keyboard.KEY_NONE, Category.Render);
         this.addSetting(height, style, obsidianColor, bedrockColor);
     }
 

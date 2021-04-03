@@ -10,11 +10,8 @@ import net.minecraft.block.Block;
 import net.minecraft.util.math.AxisAlignedBB;
 import org.lwjgl.input.Keyboard;
 
+@Module.Data(name = "Jesus", description = "Walk on water.", key = Keyboard.KEY_NONE, category = Category.Movement)
 public class Jesus extends Module {
-
-    public Jesus() {
-        super("Jesus", "walk on water", Keyboard.KEY_NONE, Category.Movement);
-    }
 
     public float offset = 0.5f;
 

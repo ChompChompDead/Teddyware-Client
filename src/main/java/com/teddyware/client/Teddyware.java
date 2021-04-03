@@ -5,25 +5,20 @@ import com.teddyware.api.config.ClickGUILoad;
 import com.teddyware.api.config.ClickGUISave;
 import com.teddyware.api.config.Config;
 import com.teddyware.api.config.ConfigStop;
-import com.teddyware.api.event.Event;
 import com.teddyware.api.event.EventProcessor;
-import com.teddyware.api.util.font2.CustomFontRenderer;
+import com.teddyware.api.proxy.CommonProxy;
 import com.teddyware.api.util.font.FontUtil;
 import com.teddyware.client.command.CommandManager;
-import com.teddyware.client.module.Module;
 import com.teddyware.client.module.ModuleManager;
-import com.teddyware.api.proxy.CommonProxy;
-import com.teddyware.client.module.client.CustomFont;
 import com.teddyware.client.setting.SettingManager;
 import com.teddyware.client.ui.MainHud;
 import com.teddyware.client.ui.clickgui.ClickGUIScreen;
 import me.zero.alpine.EventBus;
 import me.zero.alpine.EventManager;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -31,8 +26,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.Display;
-
-import java.awt.*;
 
 // set mod variables and client class
 @Mod(modid = Teddyware.MODID, name = Teddyware.NAME, version = Teddyware.VERSION)
@@ -53,7 +46,6 @@ public class Teddyware {
     public static ClickGUILoad clickGUILoad;
     public static CommandManager commandManager;
     public static ClickGUIScreen clickGUIScreen;
-    public static CustomFontRenderer customFontRenderer;
     public static FontUtil fontManager;
     public static EventProcessor eventProcessor;
 
@@ -100,12 +92,9 @@ public class Teddyware {
         Runtime.getRuntime().addShutdownHook(new ConfigStop());
         log.info("clickGUI saves and loads are ready");
 
-        customFontRenderer = new CustomFontRenderer(new Font(CustomFont.font.getMode(), Font.PLAIN, 18), false, false);
-        log.info("custom font is ready");
-
         fontManager = new FontUtil();
         fontManager.load();
-        log.info("custom font 2 is ready");
+        log.info("custom font is ready");
 
         log.info(NAME + " is done loading!");
         Discord.start();

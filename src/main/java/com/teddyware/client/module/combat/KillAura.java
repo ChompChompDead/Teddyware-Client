@@ -17,10 +17,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Module.Data(name = "KillAura", description = "Kill entities without trying.", key = Keyboard.KEY_NONE, category = Category.Combat)
 public class KillAura extends Module {
 
     public KillAura() {
-        super("KillAura", "kill thing :)", Keyboard.KEY_NONE, Category.Combat);
         this.addSetting(range, passiveMobs, hostileMobs, players, cooldown);
     }
 

@@ -7,12 +7,8 @@ import net.minecraft.network.play.client.CPacketPlayerTryUseItem;
 import net.minecraft.util.math.BlockPos;
 import org.lwjgl.input.Keyboard;
 
+@Module.Data(name = "BowSpam", description = "Releases and holds arrows as quick as you can.", key = Keyboard.KEY_NONE, category = Category.Combat)
 public class BowSpam extends Module {
-
-    public BowSpam() {
-        super("BowSpam", "spam arrow :D", Keyboard.KEY_NONE, Category.Combat);
-    }
-
     @Override
     public void onUpdate() {
         if (mc.player.getHeldItemMainhand().getItem() instanceof net.minecraft.item.ItemBow && mc.player.isHandActive() && mc.player.getItemInUseMaxCount() >= 3) {

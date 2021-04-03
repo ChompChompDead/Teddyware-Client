@@ -83,12 +83,7 @@ public class ModuleManager {
     }
 
     public static Module getModule(String name) {
-        for (Module m : modules) {
-            if (m.getName().equalsIgnoreCase(name)) {
-                return m;
-            }
-        }
-        return null;
+        return modules.stream().filter(module -> module.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
     }
 
     public static CopyOnWriteArrayList<Module> getModuleList() {
