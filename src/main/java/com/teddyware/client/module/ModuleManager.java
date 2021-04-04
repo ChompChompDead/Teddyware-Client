@@ -14,6 +14,7 @@ import com.teddyware.client.module.client.Hud;
 import com.teddyware.client.module.client.TabGUI;
 import com.teddyware.client.module.render.HoleESP;
 import com.teddyware.client.module.render.StorageESP;
+import com.teddyware.client.module.render.ViewModel;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -44,6 +45,7 @@ public class ModuleManager {
         modules.add(new FullBright());
         modules.add(new HoleESP());
         modules.add(new StorageESP());
+        modules.add(new ViewModel());
 
         // Client
         modules.add(new ArrayListt());

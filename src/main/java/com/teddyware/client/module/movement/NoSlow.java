@@ -1,7 +1,6 @@
 package com.teddyware.client.module.movement;
 
 import com.teddyware.api.event.events.EventMoveState;
-import com.teddyware.client.Teddyware;
 import com.teddyware.client.module.Category;
 import com.teddyware.client.module.Module;
 import com.teddyware.client.setting.settings.BooleanSetting;
@@ -40,16 +39,16 @@ public class NoSlow extends Module {
             }
         }
 
-        if (ice.isEnabled()) {
-            if (mc.player.getRidingEntity() != null) {
-                Blocks.ICE.setDefaultSlipperiness(0.98f);
-                Blocks.FROSTED_ICE.setDefaultSlipperiness(0.98f);
-                Blocks.PACKED_ICE.setDefaultSlipperiness(0.98f);
-            } else {
-                Blocks.ICE.setDefaultSlipperiness(0.45f);
-                Blocks.FROSTED_ICE.setDefaultSlipperiness(0.45f);
-                Blocks.PACKED_ICE.setDefaultSlipperiness(0.45f);
-            }
+        if (!ice.isEnabled()) return;
+
+        if (mc.player.getRidingEntity() != null) {
+            Blocks.ICE.setDefaultSlipperiness(0.98f);
+            Blocks.FROSTED_ICE.setDefaultSlipperiness(0.98f);
+            Blocks.PACKED_ICE.setDefaultSlipperiness(0.98f);
+        } else {
+            Blocks.ICE.setDefaultSlipperiness(0.45f);
+            Blocks.FROSTED_ICE.setDefaultSlipperiness(0.45f);
+            Blocks.PACKED_ICE.setDefaultSlipperiness(0.45f);
         }
     }
 
