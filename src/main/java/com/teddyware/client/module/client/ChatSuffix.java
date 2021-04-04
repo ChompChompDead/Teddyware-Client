@@ -1,5 +1,6 @@
 package com.teddyware.client.module.client;
 
+import com.teddyware.client.Teddyware;
 import com.teddyware.client.module.Category;
 import com.teddyware.client.module.Module;
 import net.minecraftforge.client.event.ClientChatEvent;
@@ -20,7 +21,7 @@ public class ChatSuffix extends Module {
             {
                 if (event.getMessage().startsWith(s)) return;
             }
-            event.setMessage(event.getMessage() + " " + "\u23D0" + toUnicode(" teddyhack"));
+            event.setMessage(event.getMessage() + " " + "\u23D0" + toUnicode(" " + Teddyware.MODID));
         }
     }
 

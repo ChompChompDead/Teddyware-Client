@@ -11,5 +11,6 @@
       "ICPacketPlayer",
       "MixinEntity",
       "MixinEntityPlayer",
+      "MixinMovementInputFromOptions"
   ]
 }

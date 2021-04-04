@@ -23,8 +23,8 @@ public class Strafe extends Module {
         this.addSetting(onWater, autoJump, backwards);
     }
 
-    public BooleanSetting onWater = new BooleanSetting("On Water", this, true);
-    public BooleanSetting autoJump = new BooleanSetting("Auto Jump", this, true);
+    public BooleanSetting onWater = new BooleanSetting("OnWater", this, true);
+    public BooleanSetting autoJump = new BooleanSetting("AutoJump", this, true);
     public BooleanSetting backwards = new BooleanSetting("Backwards", this, true);
 
     @Override

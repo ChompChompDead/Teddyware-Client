@@ -44,8 +44,7 @@ public class HoleESP extends Module {
     public void onUpdate() {
         if (safeHoles == null) {
             safeHoles = new ConcurrentHashMap<>();
-        }
-        else{
+        } else {
             safeHoles.clear();
         }
 
@@ -57,9 +56,11 @@ public class HoleESP extends Module {
             if (!mc.world.getBlockState(pos).getBlock().equals(Blocks.AIR)){
                 continue;
             }
+
             if (!mc.world.getBlockState(pos.add(0, 1, 0)).getBlock().equals(Blocks.AIR)) {
                 continue;
             }
+
             if (!mc.world.getBlockState(pos.add(0, 2, 0)).getBlock().equals(Blocks.AIR)) {
                 continue;
             }
@@ -69,18 +70,22 @@ public class HoleESP extends Module {
 
             for (BlockPos offset : surroundOffset) {
                 Block block = mc.world.getBlockState(pos.add(offset)).getBlock();
+
                 if (block != Blocks.BEDROCK){
                     isBedrock = false;
                 }
+
                 if (block != Blocks.BEDROCK && block != Blocks.OBSIDIAN && block != Blocks.ENDER_CHEST && block != Blocks.ANVIL) {
                     isSafe = false;
                     break;
                 }
+
                 if (block == Blocks.AIR) {
                     isSafe = false;
                     break;
                 }
             }
+
             if (isSafe){
                 safeHoles.put(pos, isBedrock);
             }
@@ -92,6 +97,7 @@ public class HoleESP extends Module {
         if (mc.player == null || safeHoles == null){
             return;
         }
+
         if (safeHoles.isEmpty()) {
             return;
         }
@@ -99,6 +105,7 @@ public class HoleESP extends Module {
         safeHoles.forEach((blockPos, isBedrock) -> {
             drawBox(blockPos, 1, isBedrock);
         });
+
         safeHoles.forEach((blockPos, isBedrock) -> {
             drawOutline(blockPos,2, isBedrock);
         });
@@ -106,9 +113,13 @@ public class HoleESP extends Module {
 
     private JColor getColor (boolean isBedrock) {
         JColor c;
-        if (isBedrock) c = bedrockColor.getValue();
-        else c = obsidianColor.getValue();
+        if (isBedrock)
+            c = bedrockColor.getValue();
+        else
+            c = obsidianColor.getValue();
+
         return new JColor(c);
+
     }
 
     private void drawBox(BlockPos blockPos, int width, boolean isBedrock) {
