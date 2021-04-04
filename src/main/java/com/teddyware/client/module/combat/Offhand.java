@@ -11,6 +11,7 @@ import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import org.lwjgl.input.Keyboard;
 
 @Module.Data(name = "Offhand", description = "Offhand utilities for crystals or gapples.", key = Keyboard.KEY_NONE, category = Category.Combat)
@@ -43,9 +44,14 @@ public class Offhand extends Module {
 
     public int getItemSlot() {
         if (getItemToSwitch() == mc.player.getHeldItemOffhand().getItem()) return -1;
-        for(int i = 44; i >= 0; i--) {
-            final Item item = mc.player.inventory.getStackInSlot(i).getItem();
-            if(item == getItemToSwitch()) {
+        for(int i = mc.player.inventoryContainer.getInventory().size() - 1; i > 0; --i) {
+            final ItemStack item = mc.player.inventoryContainer.getInventory().get(i);
+
+            if (item.isEmpty()) {
+                continue;
+            }
+
+            if(item.getItem() == getItemToSwitch()) {
                 if (i < 9) {
                     return -1;
                 }

@@ -3,6 +3,7 @@ package com.teddyware.client.module.combat;
 import com.teddyware.client.module.Category;
 import com.teddyware.client.module.Module;
 import com.teddyware.client.setting.settings.BooleanSetting;
+import net.minecraft.item.ItemStack;
 import org.lwjgl.input.Keyboard;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.init.Items;
@@ -11,12 +12,6 @@ import net.minecraft.item.Item;
 
 @Module.Data(name = "AutoTotem", description = "Automatically equips totems in your offhand.", key = Keyboard.KEY_NONE, category = Category.Combat)
 public class AutoTotem extends Module {
-
-    public BooleanSetting delay = new BooleanSetting("Delay", this, false);
-    
-    public AutoTotem() {
-        this.addSetting(delay);
-    }
 
     public boolean switching = false;
     public int lastSlot;
@@ -30,16 +25,21 @@ public class AutoTotem extends Module {
             }
 
             if (mc.player.getHeldItemOffhand().getItem() == Items.AIR) {
-                swapItems(getItemSlot(), delay.isEnabled() ? 1 : 0);
+                swapItems(getItemSlot(), 0);
             }
         }
     }
 
     public int getItemSlot() {
         if (Items.TOTEM_OF_UNDYING == mc.player.getHeldItemOffhand().getItem()) return -1;
-        for(int i = 0; i < 36; i++) {
-            final Item item = mc.player.inventory.getStackInSlot(i).getItem();
-            if(item == Items.TOTEM_OF_UNDYING) {
+        for(int i = mc.player.inventoryContainer.getInventory().size() - 1; i > 0; --i) {
+            final ItemStack item = mc.player.inventoryContainer.getInventory().get(i);
+
+            if (item.isEmpty()) {
+                continue;
+            }
+
+            if(item.getItem() == Items.TOTEM_OF_UNDYING) {
                 if (i < 9) {
                     return -1;
                 }
