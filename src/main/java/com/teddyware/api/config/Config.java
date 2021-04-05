@@ -1,5 +1,6 @@
 package com.teddyware.api.config;
 
+import com.google.gson.*;
 import com.teddyware.client.Teddyware;
 import com.teddyware.client.command.CommandManager;
 import com.teddyware.client.setting.settings.*;
@@ -8,6 +9,9 @@ import org.json.simple.*;
 import org.json.simple.parser.*;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Config {
@@ -32,11 +36,132 @@ public class Config {
         if (!dir.exists()) {
             dir.mkdir();
         }
+
         if (!moduleDir.exists()) {
             moduleDir.mkdir();
         }
     }
 
+    public void save() {
+        create();
+        Teddyware.moduleManager.getModuleList().forEach(module -> {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            OutputStreamWriter fileOutputStreamWriter = null;
+
+            try {
+                fileOutputStreamWriter = new OutputStreamWriter(new FileOutputStream(Teddyware.MODID + "/Modules/" + module.getName() + ".json"), StandardCharsets.UTF_8);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            JsonObject moduleObj = new JsonObject();
+            JsonObject settingObj = new JsonObject();
+            moduleObj.add("Module", new JsonPrimitive(module.getName()));
+            moduleObj.add("Enabled", new JsonPrimitive(module.isToggled()));
+
+            module.settings.forEach(setting -> {
+                if (setting instanceof KeybindSetting) {
+                    KeybindSetting key = (KeybindSetting) setting;
+                    settingObj.add(setting.name, new JsonPrimitive((key).getKeyCode()));
+                }
+
+                if (setting instanceof BooleanSetting) {
+                   BooleanSetting bool = (BooleanSetting) setting;
+                   settingObj.add(setting.name, new JsonPrimitive((bool).isEnabled()));
+                }
+
+                if (setting instanceof NumberSetting) {
+                    NumberSetting numb = (NumberSetting) setting;
+                    settingObj.add(setting.name, new JsonPrimitive((numb).getValue()));
+                }
+
+                if (setting instanceof ModeSetting) {
+                    ModeSetting mode = (ModeSetting) setting;
+                    settingObj.add(setting.name, new JsonPrimitive((mode).getMode()));
+                }
+
+                if (setting instanceof ColorSetting) {
+                    ColorSetting color = (ColorSetting) setting;
+                    settingObj.add(setting.name, new JsonPrimitive((color).toInteger()));
+                }
+            });
+            moduleObj.add("Settings", settingObj);
+
+            try {
+                String jsonString = gson.toJson(new JsonParser().parse(moduleObj.toString()));
+                fileOutputStreamWriter.write(jsonString);
+                fileOutputStreamWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void load() {
+        create();
+        Teddyware.moduleManager.getModuleList().forEach(module -> {
+            InputStream inputStream = null;
+
+            try {
+                inputStream = Files.newInputStream(Paths.get(Teddyware.MODID + "/Modules/" + module.getName() + ".json"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            JsonObject moduleObj = new JsonParser().parse(new InputStreamReader(inputStream)).getAsJsonObject();
+            if (moduleObj.get("Module") == null) return;
+            JsonObject settingObj = moduleObj.getAsJsonObject("Settings").getAsJsonObject();
+
+            JsonElement moduleDataObj = moduleObj.get("Enabled");
+            if (moduleDataObj != null && moduleDataObj.isJsonPrimitive()) {
+                module.setToggled(moduleDataObj.getAsBoolean());
+            }
+
+            module.settings.forEach(setting -> {
+                JsonElement dataObj = settingObj.get(setting.name);
+                try {
+                    if (dataObj != null && dataObj.isJsonPrimitive()) {
+                        if (setting instanceof KeybindSetting) {
+                            KeybindSetting key = (KeybindSetting) setting;
+                            key.setKeyCode((int) dataObj.getAsLong());
+                        }
+
+                        if (setting instanceof BooleanSetting) {
+                            BooleanSetting bool = (BooleanSetting) setting;
+                            bool.setEnabled(dataObj.getAsBoolean());
+                        }
+
+                        if (setting instanceof NumberSetting) {
+                            NumberSetting numb = (NumberSetting) setting;
+                            numb.setValue(dataObj.getAsDouble());
+                        }
+
+                        if (setting instanceof ModeSetting) {
+                            ModeSetting mode = (ModeSetting) setting;
+                            mode.setMode(dataObj.getAsString());
+                        }
+
+                        if (setting instanceof ColorSetting) {
+                            ColorSetting color = (ColorSetting) setting;
+                            color.fromInteger(dataObj.getAsInt());
+                        }
+                    }
+                } catch (java.lang.NumberFormatException e) {
+                    Teddyware.log.info(setting.name + " " + module.getName());
+                    Teddyware.log.info(dataObj);
+                }
+            });
+
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+    }
+
+    /*
     public void save() {
         create();
         Teddyware.moduleManager.getModuleList().forEach(module -> {
@@ -127,6 +252,7 @@ public class Config {
             }
         });
     }
+     */
 
     public void saveOthers() {
         create();
