@@ -1,4 +1,4 @@
-package com.teddyware.client.ui.clickgui;
+package com.teddyware.client.gui.clickgui;
 
 import java.awt.Point;
 import java.io.FileOutputStream;

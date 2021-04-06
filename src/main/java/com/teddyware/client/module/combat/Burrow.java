@@ -1,7 +1,8 @@
 package com.teddyware.client.module.combat;
 
-import com.teddyware.api.util.BurrowUtil;
+import com.teddyware.api.util.BlockUtil;
 import com.teddyware.api.util.ChatUtil;
+import com.teddyware.api.util.InventoryUtil;
 import com.teddyware.client.module.Category;
 import com.teddyware.client.module.Module;
 import com.teddyware.client.setting.settings.BooleanSetting;
@@ -23,7 +24,7 @@ import org.lwjgl.input.Keyboard;
 
 /**
  * @author Ciruu
- * codex moment
+ * a bit different as there are block modes, still skidded :)
  */
 
 @Module.Data(name = "Burrow", description = "Places a block on your lower body. Works best in holes.", key = Keyboard.KEY_NONE, category = Category.Combat)
@@ -62,14 +63,14 @@ public class Burrow extends Module {
 
     @Override
     public void onUpdate() {
-        if (BurrowUtil.findHotbarBlock(getBurrowModeClass()) == -1) {
+        if (InventoryUtil.findHotbarBlock(getBurrowModeClass()) == -1) {
             ChatUtil.type("No " + getBurrowModeString() + " in hotbar, toggling...");
             toggle();
             return;
         }
 
         center();
-        BurrowUtil.switchToSlot(BurrowUtil.findHotbarBlock(getBurrowModeClass()));
+        InventoryUtil.switchToSlot(InventoryUtil.findHotbarBlock(getBurrowModeClass()));
 
         mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SNEAKING));
         mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY + 0.41999998688698D, mc.player.posZ, true));
@@ -77,10 +78,10 @@ public class Burrow extends Module {
         mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY + 1.00133597911214D, mc.player.posZ, true));
         mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY + 1.16610926093821D, mc.player.posZ, true));
 
-        BurrowUtil.placeBlock(originalPos, EnumHand.MAIN_HAND, rotate.isEnabled(), true, false);
+        BlockUtil.placeBlock(originalPos, EnumHand.MAIN_HAND, rotate.isEnabled(), true, false);
         mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY + offset.getValue(), mc.player.posZ, false));
 
-        BurrowUtil.switchToSlot(oldSlot);
+        InventoryUtil.switchToSlot(oldSlot);
         mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
 
         toggle();

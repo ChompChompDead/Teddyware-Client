@@ -1,8 +1,10 @@
 package com.teddyware.client.module.combat;
 
 import com.teddyware.api.event.events.EventPlayerUpdate;
+import com.teddyware.api.util.InventoryUtil;
 import com.teddyware.client.module.Category;
 import com.teddyware.client.module.Module;
+import com.teddyware.client.setting.settings.BooleanSetting;
 import com.teddyware.client.setting.settings.ModeSetting;
 import com.teddyware.client.setting.settings.NumberSetting;
 import me.zero.alpine.listener.EventHandler;
@@ -12,6 +14,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import org.lwjgl.input.Keyboard;
 
 @Module.Data(name = "Offhand", description = "Offhand utilities for crystals or gapples.", key = Keyboard.KEY_NONE, category = Category.Combat)
@@ -19,9 +22,10 @@ public class Offhand extends Module {
 
     public NumberSetting totemHP = new NumberSetting("TotemHP", this, 10, 0, 20, 1);
     public ModeSetting OHItem = new ModeSetting("OHItem", this, "Crystal", "Crystal", "Gapple");
+    public BooleanSetting gapOnSword = new BooleanSetting("GapOnSword", this, false);
 
     public Offhand() {
-        this.addSetting(totemHP, OHItem);
+        this.addSetting(totemHP, OHItem, gapOnSword);
     }
 
     public boolean switching = false;
@@ -34,6 +38,12 @@ public class Offhand extends Module {
             if (switching) {
                 swapItems(lastSlot, 2);
                 return;
+            }
+
+            if (gapOnSword.isEnabled()) {
+                if (mc.player.inventory.currentItem == InventoryUtil.findHotbarItem(ItemSword.class)) {
+                    OHItem.setMode("Gapple");
+                }
             }
 
             if (mc.player.getHeldItemOffhand().getItem() != getItemToSwitch()) {

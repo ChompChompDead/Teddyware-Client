@@ -50,11 +50,11 @@ public class AutoCrystal extends Module {
     public BooleanSetting passives = new BooleanSetting("Passives", this, false);
     public BooleanSetting place = new BooleanSetting("Place", this, false);
     public BooleanSetting explode = new BooleanSetting("Break", this, false);
-    public NumberSetting range = new NumberSetting("Range", this, 5, 0, 6, 1);
+    public NumberSetting range = new NumberSetting("Range", this, 5, 0, 6, 0.1);
     public NumberSetting minDamage = new NumberSetting("MinimumDmg", this, 4, 0, 20, 1);
     public NumberSetting selfDamage = new NumberSetting("SelfDamage", this, 10, 0, 20, 1);
     public BooleanSetting antiWeakness = new BooleanSetting("AntiWeakness", this, false);
-    public BooleanSetting singlePlace = new BooleanSetting("SinglePlace", this, false);
+    public BooleanSetting multiPlace = new BooleanSetting("Multiplace", this, false);
     public BooleanSetting rotate = new BooleanSetting("Rotate", this, false);
     public BooleanSetting rayTrace = new BooleanSetting("Raytrace", this, false);
     public ColorSetting color = new ColorSetting("Color", this, new JColor(255, 255, 255, 255));
@@ -64,7 +64,7 @@ public class AutoCrystal extends Module {
 
 
     public AutoCrystal() {
-        this.addSetting(players, mobs, passives, breakHand, breakSpeed, placeSpeed, minDamage, selfDamage, range, place, explode, switchToCrystal, antiWeakness, singlePlace, rotate, rayTrace, color);
+        this.addSetting(players, mobs, passives, breakHand, breakSpeed, placeSpeed, minDamage, selfDamage, range, place, explode, switchToCrystal, antiWeakness, multiPlace, rotate, rayTrace, color);
     }
 
     private BlockPos render;
@@ -120,14 +120,14 @@ public class AutoCrystal extends Module {
                 mc.player.swingArm(getHandToBreak());
             }
             breaks++;
-            if (breaks == 2 && !singlePlace.isEnabled()) {
+            if (breaks == 2 && multiPlace.isEnabled()) {
                 if (rotate.isEnabled()) {
                     resetRotation();
                 }
                 breaks = 0;
                 return;
-            } else if (singlePlace.isEnabled() && breaks == 1) {
-                if (singlePlace.isEnabled()) {
+            } else if (!multiPlace.isEnabled() && breaks == 1) {
+                if (!multiPlace.isEnabled()) {
                     resetRotation();
                 }
                 breaks = 0;

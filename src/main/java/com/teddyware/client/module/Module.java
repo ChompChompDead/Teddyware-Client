@@ -20,11 +20,11 @@ import java.util.List;
 
 // i am cool
 
-public class Module implements Toggleable {
+public abstract class Module implements Toggleable {
 
     public String name, description;
     public int key;
-    private Category category;
+    public Category category;
     public boolean toggled;
     public boolean moduleOpen;
     public int settingIndex;
@@ -43,6 +43,17 @@ public class Module implements Toggleable {
         keyCode.code = getAnnotation().key();
         this.addSetting(keyCode, hidden);
         this.category = getAnnotation().category();
+        this.toggled = false;
+    }
+
+    // made purely for hudmodule :)
+    public Module(String name, Category category) {
+        super();
+        this.name = name;
+        this.description = null;
+        keyCode.code = getAnnotation().key();
+        this.addSetting(keyCode, hidden);
+        this.category = category;
         this.toggled = false;
     }
 

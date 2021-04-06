@@ -100,6 +100,10 @@ public class Config {
     public void load() {
         create();
         Teddyware.moduleManager.getModuleList().forEach(module -> {
+            if (!Files.exists(Paths.get(Teddyware.MODID + "/Modules/" + module.getName() + ".json"))) {
+                return;
+            }
+
             InputStream inputStream = null;
 
             try {
@@ -114,7 +118,9 @@ public class Config {
 
             JsonElement moduleDataObj = moduleObj.get("Enabled");
             if (moduleDataObj != null && moduleDataObj.isJsonPrimitive()) {
-                module.setToggled(moduleDataObj.getAsBoolean());
+                if (moduleDataObj.getAsBoolean() && !module.name.equals("ClickGUI") && !module.name.equals("FakePlayer")) {
+                    module.setToggled(true);
+                }
             }
 
             module.settings.forEach(setting -> {
@@ -146,9 +152,9 @@ public class Config {
                             color.fromInteger(dataObj.getAsInt());
                         }
                     }
-                } catch (java.lang.NumberFormatException e) {
-                    Teddyware.log.info(setting.name + " " + module.getName());
-                    Teddyware.log.info(dataObj);
+                } catch (NumberFormatException e) {
+                    Teddyware.log.info(setting.name + " " + module.getName() + " encountered a setting error.");
+                    Teddyware.log.info(dataObj + " was the setting.");
                 }
             });
 

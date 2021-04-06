@@ -18,9 +18,10 @@ public abstract class MixinEntity {
     public double motionZ;
 
     @Shadow
-    public void move(MoverType type, double x, double y, double z)
-    {
+    public void move(MoverType type, double x, double y, double z) {
 
     }
 
 }
+
+

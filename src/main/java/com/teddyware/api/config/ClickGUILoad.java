@@ -1,7 +1,7 @@
 package com.teddyware.api.config;
 
 import com.teddyware.client.Teddyware;
-import com.teddyware.client.ui.clickgui.ClickGUIConfig;
+import com.teddyware.client.gui.clickgui.ClickGUIConfig;
 
 import java.io.IOException;
 

@@ -83,6 +83,16 @@ public class FontRender extends FontRenderer implements UtilInterface {
             double width = 0.0;
             boolean randomCase = false;
 
+            for (int i = 0; i < 15; i++) {
+                String part = parts[i];
+
+                if (part.charAt(0) == i) {
+                    currentColor = ColorUtil.hexColors[i];
+                    randomCase = false;
+                    break;
+                }
+            }
+
             for (int index = 0; index < parts.length; ++index) {
                 String part = parts[index];
 

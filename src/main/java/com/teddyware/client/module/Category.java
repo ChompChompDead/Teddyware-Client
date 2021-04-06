@@ -6,7 +6,8 @@ public enum Category {
     Render("Render"),
     Player("Player"),
     Client("Client"),
-    Movement("Movement");
+    Movement("Movement"),
+    Hud("Hud");
 
     public String name;
     public int moduleIndex;

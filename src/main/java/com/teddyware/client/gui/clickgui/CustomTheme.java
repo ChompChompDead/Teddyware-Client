@@ -1,4 +1,4 @@
-package com.teddyware.client.ui.clickgui;
+package com.teddyware.client.gui.clickgui;
 
 import com.lukflug.panelstudio.theme.Theme;
 import java.awt.Color;

@@ -25,7 +25,7 @@ import java.util.List;
  */
 
 
-public class BurrowUtil implements UtilInterface {
+public class BlockUtil implements UtilInterface {
 
     public static boolean placeBlock(BlockPos pos, EnumHand hand, boolean rotate, boolean packet, boolean isSneaking) {
         boolean sneaking = false;
@@ -113,33 +113,6 @@ public class BurrowUtil implements UtilInterface {
         }
         mc.player.swingArm(EnumHand.MAIN_HAND);
         ObfuscationReflectionHelper.setPrivateValue(Minecraft.class, mc, 4, "rightClickDelayTimer", "field_71467_ac");
-    }
-
-    public static int findHotbarBlock(Class clazz) {
-        for (int i = 0; i < 9; i++) {
-            ItemStack stack = mc.player.inventory.getStackInSlot(i);
-            if (stack == ItemStack.EMPTY) {
-                continue;
-            }
-
-            if (clazz.isInstance(stack.getItem())) {
-                return i;
-            }
-
-            if (stack.getItem() instanceof ItemBlock) {
-                Block block = ((ItemBlock) stack.getItem()).getBlock();
-                if (clazz.isInstance(block)) {
-                    return i;
-                }
-            }
-        }
-        return -1;
-    }
-
-    public static void switchToSlot(final int slot) {
-        mc.player.connection.sendPacket(new CPacketHeldItemChange(slot));
-        mc.player.inventory.currentItem = slot;
-        mc.playerController.updateController();
     }
 
 }

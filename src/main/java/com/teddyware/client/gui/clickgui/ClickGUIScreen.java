@@ -1,9 +1,8 @@
-package com.teddyware.client.ui.clickgui;
+package com.teddyware.client.gui.clickgui;
 
 import com.lukflug.panelstudio.*;
 import com.lukflug.panelstudio.hud.HUDClickGUI;
 import com.lukflug.panelstudio.mc12.GLInterface;
-import com.lukflug.panelstudio.mc12.MinecraftGUI;
 import com.lukflug.panelstudio.mc12.MinecraftHUDGUI;
 import com.lukflug.panelstudio.settings.*;
 import com.lukflug.panelstudio.theme.*;
@@ -11,15 +10,12 @@ import com.teddyware.api.util.font.FontUtil;
 import com.teddyware.api.util.color.ColorModel;
 import com.teddyware.api.util.color.JColor;
 import com.teddyware.api.util.color.SyncableColorComponent;
-import com.teddyware.api.util.font.FontUtil;
 import com.teddyware.client.module.Category;
 import com.teddyware.client.module.Module;
 import com.teddyware.client.module.ModuleManager;
 import com.teddyware.client.module.client.ClickGUIModule;
 import com.teddyware.client.setting.Setting;
 import com.teddyware.client.setting.settings.BooleanSetting;
-import net.minecraft.util.text.TextFormatting;
-import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
@@ -28,11 +24,11 @@ public class ClickGUIScreen extends MinecraftHUDGUI {
     public static ClickGUIScreen INSTANCE;
 
     private final Toggleable colorToggle;
-    private final GUIInterface guiInterface;
+    public final GUIInterface guiInterface;
     private final Theme theme;
     public final HUDClickGUI gui;
 
-    public static final int WIDTH = 100, HEIGHT = 12, DISTANCE = 10;
+    public static final int WIDTH = 100, HEIGHT = 12, DISTANCE = 10, HUDBORDER = 2;
     private Category category;
     private Module module;
 
@@ -97,6 +93,18 @@ public class ClickGUIScreen extends MinecraftHUDGUI {
                         }
                     }
                 }
+            }
+        };
+
+        Toggleable hudToggle = new Toggleable() {
+            @Override
+            public void toggle() {
+
+            }
+
+            @Override
+            public boolean isOn() {
+                return gui.isOn() || hudEditor;
             }
         };
 

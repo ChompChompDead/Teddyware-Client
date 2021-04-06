@@ -1,4 +1,4 @@
-package com.teddyware.client.ui;
+package com.teddyware.client.gui;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import com.teddyware.api.event.events.EventRenderGUI;
