@@ -75,7 +75,7 @@ public class MainHud extends Gui {
                     for (Module mod : ModuleManager.getModuleList()) {
                         if (mod.isToggled() && !mod.hidden.isEnabled()) {
                             FontUtil.drawStringWithShadow(mod.getName(), sr.getScaledWidth() - FontUtil.getStringWidth(mod.getName()) - 2, y, ArrayListt.multiRainbow.isEnabled() ? new JColor(rainbow(counter[0] * 500)) : new JColor(ArrayListt.color.getColor()));
-                            y += FontUtil.getFontHeight();
+                            y += 12;
                             counter[0]++;
                         }
                     }

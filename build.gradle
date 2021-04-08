@@ -73,7 +73,7 @@ dependencies {
     compile('com.github.ZeroMemes:Alpine:1.5')
     compile('com.googlecode.json-simple:json-simple:1.1.1')
     compile('com.github.Vatuu:discord-rpc:1.5.0')
-    implementation('org.jetbrains:annotations:15.0')
+    compile('org.slick2d:slick2d-core:1.0.2')
 }
 
 shadowJar {
@@ -85,6 +85,7 @@ shadowJar {
         include(dependency('com.lukflug:panelstudio-mc12'))
         include(dependency('com.github.ZeroMemes:Alpine'))
         include(dependency('com.googlecode.json-simple:json-simple:1.1.1'))
+        include(dependency('org.slick2d:slick2d-core'))
     }
     exclude 'dummyThing'
     exclude 'LICENSE.txt'

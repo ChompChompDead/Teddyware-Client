@@ -93,7 +93,6 @@ public class Teddyware {
         log.info("clickGUI saves and loads are ready");
 
         fontManager = new FontUtil();
-        fontManager.load();
         log.info("custom font is ready");
 
         log.info(NAME + " is done loading!");

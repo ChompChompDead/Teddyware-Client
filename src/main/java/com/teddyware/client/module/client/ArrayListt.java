@@ -13,12 +13,13 @@ public class ArrayListt extends Module {
 
     public static Module ArrayListt = null;
 
+    public static BooleanSetting moduleMode = new BooleanSetting("ModuleMode", ArrayListt, false);
     public static BooleanSetting multiRainbow = new BooleanSetting("MultiRainbow", ArrayListt, true);
     public static ColorSetting color = new ColorSetting("Color", ArrayListt, new JColor(255, 255, 255));
     public static ModeSetting mode = new ModeSetting("Sort", ArrayListt, "Up", "Down", "Up");
 
     public ArrayListt() {
-        this.addSetting(multiRainbow, color, mode);
+        this.addSetting(moduleMode, multiRainbow, color, mode);
     }
 
     @Override

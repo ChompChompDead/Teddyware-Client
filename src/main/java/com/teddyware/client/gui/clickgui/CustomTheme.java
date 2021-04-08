@@ -11,6 +11,7 @@ import com.lukflug.panelstudio.theme.ColorScheme;
 import com.lukflug.panelstudio.theme.DescriptionRenderer;
 import com.lukflug.panelstudio.theme.Renderer;
 import com.lukflug.panelstudio.theme.RendererBase;
+import com.mojang.realmsclient.gui.ChatFormatting;
 import com.teddyware.api.util.color.JColor;
 
 /**
@@ -76,7 +77,7 @@ public class CustomTheme implements Theme {
             }
             Point stringPos=new Point(rectangle.getLocation());
             stringPos.translate(0,border);
-            context.getInterface().drawString(stringPos,text,new JColor(255, 255, 255, 255));
+            context.getInterface().drawString(stringPos, text, new JColor(255, 255, 255, 255));
         }
 
         @Override
