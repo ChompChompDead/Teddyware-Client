@@ -1,6 +1,7 @@
 package com.teddyware.api.util.font;
 
 import com.teddyware.api.util.UtilInterface;
+import com.teddyware.client.module.ModuleManager;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.StringUtils;
@@ -202,10 +203,16 @@ public class FontRenderer implements UtilInterface {
     }
 
     public float getHeight(String s) {
-        return unicodeFont.getHeight(s) / 2.5F;
+        if (mc.gameSettings.guiScale == 3) {
+            return unicodeFont.getHeight(s) / 2.8F;
+        }
+        return unicodeFont.getHeight(s) / 2.0F;
     }
 
     public float getStringWidth(String text) {
+        if (mc.gameSettings.guiScale == 3) {
+            return unicodeFont.getWidth(stripColor(text)) / 2.8F;
+        }
         return unicodeFont.getWidth(stripColor(text)) / 2.0F;
     }
 

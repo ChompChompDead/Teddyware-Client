@@ -29,6 +29,7 @@ public abstract class Module implements Toggleable {
     public boolean moduleOpen;
     public int settingIndex;
     public boolean settingExpanded;
+    public String arrayListInfo;
 
     public KeybindSetting keyCode = new KeybindSetting(0);
     public BooleanSetting hidden = new BooleanSetting("Hidden", this, false);
@@ -74,9 +75,11 @@ public abstract class Module implements Toggleable {
 
     public void onWorldRender(EventRender e) { }
     public void onUpdate() { }
+
     public String getDescription() {
         return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -164,6 +167,21 @@ public abstract class Module implements Toggleable {
 
     public Category getCategory() {
         return this.category;
+    }
+
+    public String getArrayListInfo() {
+        if (arrayListInfo == null) {
+            return "";
+        }
+        return ChatFormatting.GRAY + "[" + ChatFormatting.WHITE + arrayListInfo + ChatFormatting.GRAY + "]";
+    }
+
+    public void setArrayListInfo(String arrayListInfo) {
+        this.arrayListInfo = arrayListInfo;
+    }
+
+    public boolean getHidden() {
+        return !hidden.isEnabled();
     }
 
     public static String getToggledStatus(boolean toggle) {

@@ -11,6 +11,7 @@ import com.teddyware.client.module.Module;
 import com.teddyware.client.module.ModuleManager;
 import com.teddyware.client.setting.Setting;
 import com.teddyware.client.setting.settings.BooleanSetting;
+import com.teddyware.client.setting.settings.ColorSetting;
 import com.teddyware.client.setting.settings.KeybindSetting;
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
@@ -29,8 +30,12 @@ public class TabGUI extends Module {
     public static int currentTab;
     public boolean expanded;
 
+    public ColorSetting activeColor = new ColorSetting("ActiveColor", this, new JColor(120, 63, 4));
+    public ColorSetting backgroundColor = new ColorSetting("BackgroundColor", this, new JColor(0, 0, 0, 100));
+    public ColorSetting fontColor = new ColorSetting("FontColor", this, new JColor(255, 255, 255));
+
     public TabGUI() {
-        this.toggled = true;
+        this.addSetting(activeColor, backgroundColor, fontColor);
     }
 
     @EventHandler
@@ -40,12 +45,12 @@ public class TabGUI extends Module {
         int count = 0;
 
         // background
-        Gui.drawRect(5, 37, 75, 36 + Category.values().length * 16 + 2, new Color(0, 0, 0, 100).getRGB());
+        Gui.drawRect(5, 37, 75, 36 + Category.values().length * 16 + 2, backgroundColor.getValue().getRGB());
         // outline
-        Gui.drawRect(7, 40 + currentTab * 16, 7 + 61, 40 + currentTab * 16 + 12, 0xff783F04);
+        Gui.drawRect(7, 40 + currentTab * 16, 7 + 61, 40 + currentTab * 16 + 12, activeColor.getValue().getRGB());
 
         for (Category c : Category.values()) {
-            FontUtil.drawStringWithShadow(c.name, 11, 42 + count * 16, new JColor(255, 255, 255));
+            FontUtil.drawStringWithShadow(c.name, 11, 42 + count * 16, fontColor.getValue());
             count++;
         }
         if (expanded) {
@@ -57,9 +62,9 @@ public class TabGUI extends Module {
             if (modules.size() == 0)
                 return;
             //background
-            Gui.drawRect(75, (int) 37.5, 78 + 68, 36 + modules.size() * 16 + 2, new Color(0, 0, 0, 100).getRGB());
+            Gui.drawRect(75, (int) 37.5, 78 + 68, 36 + modules.size() * 16 + 2, backgroundColor.getValue().getRGB());
             //outline
-            Gui.drawRect(75, 40 + category.moduleIndex * 16, 10 + 60 + 68, 40 + category.moduleIndex * 16 + 12, 0xff783F04);
+            Gui.drawRect(75, 40 + category.moduleIndex * 16, 10 + 60 + 68, 40 + category.moduleIndex * 16 + 12, activeColor.getValue().getRGB());
 
             count = 0;
             for (Module m : modules) {
@@ -68,20 +73,20 @@ public class TabGUI extends Module {
 
                     if (!m.settings.isEmpty()) {
                         //background
-                        Gui.drawRect(146, (int) 37.5, 217, 36 + m.settings.size() * 16 + 2, new Color(0, 0, 0, 100).getRGB());
+                        Gui.drawRect(146, (int) 37.5, 217, 36 + m.settings.size() * 16 + 2, backgroundColor.getValue().getRGB());
                         //outline
-                        Gui.drawRect(147, 40 + m.settingIndex * 16, 208, 40 + m.settingIndex * 16 + 12, 0xff783F04);
+                        Gui.drawRect(147, 40 + m.settingIndex * 16, 208, 40 + m.settingIndex * 16 + 12, activeColor.getValue().getRGB());
                     }
 
                     int settingIndex = 0;
                     for (Setting setting : m.settings) {
                         if (setting instanceof BooleanSetting) {
                             BooleanSetting bool = (BooleanSetting) setting;
-                            fr.drawStringWithShadow(setting.name + ": " + (bool.isEnabled() ? "On" : "Off"), 83, 42 + settingIndex * 16, -1);
+                            fr.drawStringWithShadow(setting.name + ": " + (bool.isEnabled() ? "On" : "Off"), 83, 42 + settingIndex * 16, fontColor.getValue().getRGB());
                         }
                         if (setting instanceof KeybindSetting) {
                             KeybindSetting keyBind = (KeybindSetting) setting;
-                            fr.drawStringWithShadow(setting.name + ": " + Keyboard.getKeyName(keyBind.code), 83, 42 + settingIndex * 16, -1);
+                            fr.drawStringWithShadow(setting.name + ": " + Keyboard.getKeyName(keyBind.code), 83, 42 + settingIndex * 16, fontColor.getValue().getRGB());
 
                         }
 
@@ -90,7 +95,7 @@ public class TabGUI extends Module {
 
                 }
                 // names
-                FontUtil.drawStringWithShadow(m.name, 79, 42 + count * 16, new JColor(255, 255, 255));
+                FontUtil.drawStringWithShadow(m.name, 79, 42 + count * 16, fontColor.getValue());
                 count++;
             }
         }

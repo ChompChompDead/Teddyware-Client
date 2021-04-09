@@ -54,14 +54,14 @@ public class CustomTheme implements Theme {
     protected class ComponentRenderer extends RendererBase {
         protected final int level,border;
 
-        public ComponentRenderer (int level, int height, int border) {
+        public ComponentRenderer(int level, int height, int border) {
             super(height + 1,1,1,1,0);
             this.level=level;
             this.border=border;
         }
 
         @Override
-        public void renderRect (Context context, String text, boolean focus, boolean active, Rectangle rectangle, boolean overlay) {
+        public void renderRect(Context context, String text, boolean focus, boolean active, Rectangle rectangle, boolean overlay) {
             Color color=getMainColor(focus,active);
             Color color2=getBackgroundColor(focus);
             if (level==1 && !active)context.getInterface().fillRect(context.getRect(),color2,color2,color2,color2);
@@ -73,10 +73,10 @@ public class CustomTheme implements Theme {
                 } else {
                     overlayColor=new Color(255,255,255,0);
                 }
-                context.getInterface().fillRect(context.getRect(),overlayColor,overlayColor,overlayColor,overlayColor);
+                context.getInterface().fillRect(context.getRect(), overlayColor, overlayColor, overlayColor, overlayColor);
             }
-            Point stringPos=new Point(rectangle.getLocation());
-            stringPos.translate(0,border);
+            Point stringPos = new Point(rectangle.getLocation());
+            stringPos.translate(0, border);
             context.getInterface().drawString(stringPos, text, new JColor(255, 255, 255, 255));
         }
 

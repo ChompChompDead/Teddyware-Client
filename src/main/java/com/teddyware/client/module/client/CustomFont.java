@@ -12,6 +12,7 @@ public class CustomFont extends Module {
 
     public CustomFont() {
         this.addSetting(font);
+        this.arrayListInfo = font.getMode();
     }
 
     public void onEnable() {

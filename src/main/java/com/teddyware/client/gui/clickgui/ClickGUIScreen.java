@@ -62,12 +62,12 @@ public class ClickGUIScreen extends MinecraftHUDGUI {
 
             @Override
             public int getFontWidth(String s) {
-                return Math.round(FontUtil.getStringWidth(s)) - 4;
+                return Math.round(FontUtil.getStringWidth(s)) + 2;
             }
 
             @Override
             public int getFontHeight() {
-                return Math.round(12) + 2;
+                return Math.round(11) + 2;
             }
         };
         theme = new CustomTheme(new SettingsColorScheme(
@@ -137,7 +137,7 @@ public class ClickGUIScreen extends MinecraftHUDGUI {
             else if (setting instanceof ColorSetting)
                 container.addComponent(new SyncableColorComponent(theme, (com.teddyware.client.setting.settings.ColorSetting) setting, colorToggle, new SettingsAnimation(ClickGUIModule.getInstance().animationSpeed)));
             else if (setting instanceof KeybindSetting)
-                container.addComponent(new KeybindComponent(theme.getComponentRenderer(), (KeybindSetting) setting));
+                container.addComponent(new ClickGUIKeybind(theme.getComponentRenderer(), (KeybindSetting) setting));
         }
     }
 

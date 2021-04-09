@@ -34,6 +34,7 @@ public class ClickGUIModule extends Module {
 
     public ClickGUIModule() {
         this.addSetting(enabledColor, backgroundColor, settingBackgroundColor, outlineColor, fontColor, animationSpeed, opacity, scrollSpeed, description, scrollMode);
+        this.arrayListInfo = description.getMode() + ", " + scrollMode.getMode();
         INSTANCE = this;
     }
 
@@ -44,7 +45,7 @@ public class ClickGUIModule extends Module {
     @Override
     public void onUpdate() {
         if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
-            this.setToggled(!toggled);
+            toggle();
         }
     }
 

@@ -55,11 +55,19 @@ public class FontUtil implements UtilInterface {
     }
 
     public static float getStringWidth(String text) {
-        return getCurrentCustomFont().getStringWidth(text);
+        if (ModuleManager.getModule("CustomFont").isToggled()) {
+            return getCurrentCustomFont().getStringWidth(text);
+        } else {
+            return mc.fontRenderer.getStringWidth(text);
+        }
     }
 
     public static float getStringHeight(String text) {
-        return getCurrentCustomFont().getStringHeight(text);
+        if (ModuleManager.getModule("CustomFont").isToggled()) {
+            return getCurrentCustomFont().getStringHeight(text);
+        } else {
+            return mc.fontRenderer.FONT_HEIGHT;
+        }
     }
 
 }

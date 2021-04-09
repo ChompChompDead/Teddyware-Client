@@ -26,6 +26,7 @@ public class Offhand extends Module {
 
     public Offhand() {
         this.addSetting(totemHP, OHItem, gapOnSword);
+        this.arrayListInfo = OHItem.getMode();
     }
 
     public boolean switching = false;

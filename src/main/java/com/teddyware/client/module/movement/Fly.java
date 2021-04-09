@@ -9,8 +9,10 @@ public class Fly extends Module {
 
     @Override
     public void onEnable() {
-        mc.player.jump();
-        mc.player.capabilities.isFlying = true;
+        if (mc.player != null) {
+            mc.player.jump();
+            mc.player.capabilities.isFlying = true;
+        }
     }
 
     @Override

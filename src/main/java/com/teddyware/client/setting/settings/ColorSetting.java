@@ -1,5 +1,6 @@
 package com.teddyware.client.setting.settings;
 
+import com.teddyware.client.Teddyware;
 import com.teddyware.client.module.Module;
 import com.teddyware.client.setting.Setting;
 import com.teddyware.api.util.color.JColor;
@@ -27,6 +28,18 @@ public class ColorSetting extends Setting implements com.lukflug.panelstudio.set
         return this.value;
     }
 
+    public boolean getRainb() {
+        return this.rainbow;
+    }
+
+    public void setRainb(boolean rainb) {
+        this.rainbow = rainb;
+
+        if (Teddyware.config != null) {
+            Teddyware.config.save();
+        }
+    }
+
     public static int rainbow(int delay) {
         float[] tickColor = {
                 (System.currentTimeMillis() % (360 * 32)) / (360f * 32)
@@ -35,9 +48,13 @@ public class ColorSetting extends Setting implements com.lukflug.panelstudio.set
         return new Color((colorRgbO >> 16) & 0xFF, (colorRgbO >> 8) & 0xFF, colorRgbO & 0xFF).getRGB();
     }
 
-    public void setValue (boolean rainbow, final JColor value) {
+    public void setValue(boolean rainbow, final JColor value) {
         this.rainbow = rainbow;
         this.value = value;
+
+        if (Teddyware.config != null) {
+            Teddyware.config.save();
+        }
     }
 
     public long toInteger() {

@@ -40,6 +40,7 @@ public class Burrow extends Module {
 
     public Burrow() {
         this.addSetting(block, rotate, offset);
+        this.arrayListInfo = block.getMode();
     }
 
     @Override

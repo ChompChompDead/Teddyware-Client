@@ -65,6 +65,7 @@ public class AutoCrystal extends Module {
 
     public AutoCrystal() {
         this.addSetting(players, mobs, passives, breakHand, breakSpeed, placeSpeed, minDamage, selfDamage, range, place, explode, switchToCrystal, antiWeakness, multiPlace, rotate, rayTrace, color);
+        this.arrayListInfo = breakHand.getMode();
     }
 
     private BlockPos render;

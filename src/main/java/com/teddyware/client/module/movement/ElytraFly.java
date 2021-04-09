@@ -47,6 +47,7 @@ public class ElytraFly extends Module {
 
     public ElytraFly() {
         this.addSetting(mode, speed, glideSpeed, upSpeed, downSpeed, cancelAtHeight, cancelInWater, accelerate, accelTimer, rotationPitch, instantFlight, equipElytra, pitchSpoof);
+        this.arrayListInfo = mode.getMode();
     }
 
     @EventHandler

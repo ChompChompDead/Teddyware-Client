@@ -26,6 +26,7 @@ public class StorageESP extends Module {
 
     public StorageESP() {
         this.addSetting(style, chestColor, enderChestColor, shulkerBoxColor, otherColor);
+        this.arrayListInfo = style.getMode();
     }
 
     public void onWorldRender(EventRender e) {

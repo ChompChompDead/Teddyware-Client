@@ -3,6 +3,7 @@ package com.teddyware.api.config;
 import com.google.gson.*;
 import com.teddyware.client.Teddyware;
 import com.teddyware.client.command.CommandManager;
+import com.teddyware.client.module.ModuleManager;
 import com.teddyware.client.setting.settings.*;
 import net.minecraft.client.Minecraft;
 import org.json.simple.*;
@@ -18,18 +19,19 @@ public class Config {
 
     public Minecraft mc = Minecraft.getMinecraft();
 
-    public BufferedWriter writer;
-    public BufferedReader reader;
-    public JSONParser parser = new JSONParser();
-
     public File dir = new File(mc.gameDir, Teddyware.MODID);
     public File moduleDir = new File(dir, "/Modules");
     public File othersDir = new File(dir, "/others.txt");
 
     public Config() {
         create();
-        this.load();
-        this.loadOthers();
+
+        try {
+            this.load();
+            this.loadOthers();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void create() {
@@ -82,6 +84,7 @@ public class Config {
 
                 if (setting instanceof ColorSetting) {
                     ColorSetting color = (ColorSetting) setting;
+                    settingObj.add(setting.name + "Rainbow", new JsonPrimitive((color.getRainb())));
                     settingObj.add(setting.name, new JsonPrimitive((color).toInteger()));
                 }
             });
@@ -99,72 +102,80 @@ public class Config {
 
     public void load() {
         create();
-        Teddyware.moduleManager.getModuleList().forEach(module -> {
-            if (!Files.exists(Paths.get(Teddyware.MODID + "/Modules/" + module.getName() + ".json"))) {
-                return;
-            }
-
-            InputStream inputStream = null;
-
-            try {
-                inputStream = Files.newInputStream(Paths.get(Teddyware.MODID + "/Modules/" + module.getName() + ".json"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            JsonObject moduleObj = new JsonParser().parse(new InputStreamReader(inputStream)).getAsJsonObject();
-            if (moduleObj.get("Module") == null) return;
-            JsonObject settingObj = moduleObj.getAsJsonObject("Settings").getAsJsonObject();
-
-            JsonElement moduleDataObj = moduleObj.get("Enabled");
-            if (moduleDataObj != null && moduleDataObj.isJsonPrimitive()) {
-                if (moduleDataObj.getAsBoolean() && !module.name.equals("ClickGUI") && !module.name.equals("FakePlayer")) {
-                    module.setToggled(true);
+        if (ModuleManager.modules != null) {
+            ModuleManager.getModuleList().forEach(module -> {
+                if (!Files.exists(Paths.get(Teddyware.MODID + "/Modules/" + module.getName() + ".json"))) {
+                    return;
                 }
-            }
 
-            module.settings.forEach(setting -> {
-                JsonElement dataObj = settingObj.get(setting.name);
+                InputStream inputStream = null;
+
                 try {
-                    if (dataObj != null && dataObj.isJsonPrimitive()) {
-                        if (setting instanceof KeybindSetting) {
-                            KeybindSetting key = (KeybindSetting) setting;
-                            key.setKeyCode((int) dataObj.getAsLong());
-                        }
-
-                        if (setting instanceof BooleanSetting) {
-                            BooleanSetting bool = (BooleanSetting) setting;
-                            bool.setEnabled(dataObj.getAsBoolean());
-                        }
-
-                        if (setting instanceof NumberSetting) {
-                            NumberSetting numb = (NumberSetting) setting;
-                            numb.setValue(dataObj.getAsDouble());
-                        }
-
-                        if (setting instanceof ModeSetting) {
-                            ModeSetting mode = (ModeSetting) setting;
-                            mode.setMode(dataObj.getAsString());
-                        }
-
-                        if (setting instanceof ColorSetting) {
-                            ColorSetting color = (ColorSetting) setting;
-                            color.fromInteger(dataObj.getAsInt());
-                        }
-                    }
-                } catch (NumberFormatException e) {
-                    Teddyware.log.info(setting.name + " " + module.getName() + " encountered a setting error.");
-                    Teddyware.log.info(dataObj + " was the setting.");
+                    inputStream = Files.newInputStream(Paths.get(Teddyware.MODID + "/Modules/" + module.getName() + ".json"));
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+
+                JsonObject moduleObj = new JsonParser().parse(new InputStreamReader(inputStream)).getAsJsonObject();
+                if (moduleObj.get("Module") == null) return;
+                JsonObject settingObj = moduleObj.getAsJsonObject("Settings").getAsJsonObject();
+
+                JsonElement moduleDataObj = moduleObj.get("Enabled");
+                if (moduleDataObj != null && moduleDataObj.isJsonPrimitive()) {
+                    if (moduleDataObj.getAsBoolean() && !module.name.equals("ClickGUI") && !module.name.equals("FakePlayer")) {
+                        module.setToggled(true);
+                    }
+                }
+
+                module.settings.forEach(setting -> {
+                    JsonElement dataObj = settingObj.get(setting.name);
+
+                    try {
+                        if (dataObj != null && dataObj.isJsonPrimitive()) {
+                            if (setting instanceof KeybindSetting) {
+                                KeybindSetting key = (KeybindSetting) setting;
+                                key.setKeyCode((int) dataObj.getAsLong());
+                            }
+
+                            if (setting instanceof BooleanSetting) {
+                                BooleanSetting bool = (BooleanSetting) setting;
+                                bool.setEnabled(dataObj.getAsBoolean());
+                            }
+
+                            if (setting instanceof NumberSetting) {
+                                NumberSetting numb = (NumberSetting) setting;
+                                numb.setValue(dataObj.getAsDouble());
+                            }
+
+                            if (setting instanceof ModeSetting) {
+                                ModeSetting mode = (ModeSetting) setting;
+                                mode.setMode(dataObj.getAsString());
+                            }
+
+                            if (setting instanceof ColorSetting) {
+                                ColorSetting color = (ColorSetting) setting;
+                                JsonElement rainbowDataObj = settingObj.get(color.name + "Rainbow");
+
+                                if (rainbowDataObj.isJsonPrimitive()) {
+                                    color.fromInteger(dataObj.getAsInt());
+                                    color.setRainb(rainbowDataObj.getAsBoolean());
+                                }
+                            }
+                        }
+                    } catch (NumberFormatException e) {
+                        Teddyware.log.info(setting.name + " " + module.getName() + " encountered a setting error.");
+                        Teddyware.log.info(dataObj + " was the setting.");
+                    }
+                });
+
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             });
-
-            try {
-                inputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        });
+        }
     }
 
     /*

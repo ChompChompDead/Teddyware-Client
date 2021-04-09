@@ -28,6 +28,7 @@ public class HoleESP extends Module {
 
     public HoleESP() {
         this.addSetting(height, style, obsidianColor, bedrockColor);
+        this.arrayListInfo = style.getMode();
     }
 
     public BlockPos[] surroundOffset = {

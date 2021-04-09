@@ -8,7 +8,7 @@ import org.lwjgl.input.Keyboard;
 public class Hud extends Module {
 
     public Hud() {
-        this.toggled = true;
+
     }
 
     @Override
