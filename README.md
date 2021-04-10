@@ -4,6 +4,7 @@
 
 before i start this, yes the client is hugely skidded from postman (though it isnt actually forked from it) <br>
 hopefully everyone knows im a terrible coder and im still learning sooo yeah <br>
+in the future, there will probably be a rewrite or a new client. not sure. <br>
 
 Teddyware is a utility mod for minecraft anarchy servers for 1.12.2. <br>
 It is like **optifine**, and should only be used on servers that allow it. <br>
