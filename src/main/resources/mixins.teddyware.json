@@ -1,7 +1,7 @@
 {
   "required": true,
   "compatibilityLevel": "JAVA_8",
-  "package": "com.teddyware.api.mixin.mixins",
+  "package": "com.chompchompdead.teddyware.api.mixin.mixins",
   "refmap": "mixins.teddyware.refmap.json",
   "mixins": [
       "MixinEntityPlayerSP",
@@ -12,6 +12,7 @@
       "MixinEntity",
       "MixinEntityPlayer",
       "MixinMovementInputFromOptions",
-      "MixinItemRenderer"
+      "MixinItemRenderer",
+      "MixinFontRenderer"
   ]
 }
