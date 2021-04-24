@@ -2,7 +2,7 @@ package com.chompchompdead.teddyware.client.module;
 
 import com.chompchompdead.teddyware.api.event.events.EventNotifier;
 import com.chompchompdead.teddyware.api.event.events.EventRender;
-import com.chompchompdead.teddyware.client.module.client.ArrayListt;
+import com.chompchompdead.teddyware.client.module.hud.ArrayListt;
 import com.lukflug.panelstudio.settings.Toggleable;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import com.chompchompdead.teddyware.client.Teddyware;
@@ -75,6 +75,7 @@ public abstract class Module implements Toggleable {
     }
 
     public void onWorldRender(EventRender e) { }
+    public void onRender() { }
     public void onUpdate() { }
 
     public String getDescription() {

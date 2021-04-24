@@ -1,5 +1,6 @@
 package com.chompchompdead.teddyware.api.util;
 
+import com.chompchompdead.teddyware.client.module.render.Xray;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;

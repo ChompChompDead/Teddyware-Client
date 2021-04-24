@@ -2,12 +2,16 @@ package com.chompchompdead.teddyware.api.event;
 
 import com.chompchompdead.teddyware.api.event.events.EventRender;
 import com.chompchompdead.teddyware.client.Teddyware;
+import com.chompchompdead.teddyware.client.module.Module;
 import com.chompchompdead.teddyware.client.module.ModuleManager;
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import org.lwjgl.input.Keyboard;
 
 public class EventProcessor {
 

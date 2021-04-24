@@ -54,7 +54,7 @@ public class CustomTheme implements Theme {
         protected final int level,border;
 
         public ComponentRenderer(int level, int height, int border) {
-            super(height + 1,1,1,1,0);
+            super(height + 1,1,1,0,0);
             this.level=level;
             this.border=border;
         }

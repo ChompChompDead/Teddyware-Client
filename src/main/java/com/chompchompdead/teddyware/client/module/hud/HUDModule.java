@@ -22,6 +22,7 @@ public abstract class HUDModule extends Module {
         super(title, Category.Hud);
         position = defaultPos;
     }
+
     public abstract void populate(Theme theme);
 
     public FixedComponent getComponent() {

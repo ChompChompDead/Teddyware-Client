@@ -8,7 +8,9 @@ import org.lwjgl.input.Keyboard;
 public class ReverseStep extends Module {
 
     @Override
-    public void onDisable() { mc.player.stepHeight = 0.5F; }
+    public void onDisable() {
+        mc.player.stepHeight = 0.5F;
+    }
 
     @Override
     public void onUpdate() {

@@ -30,7 +30,7 @@ import org.lwjgl.opengl.Display;
 public class Teddyware {
     public static final String MODID = "teddyware";
     public static final String NAME = "Teddyware";
-    public static final String VERSION = "0.29";
+    public static final String VERSION = "0.30";
     public static final Logger log = LogManager.getLogger(NAME + " v" + VERSION);
     public static final EventBus EVENT_BUS = new EventManager();
 

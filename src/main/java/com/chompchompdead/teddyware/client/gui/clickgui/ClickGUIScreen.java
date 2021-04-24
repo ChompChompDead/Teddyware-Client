@@ -3,8 +3,10 @@ package com.chompchompdead.teddyware.client.gui.clickgui;
 import com.chompchompdead.teddyware.api.util.color.JColor;
 import com.chompchompdead.teddyware.api.util.color.SyncableColorComponent;
 import com.chompchompdead.teddyware.api.util.font.FontUtil;
+import com.chompchompdead.teddyware.client.module.hud.HUDModule;
 import com.lukflug.panelstudio.*;
 import com.lukflug.panelstudio.hud.HUDClickGUI;
+import com.lukflug.panelstudio.hud.HUDPanel;
 import com.lukflug.panelstudio.mc12.GLInterface;
 import com.lukflug.panelstudio.mc12.MinecraftHUDGUI;
 import com.lukflug.panelstudio.settings.*;
@@ -108,6 +110,14 @@ public class ClickGUIScreen extends MinecraftHUDGUI {
             }
         };
 
+        for (Module module : ModuleManager.getModuleList()) {
+            if (module instanceof HUDModule) {
+                HUDModule hudModule = ((HUDModule) module);
+                hudModule.populate(theme);
+                gui.addHUDComponent(new HUDPanel(hudModule.getComponent(), theme.getPanelRenderer(), module, new SettingsAnimation(ClickGUIModule.INSTANCE.animationSpeed), hudToggle, HUDBORDER));
+            }
+        }
+
         Point pos = new Point(DISTANCE,DISTANCE);
         for (Category category : Category.values()) {
             DraggableContainer panel = new DraggableContainer(category.name, null, theme.getPanelRenderer(), new SimpleToggleable(false), new SettingsAnimation(ClickGUIModule.INSTANCE.animationSpeed), null, new Point(pos), WIDTH) {
@@ -118,6 +128,7 @@ public class ClickGUIScreen extends MinecraftHUDGUI {
                 }
             };
             gui.addComponent(panel);
+            pos.translate(WIDTH + DISTANCE, 0);
             for (Module module : ModuleManager.getModulesByCategory(category)) {
                 addModule(panel, module);
             }

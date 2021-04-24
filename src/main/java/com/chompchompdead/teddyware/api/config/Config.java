@@ -120,7 +120,7 @@ public class Config {
 
                 JsonElement moduleDataObj = moduleObj.get("Enabled");
                 if (moduleDataObj != null && moduleDataObj.isJsonPrimitive()) {
-                    if (moduleDataObj.getAsBoolean() && !module.name.equals("ClickGUI") && !module.name.equals("FakePlayer")) {
+                    if (moduleDataObj.getAsBoolean() && !module.name.equals("ClickGUI") && !module.name.equals("FakePlayer") && !module.name.equals("HUDEditor")) {
                         module.setToggled(true);
                     }
                 }
