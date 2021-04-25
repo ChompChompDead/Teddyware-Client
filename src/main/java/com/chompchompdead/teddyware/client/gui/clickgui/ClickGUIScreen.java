@@ -25,7 +25,7 @@ public class ClickGUIScreen extends MinecraftHUDGUI {
 
     public static ClickGUIScreen INSTANCE;
 
-    private final Toggleable colorToggle;
+    private final Toggleable colorToggle, hudToggle;
     public final GUIInterface guiInterface;
     private final Theme theme;
     public final HUDClickGUI gui;
@@ -98,15 +98,13 @@ public class ClickGUIScreen extends MinecraftHUDGUI {
             }
         };
 
-        Toggleable hudToggle = new Toggleable() {
+        hudToggle = new Toggleable() {
             @Override
-            public void toggle() {
-
-            }
+            public void toggle() { }
 
             @Override
             public boolean isOn() {
-                return gui.isOn() || hudEditor;
+                return hudEditor;
             }
         };
 

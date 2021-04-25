@@ -14,7 +14,6 @@ import com.chompchompdead.teddyware.client.module.player.*;
 import com.chompchompdead.teddyware.client.module.render.*;
 import com.chompchompdead.teddyware.api.util.TWTessellator;
 import com.chompchompdead.teddyware.client.Teddyware;
-import com.chompchompdead.teddyware.client.module.client.Hud;
 import com.chompchompdead.teddyware.client.module.hud.TabGUI;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -52,7 +51,6 @@ public class ModuleManager {
         modules.add(new Xray());
 
         // Client
-        modules.add(new Hud());
         modules.add(new ChatSuffix());
         modules.add(new ChatFont());
         modules.add(new ChatNotifier());
@@ -112,45 +110,5 @@ public class ModuleManager {
                 modules.add(m);
         }
         return modules;
-    }
-
-    @SubscribeEvent
-    public void key(InputEvent.KeyInputEvent key) {
-        if(Minecraft.getMinecraft().world == null || Minecraft.getMinecraft().player == null)
-            return;
-        try {
-            if(Keyboard.isCreated()) {
-                if(Keyboard.getEventKeyState()) {
-                    int keyCode = Keyboard.getEventKey();
-                    if(keyCode <= 0)
-                        return;
-                    Teddyware.instance.clickGUIScreen.handleKeyEvent(keyCode);
-                    for(Module m : ModuleManager.modules) {
-                        if(m.keyCode.getKey() == keyCode && keyCode > 0) {
-                            m.toggle();
-                        }
-                    }
-                }
-            }
-        } catch (Exception q) { q.printStackTrace(); }
-    }
-
-    public static void onWorldRender(RenderWorldLastEvent event) {
-        Minecraft.getMinecraft().profiler.startSection(Teddyware.MODID);
-        Minecraft.getMinecraft().profiler.startSection("setup");
-        TWTessellator.prepare();
-        EventRender e = new EventRender(event.getPartialTicks());
-        Minecraft.getMinecraft().profiler.endSection();
-
-        modules.stream().filter(module -> module.isToggled()).forEach(module -> {
-            Minecraft.getMinecraft().profiler.startSection(module.getName());
-            module.onWorldRender(e);
-            Minecraft.getMinecraft().profiler.endSection();
-        });
-
-        Minecraft.getMinecraft().profiler.startSection("release");
-        TWTessellator.release();
-        Minecraft.getMinecraft().profiler.endSection();
-        Minecraft.getMinecraft().profiler.endSection();
     }
 }

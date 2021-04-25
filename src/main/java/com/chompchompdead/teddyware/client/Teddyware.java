@@ -6,7 +6,6 @@ import com.chompchompdead.teddyware.api.config.ClickGUISave;
 import com.chompchompdead.teddyware.api.config.ConfigStop;
 import com.chompchompdead.teddyware.api.util.font.FontUtil;
 import com.chompchompdead.teddyware.client.command.CommandManager;
-import com.chompchompdead.teddyware.client.gui.MainHud;
 import com.chompchompdead.teddyware.client.gui.clickgui.ClickGUIScreen;
 import com.chompchompdead.teddyware.client.module.ModuleManager;
 import com.chompchompdead.teddyware.api.config.Config;
@@ -34,7 +33,6 @@ public class Teddyware {
     public static final Logger log = LogManager.getLogger(NAME + " v" + VERSION);
     public static final EventBus EVENT_BUS = new EventManager();
 
-    public static MainHud mainHud;
     public static ModuleManager moduleManager;
     public static SettingManager settingManager;
     public static Config config;
@@ -57,10 +55,6 @@ public class Teddyware {
         MinecraftForge.EVENT_BUS.register(this);
 
         // register stuff
-        MinecraftForge.EVENT_BUS.register(new MainHud());
-        mainHud = new MainHud();
-        log.info("ui is ready");
-
         MinecraftForge.EVENT_BUS.register(new ModuleManager());
         moduleManager = new ModuleManager();
         log.info("module manager is ready");

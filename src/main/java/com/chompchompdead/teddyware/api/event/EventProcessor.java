@@ -1,6 +1,8 @@
 package com.chompchompdead.teddyware.api.event;
 
 import com.chompchompdead.teddyware.api.event.events.EventRender;
+import com.chompchompdead.teddyware.api.event.events.EventRenderGUI;
+import com.chompchompdead.teddyware.api.util.TWTessellator;
 import com.chompchompdead.teddyware.client.Teddyware;
 import com.chompchompdead.teddyware.client.module.Module;
 import com.chompchompdead.teddyware.client.module.ModuleManager;
@@ -24,7 +26,23 @@ public class EventProcessor {
 
     @SubscribeEvent
     public void onWorldRender(final RenderWorldLastEvent event) {
-        ModuleManager.onWorldRender(event);
+        mc.profiler.startSection(Teddyware.MODID);
+        mc.profiler.startSection("setup");
+        TWTessellator.prepare();
+        EventRender e = new EventRender(event.getPartialTicks());
+        mc.profiler.endSection();
+
+        ModuleManager.getModuleList().stream().filter(module -> module.isToggled()).forEach(module -> {
+            Minecraft.getMinecraft().profiler.startSection(module.getName());
+            module.onWorldRender(e);
+            Minecraft.getMinecraft().profiler.endSection();
+        });
+
+        Minecraft.getMinecraft().profiler.startSection("release");
+        TWTessellator.release();
+        Minecraft.getMinecraft().profiler.endSection();
+        Minecraft.getMinecraft().profiler.endSection();
+
         Teddyware.EVENT_BUS.post(new EventRender(event.getPartialTicks()));
     }
 
@@ -33,6 +51,34 @@ public class EventProcessor {
         if (mc.player != null) {
             ModuleManager.onUpdate();
         }
+    }
+
+    @SubscribeEvent
+    public void onRender(RenderGameOverlayEvent.Text event) {
+        if (mc.world == null || mc.player == null) return;
+        Teddyware.instance.clickGUIScreen.gui.render();
+        ModuleManager.onRender();
+    }
+
+    @SubscribeEvent
+    public void key(InputEvent.KeyInputEvent key) {
+        if(mc.world == null || mc.player == null)
+            return;
+        try {
+            if(Keyboard.isCreated()) {
+                if(Keyboard.getEventKeyState()) {
+                    int keyCode = Keyboard.getEventKey();
+                    if(keyCode <= 0)
+                        return;
+                    Teddyware.instance.clickGUIScreen.handleKeyEvent(keyCode);
+                    for(Module m : ModuleManager.modules) {
+                        if(m.keyCode.getKey() == keyCode && keyCode > 0) {
+                            m.toggle();
+                        }
+                    }
+                }
+            }
+        } catch (Exception q) { q.printStackTrace(); }
     }
 
 }
