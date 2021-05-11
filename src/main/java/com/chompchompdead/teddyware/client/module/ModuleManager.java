@@ -79,6 +79,7 @@ public class ModuleManager {
         // Combat
         modules.add(new AutoArmor());
         modules.add(new AutoCrystal());
+        modules.add(new Surround());
         modules.add(new AutoTotem());
         modules.add(new BowSpam());
         modules.add(new Burrow());
