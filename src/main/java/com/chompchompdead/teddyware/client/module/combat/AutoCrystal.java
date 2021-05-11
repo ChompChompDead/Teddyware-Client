@@ -64,6 +64,7 @@ public class AutoCrystal extends Module {
     public NumberSetting breakSpeed = new NumberSetting("BrkSpeed", this, 20, 0, 20, 1);
     public NumberSetting placeSpeed = new NumberSetting("PlaceSpeed", this, 20, 0, 20, 1);
     public BooleanSetting thinking = new BooleanSetting("Thinking", this, false);
+    public BooleanSetting cancelCrystal = new BooleanSetting("Cancel Crystal", this,true);
 
     public AutoCrystal() {
         this.addSetting(players, mobs, passives, breakHand, breakSpeed, placeSpeed, minDamage, selfDamage, range, place, explode, switchToCrystal, antiWeakness, multiPlace, rotate, rayTrace, color);
@@ -81,6 +82,10 @@ public class AutoCrystal extends Module {
     private String arrayListEntityName;
 
     private TimerUtil timer = new TimerUtil();
+
+    public static boolean isCancelingCrystals() {
+        return cancelingCrystals;
+    }
 
     @Override
     public void onUpdate() {
@@ -357,6 +362,7 @@ public class AutoCrystal extends Module {
         return calculateDamage(crystal.posX, crystal.posY, crystal.posZ, entity);
     }
 
+    private static boolean cancelingCrystals;
     private static boolean Isthinking;
     private static boolean isSpoofingAngles;
     private static double yaw;
@@ -366,11 +372,12 @@ public class AutoCrystal extends Module {
         yaw = yaw1;
         pitch = pitch1;
         isSpoofingAngles = true;
+        cancelingCrystals = true;
+        Isthinking = true;
     }
-//monke fix for the rotation sometimes just turns off out of nowhere
+//unlocked spoofing of angles
     private void resetRotation() {
         if (isSpoofingAngles) {
-            rotate.setEnabled(true);
             yaw = mc.player.rotationYaw;
             pitch = mc.player.rotationPitch;
             isSpoofingAngles = false;
@@ -401,4 +408,22 @@ public class AutoCrystal extends Module {
             this.timer.reset();
         }
     }
+
+    public void CancelingCrystals() {
+    if(cancelCrystal.isEnabled()) {
+        this.thinking.setEnabled(true);
+        mc.world.removeAllEntities();
+        mc.world.getLoadedEntityList();
+        this.timer.reset();
+
+    }
+  //  public void Predicting() {
+     //   if(prediction.isEnabled()) {
+        //    this.cancelCrystal.setEnabled(true);
+        //     this.isPredicting.getValue()));
+        //      not done yet :^(
+
+        }
+
+}
 }
