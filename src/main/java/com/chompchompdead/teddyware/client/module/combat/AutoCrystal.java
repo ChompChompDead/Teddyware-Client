@@ -1,6 +1,8 @@
 package com.chompchompdead.teddyware.client.module.combat;
 
+import akka.io.SelectionHandlerSettings;
 import com.chompchompdead.teddyware.api.event.events.EventRender;
+import com.chompchompdead.teddyware.api.util.MathUtil;
 import com.chompchompdead.teddyware.api.util.TimerUtil;
 import com.chompchompdead.teddyware.api.util.color.JColor;
 import com.chompchompdead.teddyware.client.Teddyware;
@@ -9,6 +11,7 @@ import com.chompchompdead.teddyware.api.util.TWTessellator;
 import com.chompchompdead.teddyware.client.setting.settings.BooleanSetting;
 import com.chompchompdead.teddyware.client.setting.settings.ModeSetting;
 import com.chompchompdead.teddyware.client.setting.settings.NumberSetting;
+import jdk.jfr.Enabled;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -34,6 +37,7 @@ import java.util.stream.Collectors;
 
 import com.chompchompdead.teddyware.client.module.Category;
 import com.chompchompdead.teddyware.client.module.Module;
+import net.minecraft.world.gen.ChunkProviderServer;
 import org.lwjgl.input.Keyboard;
 import com.chompchompdead.teddyware.api.util.EntityUtil;
 
@@ -59,6 +63,7 @@ public class AutoCrystal extends Module {
     public ModeSetting breakHand = new ModeSetting("Swing", this, "Main", "Main", "Offhand");
     public NumberSetting breakSpeed = new NumberSetting("BrkSpeed", this, 20, 0, 20, 1);
     public NumberSetting placeSpeed = new NumberSetting("PlaceSpeed", this, 20, 0, 20, 1);
+    public BooleanSetting thinking = new BooleanSetting("Thinking", this, false);
 
     public AutoCrystal() {
         this.addSetting(players, mobs, passives, breakHand, breakSpeed, placeSpeed, minDamage, selfDamage, range, place, explode, switchToCrystal, antiWeakness, multiPlace, rotate, rayTrace, color);
@@ -80,10 +85,10 @@ public class AutoCrystal extends Module {
     @Override
     public void onUpdate() {
         EntityEnderCrystal crystal = mc.world.loadedEntityList.stream()
-                    .filter(entity -> entity instanceof EntityEnderCrystal)
-                    .map(entity -> (EntityEnderCrystal) entity)
-                    .min(Comparator.comparing(c -> mc.player.getDistance(c)))
-                    .orElse(null);
+                .filter(entity -> entity instanceof EntityEnderCrystal)
+                .map(entity -> (EntityEnderCrystal) entity)
+                .min(Comparator.comparing(c -> mc.player.getDistance(c)))
+                .orElse(null);
         if (explode.isEnabled() && crystal != null && mc.player.getDistance(crystal) <= range.getValue() && mc.player.getHealth() >= selfDamage.getValue()) {
             if (antiWeakness.isEnabled() && mc.player.isPotionActive(MobEffects.WEAKNESS)) {
                 if (!isAttacking) {
@@ -352,6 +357,7 @@ public class AutoCrystal extends Module {
         return calculateDamage(crystal.posX, crystal.posY, crystal.posZ, entity);
     }
 
+    private static boolean Isthinking;
     private static boolean isSpoofingAngles;
     private static double yaw;
     private static double pitch;
@@ -361,9 +367,10 @@ public class AutoCrystal extends Module {
         pitch = pitch1;
         isSpoofingAngles = true;
     }
-
+//monke fix for the rotation sometimes just turns off out of nowhere
     private void resetRotation() {
         if (isSpoofingAngles) {
+            rotate.setEnabled(true);
             yaw = mc.player.rotationYaw;
             pitch = mc.player.rotationPitch;
             isSpoofingAngles = false;
@@ -380,5 +387,18 @@ public class AutoCrystal extends Module {
     @Override
     public String getArrayListInfo() {
         return arrayListEntityName;
+
+        /**
+         * @author frostbyte
+         * @descrption this tries to make the placements sharp and fast
+         */
+    } //my somewhat decent implementation of logic - frostbyte
+    private void Thinking() {
+        if(Isthinking) {
+            this.rayTrace.setEnabled(true);
+            this.range.setValue(6);
+            this.breakSpeed.setValue(20);
+            this.timer.reset();
+        }
     }
 }
