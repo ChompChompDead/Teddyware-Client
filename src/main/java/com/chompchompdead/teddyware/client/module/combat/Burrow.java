@@ -68,7 +68,15 @@ public class Burrow extends Module {
             toggle();
             return;
         }
-
+    }
+    
+    @Override
+    public void onUpdate() {
+        if (InventoryUtil.findHotbarBlock(getBurrowModeClass()) == 1) {
+            ChatUtil.type(getBurrowModeString() + " In hotbar, burrowing...");
+            toggle();
+            return;
+        }
         center();
         InventoryUtil.switchToSlot(InventoryUtil.findHotbarBlock(getBurrowModeClass()));
 
