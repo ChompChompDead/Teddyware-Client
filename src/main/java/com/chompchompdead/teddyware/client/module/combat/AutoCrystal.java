@@ -50,8 +50,8 @@ public class AutoCrystal extends Module {
     public BooleanSetting players = new BooleanSetting("Players", this, false);
     public BooleanSetting mobs = new BooleanSetting("Hostiles", this, false);
     public BooleanSetting passives = new BooleanSetting("Passives", this, false);
-    public BooleanSetting place = new BooleanSetting("Place", this, false);
-    public BooleanSetting explode = new BooleanSetting("Break", this, false);
+    public BooleanSetting place = new BooleanSetting("Place", this, true);
+    public BooleanSetting explode = new BooleanSetting("Break", this, true);
     public NumberSetting range = new NumberSetting("Range", this, 5, 0, 6, 0.1);
     public NumberSetting minDamage = new NumberSetting("MinimumDmg", this, 4, 0, 20, 1);
     public NumberSetting selfDamage = new NumberSetting("SelfDamage", this, 10, 0, 20, 1);
