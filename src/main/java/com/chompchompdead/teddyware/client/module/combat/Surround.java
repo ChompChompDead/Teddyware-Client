@@ -27,20 +27,20 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import org.lwjgl.input.Keyboard;
 
+// TODO: head rotations mc.player.look.
 
-
-@Module.Data(name = "Surround", description = "surrounds your feet in obsidian.", key = Keyboard.KEY_NONE, category = Category.Combat)
+@Module.Data(name = "Surround", description = "Surrounds your feet in obsidian.", key = Keyboard.KEY_NONE, category = Category.Combat)
 public class Surround extends Module {
     private Minecraft mc = Minecraft.getMinecraft();
 
-    public BooleanSetting triggerSurround = new BooleanSetting("trigger", this, false);
+    public BooleanSetting triggerSurround = new BooleanSetting("Trigger", this, false);
     public BooleanSetting shiftOnly = new BooleanSetting("onShift", this, false);
-    public BooleanSetting rotate = new BooleanSetting("rotate", this, true);
-    public BooleanSetting disableOnJump = new BooleanSetting("offJump", this, false);
-    public BooleanSetting centerPlayer = new BooleanSetting("autoCenter", this, true);
-    public NumberSetting tickDelay = new NumberSetting("tickDelay", this, 5, 0, 10, 1);
-    public NumberSetting timeOutTicks = new NumberSetting("timeOutTicks", this, 40, 1, 100, 10);
-    public NumberSetting blocksPerTick = new NumberSetting("blocksPerTick", this, 4, 0, 8, 1);
+    public BooleanSetting rotate = new BooleanSetting("Rotate Head", this, true);
+    public BooleanSetting disableOnJump = new BooleanSetting("Disable onJump", this, false);
+    public BooleanSetting centerPlayer = new BooleanSetting("Center", this, true);
+    public NumberSetting tickDelay = new NumberSetting("Base Tick Delay", this, 5, 0, 10, 1);
+    public NumberSetting timeOutTicks = new NumberSetting("Time Out Tickw", this, 40, 1, 100, 10);
+    public NumberSetting blocksPerTick = new NumberSetting("BPT", this, 4, 0, 8, 1);
 
     public Surround() {
 
