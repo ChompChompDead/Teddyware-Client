@@ -1,12 +1,16 @@
 # Teddyware Utility Mod
 [![GitHub all releases](https://img.shields.io/github/downloads/ChompChompDead/Teddyware/total?color=32CD32&style=flat-square)](https://github.com/ChompChompDead/Teddyware/releases)
 [![Lines of code](https://img.shields.io/tokei/lines/github/ChompChompDead/Teddyware?color=32CD32&style=flat-square)](https://github.com/ChompChompDead/Teddyhack/tree/master/src/main/java/com/teddyware) <br>
+
+before i start this, yes the client is hugely skidded from postman (though it isnt actually forked from it) <br>
+hopefully everyone knows im a terrible coder and im still learning sooo yeah <br>
+in the future, there will probably be a rewrite or a new client. not sure. <br>
+
 Teddyware is a utility mod for minecraft anarchy servers for 1.12.2. <br>
 It is like **optifine**, and should only be used on servers that allow it. <br>
-Some of the code is skidded because im new to java lol <br>
-**PLEASE NOTE THAT THIS CLIENT HAS NO ANTICHEAT BUILT IN** <br>
 Also huge thanks to srgantmoomoo for making moo base :) some of the base is made by it (because im trash skid) <br>
 Once the whole client is actually out of pre release I will work on unskidding. <br>
+
 ## How to use for development environments
 I really only know how to set this up for intellij, soooo yeah <br>
 - Download and open project in intelliJ (when opening, click the build.gradle and then open) <br>
@@ -15,6 +19,7 @@ I really only know how to set this up for intellij, soooo yeah <br>
 - You are almost done! <br>
 - If you are on eclipse, do `gradlew eclipse` after that. <br>
 - Refresh the project by closing and opening it, now go to the run configs section :) <br>
+- 
 ## Run configurations
 - Go to Run > Edit Configurations, then click on the plus sign and click application. <br>
 - Put the name to whatever you want, doesn't matter (i usually put it as runClient) <br>
@@ -25,6 +30,7 @@ I really only know how to set this up for intellij, soooo yeah <br>
 - You are done with everything, now just press run <br>
 - If setupdecompworkspace is showing an error, just remove it.
 - also i do not know how to change anything in eclipse so diy ez <br>
+- 
 ## External Libraries, Resources, and Contacts
 Official Discord: https://discord.gg/X2BmAqW8ry <br>
 SpongeForge Mixins: https://www.spongepowered.org/downloads/spongeforge/stable/1.12.2 <br>
