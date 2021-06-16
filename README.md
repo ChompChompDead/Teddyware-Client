@@ -6,6 +6,14 @@ before i start this, yes the client is hugely skidded from postman (though it is
 hopefully everyone knows im a terrible coder and im still learning sooo yeah <br>
 in the future, there will probably be a rewrite or a new client. not sure. <br>
 
+#Credits
+- These are the clients / people that helped to develop the client. <br>
+- [Postman](https://github.com/moomooooo/postman) <br>
+- if you feel like you haven't been credited or I forgot you. <br>
+- feel free to message me on discord Frostbyte#3340.
+
+
+
 Teddyware is a utility mod for minecraft anarchy servers for 1.12.2. <br>
 It is like **optifine**, and should only be used on servers that allow it. <br>
 Also huge thanks to srgantmoomoo for making moo base :) some of the base is made by it (because im trash skid) <br>
