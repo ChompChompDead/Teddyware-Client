@@ -20,6 +20,8 @@ public class Discord {
 
         String discordAppID = "809223921575395370";
 
+        Minecraft mc = Minecraft.getMinecraft();
+
         DiscordRichPresence presence = new DiscordRichPresence();
         DiscordEventHandlers handlers = new DiscordEventHandlers();
         DiscordRPC.discordInitialize(discordAppID, handlers, true);
@@ -54,6 +56,15 @@ public class Discord {
                     if (!details.equals(presence.details) || !state.equals(presence.state)) {
                         presence.startTimestamp = System.currentTimeMillis() / 1000L;
                     }
+// Fix this if it's broken I'm not an IDE so I can't see if I fucked it up
+                  if(mc.player.onGround) {
+                     details = "On ground."
+    
+                   }
+                else
+                    if(!mc.player.onGround) {
+                     return details;
+                }
                     presence.details = details;
                     presence.state = state;
                     DiscordRPC.discordUpdatePresence(presence);
