@@ -15,6 +15,7 @@ public class Discord {
     public static int players;
     public static int maxPlayers;
     public static ServerData server;
+    public static String groundData = "flaaaaayin";
 
     public static void start() {
 
@@ -63,7 +64,7 @@ public class Discord {
                    }
                 else
                     if(!mc.player.onGround) {
-                     return details;
+                     details = groundData;
                 }
                     presence.details = details;
                     presence.state = state;
