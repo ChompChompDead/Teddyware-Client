@@ -7,10 +7,12 @@ hopefully everyone knows im a terrible coder and im still learning sooo yeah <br
 in the future, there will probably be a rewrite or a new client. not sure. <br>
 
 #Credits
-- These are the clients / people that helped to develop the client. <br>
+  These are the clients / people that helped to develop the client. <br>
+
 - [Postman](https://github.com/moomooooo/postman) <br>
-- if you feel like you haven't been credited or I forgot you. <br>
-- feel free to message me on discord Frostbyte#3340.
+
+ if you feel like you haven't been credited or I forgot you. <br>
+ feel free to message me on discord Frostbyte#3340.
 
 
 
