@@ -46,7 +46,7 @@ import com.chompchompdead.teddyware.api.util.EntityUtil;
 @Module.Data(name = "AutoCrystal", description = "Automatically places crystals and breaks it for you.", key = Keyboard.KEY_NONE, category = Category.Combat)
 public class AutoCrystal extends Module {
 
-    public BooleanSetting switchToCrystal = new BooleanSetting("SwitchToCrystal", this, false);
+    public BooleanSetting switchToCrystal = new BooleanSetting("Switch", this, false);
     public BooleanSetting players = new BooleanSetting("Players", this, false);
     public BooleanSetting mobs = new BooleanSetting("Hostiles", this, false);
     public BooleanSetting passives = new BooleanSetting("Passives", this, false);
@@ -56,12 +56,13 @@ public class AutoCrystal extends Module {
     public NumberSetting minDamage = new NumberSetting("MinimumDmg", this, 4, 0, 20, 1);
     public NumberSetting selfDamage = new NumberSetting("SelfDamage", this, 10, 0, 20, 1);
     public BooleanSetting antiWeakness = new BooleanSetting("AntiWeakness", this, false);
-    public BooleanSetting multiPlace = new BooleanSetting("Multiplace", this, false);
+    public BooleanSetting multiPlace = new BooleanSetting("Multi-Place", this, false);
     public BooleanSetting rotate = new BooleanSetting("Rotate", this, false);
-    public BooleanSetting rayTrace = new BooleanSetting("Raytrace", this, false);
+    public BooleanSetting autoTimer = new BooleanSetting("Manual-Timer", this, false);
+    public BooleanSetting rayTrace = new BooleanSetting("Ray-trace", this, false);
     public ColorSetting color = new ColorSetting("Color", this, new JColor(255, 255, 255, 255));
     public ModeSetting breakHand = new ModeSetting("Swing", this, "Main", "Main", "Offhand");
-    public NumberSetting breakSpeed = new NumberSetting("BrkSpeed", this, 20, 0, 20, 1);
+    public NumberSetting breakSpeed = new NumberSetting("BreakSpeed", this, 20, 0, 20, 1);
     public NumberSetting placeSpeed = new NumberSetting("PlaceSpeed", this, 20, 0, 20, 1);
     public BooleanSetting thinking = new BooleanSetting("Thinking", this, false);
     public BooleanSetting cancelCrystal = new BooleanSetting("Cancel Crystal", this,true);
@@ -365,6 +366,7 @@ public class AutoCrystal extends Module {
         return calculateDamage(crystal.posX, crystal.posY, crystal.posZ, entity);
     }
 
+    private static boolean autoTimeractive;
     private static boolean cancelingCrystals;
     private static boolean Isthinking;
     private static boolean isSpoofingAngles;
@@ -420,13 +422,10 @@ public class AutoCrystal extends Module {
         this.timer.reset();
 
     }
-  //  public void Predicting() {
-     //   if(prediction.isEnabled()) {
-        //    this.cancelCrystal.setEnabled(true);
-        //     this.isPredicting.getValue()));
-        //      not done yet :^(
-
-        }
-
-}
+        public void autoTimer() {
+         if(autoTimer.isEnabled()) {
+       
+           this.timer.reset();
+       }
+    }
 }
