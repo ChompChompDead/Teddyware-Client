@@ -68,8 +68,7 @@ public class AutoCrystal extends Module {
     public BooleanSetting cancelCrystal = new BooleanSetting("Cancel Crystal", this,true);
 
 
-    // TODO: Remove shit thinking and canceling of crystals 
-    // Since it is useless by now and it's better to do it HiO.
+    // TODO: remove canceling crystals, remove thinking, remove predictions, rewrite rotations - frostbyte
     public AutoCrystal() {
         this.addSetting(players, mobs, passives, breakHand, breakSpeed, placeSpeed, minDamage, selfDamage, range, place, explode, switchToCrystal, antiWeakness, multiPlace, rotate, rayTrace, color);
     }
