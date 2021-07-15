@@ -13,8 +13,11 @@ in the future, there will probably be a rewrite or a new client. not sure. <br>
 
  if you feel like you haven't been credited or I forgot you. <br>
  feel free to message me on discord Frostbyte#3340.
+ 
+this project has been discontinued because of the lead developer being bored of the project.
+the project might be revived again if me or the lead developer feel like doing so.
 
-
+Thanks! for sticking to us in this crazy journey
 
 Teddyware is a utility mod for minecraft anarchy servers for 1.12.2. <br>
 It is like **optifine**, and should only be used on servers that allow it. <br>
